@@ -4,8 +4,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 public class Audit {
@@ -15,7 +16,7 @@ public class Audit {
     private long id;
 
     @Column
-    private String datetime;
+    private Date datetime;
 
     @Column
     private String action;
@@ -29,9 +30,9 @@ public class Audit {
     public Audit(String action) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-        LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        this.datetime = myDateObj.format(myFormatObj);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        this.datetime = date;
         this.action = action;
         this.user = currentPrincipalName;
     }
@@ -44,11 +45,11 @@ public class Audit {
         this.id = id;
     }
 
-    public String getDatetime() {
+    public Date getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(String datetime) {
+    public void setDatetime(Date datetime) {
         this.datetime = datetime;
     }
 
