@@ -37,7 +37,7 @@
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
             <a class="list-group-item list-group-item-action bg-light" th:href="@{/admin}">Close</a>
-            <a class="list-group-item list-group-item-action bg-light" th:href="@{/categories/new}">Add Category</a>
+            <a class="list-group-item list-group-item-action bg-light" th:href="@{/categories/new}" sec:authorize="hasRole('ROLE_ADMIN')">Add Category</a>
         </div>
     </div>
     <div id="page-content-wrapper">
@@ -80,9 +80,9 @@
                     <td th:text="${category.name}"></td>
                     <td>
                         <a class="btn btn-info"
-                           th:href="@{/categories/edit/{id}(id=${category.id})}"><i class="bi-pencil-fill"></i> Update</a>
+                           th:href="@{/categories/edit/{id}(id=${category.id})}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-pencil-fill"></i> Update</a>
                         <a class="btn btn-danger"
-                           th:href="@{/categories/{id}(id=${category.id})}"><i class="bi-trash"></i> Delete</a>
+                           th:href="@{/categories/{id}(id=${category.id})}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-trash"></i> Delete</a>
                     </td>
                 </tr>
                 </tbody>

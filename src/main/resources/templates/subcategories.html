@@ -37,7 +37,8 @@
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
             <a class="list-group-item list-group-item-action bg-light" th:href="@{/admin}">Close</a>
-            <a class="list-group-item list-group-item-action bg-light" th:href="@{/subcategories/new}">Add
+            <a class="list-group-item list-group-item-action bg-light" sec:authorize="hasRole('ROLE_ADMIN')"
+               th:href="@{/subcategories/new}">Add
                 Subcategory</a>
         </div>
     </div>
@@ -70,18 +71,22 @@
             <table class="table table-hover" id="dataTable" style="width:100%">
                 <thead class="table table-hover">
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="subcategory: ${subcategories}">
+                    <td th:text="${subcategory.id}"></td>
                     <td th:text="${subcategory.name}"></td>
                     <td>
                         <a class="btn btn-info"
+                           sec:authorize="hasRole('ROLE_ADMIN')"
                            th:href="@{/subcategories/edit/{id}(id=${subcategory.id})}"><i class="bi-pencil-fill"></i> Update</a>
                         <a class="btn btn-danger"
-                           th:href="@{/subcategories/{id}(id=${subcategory.id})}"><i class="bi-trash"></i> Delete</a>
+                           sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/subcategories/{id}(id=${subcategory.id})}"><i
+                                class="bi-trash"></i> Delete</a>
                     </td>
                 </tr>
                 </tbody>

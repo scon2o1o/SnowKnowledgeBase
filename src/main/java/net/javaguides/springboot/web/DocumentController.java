@@ -2,10 +2,7 @@ package net.javaguides.springboot.web;
 
 import net.javaguides.springboot.model.Audit;
 import net.javaguides.springboot.model.Document;
-import net.javaguides.springboot.service.AuditService;
-import net.javaguides.springboot.service.CategoryService;
-import net.javaguides.springboot.service.DocumentService;
-import net.javaguides.springboot.service.SubcategoryService;
+import net.javaguides.springboot.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +17,15 @@ public class DocumentController {
     private CategoryService categoryService;
     private SubcategoryService subcategoryService;
     private AuditService auditService;
+    private SmtpService smtpService;
 
-    public DocumentController(DocumentService documentService, CategoryService categoryService, SubcategoryService subcategoryService, AuditService auditService) {
+    public DocumentController(DocumentService documentService, CategoryService categoryService, SubcategoryService subcategoryService, AuditService auditService, SmtpService smtpService) {
         super();
         this.documentService = documentService;
         this.categoryService = categoryService;
         this.subcategoryService = subcategoryService;
         this.auditService = auditService;
+        this.smtpService = smtpService;
     }
 
     @GetMapping("/documents")
@@ -62,8 +61,7 @@ public class DocumentController {
             auditService.saveAudit(audit);
             return "redirect:/documents?success";
         } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/documents/new?fail";
+            return "redirect:/documents?fail";
         }
     }
 

@@ -37,7 +37,8 @@
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
             <a class="list-group-item list-group-item-action bg-light" th:href="@{/admin}">Close</a>
-            <a class="list-group-item list-group-item-action bg-light" th:href="@{/smtp/new}">Add SMTP Settings</a>
+            <a class="list-group-item list-group-item-action bg-light" sec:authorize="hasRole('ROLE_ADMIN')"
+               th:href="@{/smtp/new}">Add SMTP Settings</a>
         </div>
     </div>
     <div id="page-content-wrapper">
@@ -88,10 +89,11 @@
                     <td th:text="${smtp.fromAddress}"></td>
                     <td th:text="${smtp.username}"></td>
                     <td>
-                        <a th:href="@{/smtp/edit/{id}(id=${smtp.id})}"
-                           class="btn btn-info"><i class="bi-pencil-fill"></i> Update</a>
-                        <a th:href="@{/smtp/{id}(id=${smtp.id})}"
-                           class="btn btn-danger"><i class="bi-trash"></i> Delete</a>
+                        <a class="btn btn-info"
+                           sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/smtp/edit/{id}(id=${smtp.id})}"><i class="bi-pencil-fill"></i>
+                            Update</a>
+                        <a class="btn btn-danger"
+                           sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/smtp/{id}(id=${smtp.id})}"><i class="bi-trash"></i> Delete</a>
                     </td>
                 </tr>
                 </tbody>

@@ -15,4 +15,6 @@ public interface SmtpService {
     Smtp updateSmtp(Smtp smtp);
 
     void deleteSmtpById(Long id);
+
+    void sendEmail(String toAddress, String subject, String body);
 }

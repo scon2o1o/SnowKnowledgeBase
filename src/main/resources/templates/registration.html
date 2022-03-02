@@ -93,7 +93,15 @@
                         </div>
 
                         <div class="form-group">
-                            <!--                                    <button class="btn btn-success" type="submit">Register</button>-->
+                            <label class="control-label" for="role"> Role </label>
+                            <select class="form-control" id="role" required th:field="*{role}">
+                                <option value=""></option>
+                                <option value="User">Standard User</option>
+                                <option value="Admin">Administrator</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <button type="submit" class="btn btn-secondary"><i class="bi-person-plus-fill"></i> Register</button>
                         </div>
                     </form>

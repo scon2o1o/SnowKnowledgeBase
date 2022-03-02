@@ -98,7 +98,7 @@
                         <a class="btn btn-info"
                            th:href="@{/documents/edit/{id}(id=${document.id})}"><i class="bi-pencil-fill"></i> Update</a>
                         <a class="btn btn-danger"
-                           th:href="@{/documents/{id}(id=${document.id})}"><i class="bi-trash"></i> Delete</a>
+                           th:href="@{/documents/{id}(id=${document.id})}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-trash"></i> Delete</a>
                     </td>
                 </tr>
                 </tbody>
