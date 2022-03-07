@@ -9,9 +9,9 @@ public interface SettingsService {
 
     Settings saveSettings(Settings settings);
 
-    Settings getSettingsById(Long id);
+    Settings getSettingsById(int id);
 
     Settings updateSettings(Settings settings);
 
-    void deleteSettingsById(Long id);
+    void deleteSettingsById(int id);
 }

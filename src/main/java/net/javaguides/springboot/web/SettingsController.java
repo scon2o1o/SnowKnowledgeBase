@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class SettingsController {
 
@@ -23,15 +25,28 @@ public class SettingsController {
     }
 
     @GetMapping("/settings")
-    public String listSettings(Model model) {
-        model.addAttribute("settings", settingsService.getAllSettings());
+    public String listSettings(Model settingsModel, Model responseModel) {
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settingsList = settingsService.getAllSettings();
+        if (settingsList.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "settings";
     }
 
     @GetMapping("/settings/new")
-    public String createSettingsForm(Model model) {
+    public String createSettingsForm(Model model, Model settingsModel) {
         Settings settings = new Settings();
         model.addAttribute("settings", settings);
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settingsList = settingsService.getAllSettings();
+        if (settingsList.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "create_settings";
     }
 
@@ -46,16 +61,25 @@ public class SettingsController {
     }
 
     @GetMapping("/settings/edit/{id}")
-    public String editSettingsForm(@PathVariable Long id, Model model) {
+    public String editSettingsForm(@PathVariable int id, Model model, Model settingsModel) {
         model.addAttribute("settings", settingsService.getSettingsById(id));
+        settingsModel.addAttribute("settings1", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "edit_settings";
     }
 
     @PostMapping("/settings/{id}")
-    public String updateSettings(@PathVariable Long id, @ModelAttribute("settings") Settings settings, Model model) {
+    public String updateSettings(@PathVariable int id, @ModelAttribute("settings") Settings settings, Model model) {
         try {
             Settings existingSettings = settingsService.getSettingsById(id);
             existingSettings.setUrl(settings.getUrl());
+            existingSettings.setEmail(settings.isEmail());
+            existingSettings.setTitle(settings.getTitle());
             settingsService.updateSettings(existingSettings);
             return "redirect:/settings?success";
         } catch (Exception e) {
@@ -64,7 +88,7 @@ public class SettingsController {
     }
 
     @GetMapping("/settings/{id}")
-    public String deleteSettings(@PathVariable Long id) {
+    public String deleteSettings(@PathVariable int id) {
         settingsService.deleteSettingsById(id);
         return "redirect:/settings";
     }

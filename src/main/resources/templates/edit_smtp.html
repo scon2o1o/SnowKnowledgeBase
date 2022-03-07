@@ -20,7 +20,8 @@
                 style="margin-right: 20px;">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" th:href="@{/}">Snow Knowledge Base</a>
+        <a th:if="${response=='NoData'}" class="navbar-brand" th:href="@{/}">Knowledge Base</a>
+        <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
             </ul>

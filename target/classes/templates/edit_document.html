@@ -20,7 +20,8 @@
                 style="margin-right: 20px;">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" th:href="@{/}">Snow Knowledge Base</a>
+        <a th:if="${response=='NoData'}" class="navbar-brand" th:href="@{/}">Knowledge Base</a>
+        <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
             </ul>
@@ -94,7 +95,7 @@
                         </div>
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select class="form-control" id="category" required th:field="*{category}">
+                            <select class="form-control" id="category" th:field="*{category}">
                                 <option text="" value=""></option>
                                 <option th:each="category: ${categories}" th:text="${category.name}"
                                         th:value="${category.name}"></option>
@@ -102,7 +103,7 @@
                         </div>
                         <div class="form-group">
                             <label for="subcategory">Subcategory</label>
-                            <select class="form-control" id="subcategory" required th:field="*{subcategory}">
+                            <select class="form-control" id="subcategory" th:field="*{subcategory}">
                                 <option text="" value=""></option>
                                 <option th:each="subcategory: ${subcategories}" th:text="${subcategory.name}"
                                         th:value="${subcategory.name}"></option>

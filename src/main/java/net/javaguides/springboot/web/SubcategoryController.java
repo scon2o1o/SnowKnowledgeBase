@@ -3,6 +3,7 @@ package net.javaguides.springboot.web;
 import net.javaguides.springboot.model.Audit;
 import net.javaguides.springboot.model.Subcategory;
 import net.javaguides.springboot.service.AuditService;
+import net.javaguides.springboot.service.SettingsService;
 import net.javaguides.springboot.service.SubcategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,28 +12,45 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class SubcategoryController {
     private SubcategoryService subcategoryService;
     private AuditService auditService;
+    private SettingsService settingsService;
 
-    public SubcategoryController(SubcategoryService subcategoryService, AuditService auditService) {
+    public SubcategoryController(SubcategoryService subcategoryService, AuditService auditService, SettingsService settingsService) {
         super();
         this.subcategoryService = subcategoryService;
         this.auditService = auditService;
+        this.settingsService = settingsService;
     }
 
     @GetMapping("/subcategories")
-    public String listSubcategories(Model model) {
+    public String listSubcategories(Model model, Model settingsModel) {
         model.addAttribute("subcategories", subcategoryService.getAllSubcategories());
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "subcategories";
     }
 
     @GetMapping("/subcategories/new")
-    public String createSubcategoryForm(Model model) {
-
+    public String createSubcategoryForm(Model model, Model settingsModel) {
         Subcategory subcategory = new Subcategory();
         model.addAttribute("subcategory", subcategory);
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "create_subcategory";
     }
 
@@ -49,8 +67,15 @@ public class SubcategoryController {
     }
 
     @GetMapping("/subcategories/edit/{id}")
-    public String editSubcategoryForm(@PathVariable Long id, Model model) {
+    public String editSubcategoryForm(@PathVariable Long id, Model model, Model settingsModel) {
         model.addAttribute("subcategory", subcategoryService.getSubcategoryById(id));
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "edit_subcategory";
     }
 

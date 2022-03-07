@@ -1,7 +1,6 @@
 package net.javaguides.springboot.service;
 
 import net.javaguides.springboot.model.Category;
-import net.javaguides.springboot.repository.AuditRepository;
 import net.javaguides.springboot.repository.CategoryRepo;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +10,6 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService{
 
     private CategoryRepo categoryRepo;
-    private AuditRepository auditRepository;
 
     public CategoryServiceImpl(CategoryRepo categoryRepo) {
         super();

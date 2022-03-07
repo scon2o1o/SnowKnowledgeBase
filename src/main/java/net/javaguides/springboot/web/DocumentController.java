@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class DocumentController {
 
@@ -18,19 +20,30 @@ public class DocumentController {
     private SubcategoryService subcategoryService;
     private AuditService auditService;
     private SmtpService smtpService;
+    private SettingsService settingsService;
 
-    public DocumentController(DocumentService documentService, CategoryService categoryService, SubcategoryService subcategoryService, AuditService auditService, SmtpService smtpService) {
+    public DocumentController(DocumentService documentService, CategoryService categoryService,
+                              SubcategoryService subcategoryService, AuditService auditService,
+                              SmtpService smtpService, SettingsService settingsService) {
         super();
         this.documentService = documentService;
         this.categoryService = categoryService;
         this.subcategoryService = subcategoryService;
         this.auditService = auditService;
         this.smtpService = smtpService;
+        this.settingsService = settingsService;
     }
 
     @GetMapping("/documents")
-    public String listDocuments(Model model) {
+    public String listDocuments(Model model, Model settingsModel) {
         model.addAttribute("documents", documentService.getAllDocuments());
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "documents";
     }
 
@@ -45,11 +58,18 @@ public class DocumentController {
     }
 
     @GetMapping("/documents/new")
-    public String createDocumentForm(Model model, Model categoryModel, Model SubcategoryModel) {
+    public String createDocumentForm(Model model, Model categoryModel, Model SubcategoryModel, Model settingsModel) {
         Document document = new Document();
         model.addAttribute("document", document);
         listCategories(categoryModel);
         listSubcategories(SubcategoryModel);
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "create_document";
     }
 
@@ -66,10 +86,17 @@ public class DocumentController {
     }
 
     @GetMapping("/documents/edit/{id}")
-    public String editDocumentForm(@PathVariable Long id, Model model, Model categoryModel, Model subcategoryModel) {
+    public String editDocumentForm(@PathVariable Long id, Model model, Model categoryModel, Model subcategoryModel, Model settingsModel) {
         model.addAttribute("document", documentService.getDocumentById(id));
         listCategories(categoryModel);
         listSubcategories(subcategoryModel);
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "edit_document";
     }
 
@@ -116,6 +143,19 @@ public class DocumentController {
         } catch (Exception e) {
             return "redirect:/documents?fail";
         }
+    }
+
+    @GetMapping("/documents/view/{id}")
+    public String viewDocumentForm(@PathVariable Long id, Model model, Model settingsModel) {
+        model.addAttribute("document", documentService.getDocumentById(id));
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
+        return "view_document";
     }
 
     @GetMapping("/documents/{id}")

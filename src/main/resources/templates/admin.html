@@ -20,7 +20,8 @@
                 style="margin-right: 20px;">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" th:href="@{/}">Snow Knowledge Base</a>
+        <a th:if="${response=='NoData'}" class="navbar-brand" th:href="@{/}">Knowledge Base</a>
+        <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
             </ul>
@@ -59,44 +60,43 @@
                     <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/users}"
                        title="Maintain user accounts" type="button"> <i
                             aria-hidden="true"
-                            class="fas fa-users fa-3x"></i> <br><br> Maintain Users
+                            class="fas fa-users fa-2x"></i> <br><br> Maintain Users
                     </a>
                 </div>
                 <div class="col">
-                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/documents}"
-                       title="Maintain documents" type="button"><i class="fa-solid fa-file-arrow-up fa-3x"></i> <br><br>
-                        Document Management
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/categories}"
-                       title="Maintain categories" type="button"><i class="fa-solid fa-bars-progress fa-3x"></i>
+                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/companies}"
+                       title="Maintain company accounts" type="button"> <i class="fa-solid fa-building fa-2x"></i>
                         <br><br>
-                        Category Management
+                        Maintain Companies
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/clients}"
+                       title="Maintain company clients" type="button"> <i class="fa-solid fa-address-book fa-2x"></i> <br><br>
+                        Maintain Clients
                     </a>
                 </div>
             </div>
             <br>
             <div class="row" style="text-align: center; margin-top: 30px;">
                 <div class="col">
+                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/documents}"
+                       title="Maintain documents" type="button"><i class="fa-solid fa-file-arrow-up fa-2x"></i> <br><br>
+                        Document Management
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/categories}"
+                       title="Maintain categories" type="button"><i class="fa-solid fa-bars-progress fa-2x"></i>
+                        <br><br>
+                        Category Management
+                    </a>
+                </div>
+                <div class="col">
                     <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/subcategories}"
-                       title="Maintain subcategories" type="button"><i class="fa-solid fa-list-check fa-3x"></i>
+                       title="Maintain subcategories" type="button"><i class="fa-solid fa-list-check fa-2x"></i>
                         <br><br>
                         Subcategory Management
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/smtp}"
-                       title="Maintain SMTP account settings" type="button"><i class="fa-solid fa-at fa-3x"></i>
-                        <br><br>
-                        SMTP Settings
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/audit}"
-                       title="View the system audit log" type="button"><i
-                            class="fa-solid fa-triangle-exclamation fa-3x"></i> <br><br>
-                        Audit Log
                     </a>
                 </div>
             </div>
@@ -104,9 +104,23 @@
             <div class="row" style="text-align: center; margin-top: 30px;">
                 <div class="col">
                     <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/settings}"
-                       title="Edit system settings" type="button"><i class="fa-solid fa-gear fa-3x"></i></i>
+                       title="Edit system settings" type="button"><i class="fa-solid fa-gear fa-2x"></i></i>
                         <br><br>
                         Settings
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/smtp}"
+                       title="Maintain SMTP account settings" type="button"><i class="fa-solid fa-at fa-2x"></i>
+                        <br><br>
+                        SMTP Settings
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/audit}"
+                       title="View the system audit log" type="button"><i
+                            class="fa-solid fa-triangle-exclamation fa-2x"></i> <br><br>
+                        Audit Log
                     </a>
                 </div>
             </div>

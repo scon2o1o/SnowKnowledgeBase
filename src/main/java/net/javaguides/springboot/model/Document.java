@@ -3,7 +3,7 @@ package net.javaguides.springboot.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name =  "document", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+@Table(name = "document", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Document {
 
     @Id

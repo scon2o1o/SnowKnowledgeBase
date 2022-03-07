@@ -27,7 +27,7 @@ public class SettingsServiceImpl implements SettingsService {
     }
 
     @Override
-    public Settings getSettingsById(Long id) {
+    public Settings getSettingsById(int id) {
         return settingsRepository.findById(id).get();
     }
 
@@ -37,7 +37,7 @@ public class SettingsServiceImpl implements SettingsService {
     }
 
     @Override
-    public void deleteSettingsById(Long id) {
+    public void deleteSettingsById(int id) {
         settingsRepository.deleteById(id);
     }
 }

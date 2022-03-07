@@ -20,7 +20,8 @@
                 style="margin-right: 20px;">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" th:href="@{/}">Snow Knowledge Base</a>
+        <a th:if="${response=='NoData'}" class="navbar-brand" th:href="@{/}">Knowledge Base</a>
+        <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
             </ul>
@@ -79,8 +80,7 @@
                         <div class="form-group">
                             <label>Details</label>
                             <input
-                                    class="form-control" name="name"
-                                    required
+                                    class="form-control" name="details"
                                     th:field="*{details}"
                                     type="text"
                             />
@@ -98,6 +98,7 @@
                                 <option text="" value=""></option>
                                 <option th:each="category: ${categories}" th:text="${category.name}"
                                         th:value="${category.name}"></option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -106,6 +107,7 @@
                                 <option text="" value=""></option>
                                 <option th:each="subcategory: ${subcategories}" th:text="${subcategory.name}"
                                         th:value="${subcategory.name}"></option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -130,7 +132,6 @@
                             <label>Author</label>
                             <input
                                     class="form-control" name="author"
-                                    required
                                     th:field="*{author}"
                                     type="text"
                             />

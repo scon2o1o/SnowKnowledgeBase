@@ -24,7 +24,8 @@
                 style="margin-right: 20px;">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" th:href="@{/}">Snow Knowledge Base</a>
+        <a th:if="${response=='NoData'}" class="navbar-brand" th:href="@{/}">Knowledge Base</a>
+        <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
             </ul>
@@ -72,7 +73,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Details</th>
-                    <th>Url</th>
+                    <!--                    <th>Url</th>-->
                     <th>Category</th>
                     <th>Subcategory</th>
                     <th>Date Added</th>
@@ -87,7 +88,7 @@
                     <td th:text="${document.id}"></td>
                     <td th:text="${document.name}"></td>
                     <td th:text="${document.details}"></td>
-                    <td th:text="${document.url}"></td>
+                    <!--                    <td th:text="${document.url}"></td>-->
                     <td th:text="${document.category}"></td>
                     <td th:text="${document.subcategory}"></td>
                     <td th:text="${document.dateAdded}"></td>
@@ -95,10 +96,15 @@
                     <td th:text="${document.author}"></td>
                     <td th:text="${document.likes}"></td>
                     <td>
+                        <a class="btn btn-success" rel="noopener noreferrer" target="_blank"
+                           th:href="${document.url}"><i class="bi-file-earmark-richtext"></i>
+                            View</a>
                         <a class="btn btn-info"
-                           th:href="@{/documents/edit/{id}(id=${document.id})}"><i class="bi-pencil-fill"></i> Update</a>
+                           th:href="@{/documents/edit/{id}(id=${document.id})}"><i class="bi-pencil-fill"></i>
+                            Update</a>
                         <a class="btn btn-danger"
-                           th:href="@{/documents/{id}(id=${document.id})}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-trash"></i> Delete</a>
+                           sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/documents/{id}(id=${document.id})}"><i
+                                class="bi-trash"></i> Delete</a>
                     </td>
                 </tr>
                 </tbody>

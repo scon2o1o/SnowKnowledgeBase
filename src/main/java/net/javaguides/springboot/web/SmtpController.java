@@ -3,6 +3,7 @@ package net.javaguides.springboot.web;
 import net.javaguides.springboot.model.Audit;
 import net.javaguides.springboot.model.Smtp;
 import net.javaguides.springboot.service.AuditService;
+import net.javaguides.springboot.service.SettingsService;
 import net.javaguides.springboot.service.SmtpService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,29 +12,50 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class SmtpController {
 
     private SmtpService smtpService;
     private AuditService auditService;
+    private SettingsService settingsService;
 
-    public SmtpController(SmtpService smtpService, AuditService auditService) {
+    public SmtpController(SmtpService smtpService, AuditService auditService, SettingsService settingsService) {
         super();
         this.smtpService = smtpService;
         this.auditService = auditService;
+        this.settingsService = settingsService;
     }
 
     @GetMapping("/smtp")
-    public String listSmtp(Model model) {
-        model.addAttribute("smtp", smtpService.getAllSmtp());
+    public String listSmtp(Model smtpModel, Model responseModel, Model settingsModel) {
+        smtpModel.addAttribute("smtp", smtpService.getAllSmtp());
+        List ls = smtpService.getAllSmtp();
+        if (ls.isEmpty()) {
+            responseModel.addAttribute("response", "NoData");
+        }
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "smtp";
     }
 
     @GetMapping("/smtp/new")
-    public String createSmtpForm(Model model) {
-
+    public String createSmtpForm(Model model, Model settingsModel) {
         Smtp smtp = new Smtp();
         model.addAttribute("smtp", smtp);
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "create_smtp";
     }
 
@@ -50,8 +72,15 @@ public class SmtpController {
     }
 
     @GetMapping("/smtp/edit/{id}")
-    public String editSmtpForm(@PathVariable Long id, Model model) {
+    public String editSmtpForm(@PathVariable Long id, Model model, Model settingsModel) {
         model.addAttribute("smtp", smtpService.getSmtpById(id));
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
         return "edit_smtp";
     }
 
@@ -64,7 +93,7 @@ public class SmtpController {
             Audit audit = new Audit("SMTP settings updated. Server updated from '" + existingSmtp.getServer() + "' to '" + smtp.getServer() + "'");
             auditService.saveAudit(audit);
         }
-        if (existingSmtp.getPort()!=(smtp.getPort())) {
+        if (existingSmtp.getPort() != (smtp.getPort())) {
             Audit audit = new Audit("SMTP settings updated. Port updated from '" + existingSmtp.getPort() + "' to '" + smtp.getPort() + "'");
             auditService.saveAudit(audit);
         }
