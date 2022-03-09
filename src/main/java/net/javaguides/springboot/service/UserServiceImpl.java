@@ -57,6 +57,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User updateUserPassword(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user = userRepository.findByEmail(username);

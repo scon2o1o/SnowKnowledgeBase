@@ -24,7 +24,8 @@
                 style="margin-right: 20px;">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" th:href="@{/}">Snow Knowledge Base</a>
+        <a th:if="${response=='NoData'}" class="navbar-brand" th:href="@{/}">Knowledge Base</a>
+        <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
             </ul>
@@ -37,7 +38,7 @@
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
             <a class="list-group-item list-group-item-action bg-light" th:href="@{/admin}">Close</a>
-            <a class="list-group-item list-group-item-action bg-light" sec:authorize="hasRole('ROLE_ADMIN')"
+            <a th:if="${response=='NoData'}" class="list-group-item list-group-item-action bg-light" sec:authorize="hasRole('ROLE_ADMIN')"
                th:href="@{/smtp/new}">Add SMTP Settings</a>
         </div>
     </div>

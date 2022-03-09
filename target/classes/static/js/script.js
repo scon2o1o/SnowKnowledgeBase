@@ -1,3 +1,9 @@
+$(document).ready(function () {
+      $('select').selectize({
+          sortField: 'text'
+      });
+  });
+
 $(document).ready(function() {
     $('#dataTable').DataTable({
         "order": [
