@@ -4,13 +4,15 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
-    $('#dataTable').DataTable({
-        "order": [
-            [0, 'desc']
-        ]
-    });
+var table = $('#dataTable').DataTable({
+    "order": [
+        [0, 'desc']
+    ]
 });
+
+function sortDocTable(n) {
+    table.column(2).search(n, true, false).draw();
+}
 
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
@@ -38,22 +40,3 @@ tinymce.init({
     tinycomments_mode: 'embedded',
     tinycomments_author: 'Author name',
 });
-
-function sortDocTable(n) {
-  var input, filter, table, tr, td, i, txtValue;
-  input = n;
-  filter = n;
-  table = document.getElementById("dataTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
