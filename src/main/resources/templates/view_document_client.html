@@ -24,6 +24,13 @@
         <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home ></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">[[${document.name}]]</a>
+                    <span class="sr-only">(current)</span>
+                </li>
             </ul>
             <a th:href="@{/admin}"><span class="navbar-text">Login</span></a>
         </div>
@@ -52,12 +59,6 @@
         <div class="container-fluid" style="padding: 20px;">
             <div style="text-align: center">
                 <img alt="login-logo" class="mb-4" th:src="@{/images/logo.png}" width="400">
-            </div>
-            <br>
-            <div class="row" style="text-align: center">
-                <div class="col-sm">
-                    <h3>[[${document.name}]]</h3><br>
-                </div>
             </div>
             [(${document.content})]
         </div>

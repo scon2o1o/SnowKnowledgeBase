@@ -127,7 +127,6 @@ public class DocumentController {
             existingDocument.setName(document.getName());
             existingDocument.setDetails(document.getDetails());
             existingDocument.setCategory(document.getCategory());
-            existingDocument.setLikes(document.getLikes());
             existingDocument.setLastModified(new Date());
             existingDocument.setSubcategory(document.getSubcategory());
             existingDocument.setContent(document.getContent());

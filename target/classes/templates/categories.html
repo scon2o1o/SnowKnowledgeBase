@@ -28,8 +28,16 @@
         <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin}">Admin ></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/categories}">Categories</a>
+                    <span class="sr-only">(current)</span>
+                </li>
             </ul>
-            <a th:href="@{/#}"><span class="navbar-text">Hello, <span sec:authentication="name"></span></span></a>
+            <a th:href="@{/users/password}"><span class="navbar-text">Hello, <span
+                    sec:authentication="name"></span></span></a>
         </div>
     </nav>
 </header>
@@ -38,7 +46,8 @@
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
             <a class="list-group-item list-group-item-action bg-light" th:href="@{/admin}">Close</a>
-            <a class="list-group-item list-group-item-action bg-light" th:href="@{/categories/new}" sec:authorize="hasRole('ROLE_ADMIN')">Add Category</a>
+            <a class="list-group-item list-group-item-action bg-light" th:href="@{/categories/new}"
+               sec:authorize="hasRole('ROLE_ADMIN')">Add Category</a>
         </div>
     </div>
     <div id="page-content-wrapper">
@@ -81,9 +90,11 @@
                     <td th:text="${category.name}"></td>
                     <td>
                         <a class="btn btn-info"
-                           th:href="@{/categories/edit/{id}(id=${category.id})}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-pencil-fill"></i> Update</a>
+                           th:href="@{/categories/edit/{id}(id=${category.id})}"
+                           sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-pencil-fill"></i> Update</a>
                         <a class="btn btn-danger"
-                           th:href="@{/categories/{id}(id=${category.id})}" sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-trash"></i> Delete</a>
+                           th:href="@{/categories/{id}(id=${category.id})}" sec:authorize="hasRole('ROLE_ADMIN')"><i
+                                class="bi-trash"></i> Delete</a>
                     </td>
                 </tr>
                 </tbody>

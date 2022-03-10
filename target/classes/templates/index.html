@@ -41,7 +41,9 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
-            <a class="list-group-item list-group-item-action bg-light" th:each="categories: ${categories}">[[${categories.name}]]</a>
+            <a class="list-group-item list-group-item-action bg-light" onclick="sortDocTable('')">Show All</a>
+            <a class="list-group-item list-group-item-action bg-light" th:each="categories: ${categories}"
+               th:onclick="sortDocTable([[${categories.name}]])">[[${categories.name}]]</a>
         </div>
     </div>
     <div id="page-content-wrapper">
@@ -61,9 +63,6 @@
             <div style="text-align: center">
                 <img alt="login-logo" class="mb-4" th:src="@{/images/logo.png}" width="400">
             </div>
-            <div class="row" style="text-align: center; margin-top: 30px;"></div>
-            <p class="text-muted">Filter the results by using the search box below or select a category from the side
-                menu. Sort the table by clicking on the individual headings</p>
             <table class="table table-hover" id="dataTable" style="width:100%">
                 <thead class="table table-hover">
                 <tr>
@@ -82,9 +81,9 @@
                     <td th:text="${document.subcategory}"></td>
                     <td>
                         <a class="btn btn-success"
-                           th:href="@{/documents/view_document/{id}(id=${document.id})}"><i class="bi-file-earmark-richtext"></i>
+                           th:href="@{/documents/view_document/{id}(id=${document.id})}"><i
+                                class="bi-file-earmark-richtext"></i>
                             View</a>
-                        <button type="button" class="btn btn-primary"><i class="bi-hand-thumbs-up"></i> Like</button>
                     </td>
                 </tr>
                 </tbody>

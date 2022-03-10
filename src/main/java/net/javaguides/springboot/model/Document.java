@@ -24,9 +24,6 @@ public class Document {
     private Date dateAdded;
 
     @Column
-    private long likes;
-
-    @Column
     private Date lastModified;
 
     @Column
@@ -65,14 +62,6 @@ public class Document {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public long getLikes() {
-        return likes;
-    }
-
-    public void setLikes(long likes) {
-        this.likes = likes;
     }
 
     public String getSubcategory() {

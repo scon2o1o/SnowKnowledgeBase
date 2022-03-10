@@ -66,7 +66,6 @@
             <div style="text-align: center">
                 <img alt="login-logo" class="mb-4" th:src="@{/images/logo.png}" width="400">
             </div>
-            <div class="row" style="text-align: center; margin-top: 30px;"></div>
             <div th:if="${param.success}">
                 <div class="alert alert-info">Document successfully created/updated!
                 </div>
@@ -85,7 +84,6 @@
                     <th>Subcategory</th>
                     <th>Date Added</th>
                     <th>Last Modified</th>
-                    <th>Likes</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -98,7 +96,6 @@
                     <td th:text="${document.subcategory}"></td>
                     <td th:text="${document.dateAdded}"></td>
                     <td th:text="${document.lastModified}"></td>
-                    <td th:text="${document.likes}"></td>
                     <td>
                         <a class="btn btn-success"
                            th:href="@{/documents/view/{id}(id=${document.id})}"><i class="bi-file-earmark-richtext"></i>

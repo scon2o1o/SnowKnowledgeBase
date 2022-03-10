@@ -28,8 +28,16 @@
         <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin}">Admin ></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/smtp}">SMTP</a>
+                    <span class="sr-only">(current)</span>
+                </li>
             </ul>
-            <a th:href="@{/#}"><span class="navbar-text">Hello, <span sec:authentication="name"></span></span></a>
+            <a th:href="@{/users/password}"><span class="navbar-text">Hello, <span
+                    sec:authentication="name"></span></span></a>
         </div>
     </nav>
 </header>
@@ -38,7 +46,8 @@
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
             <a class="list-group-item list-group-item-action bg-light" th:href="@{/admin}">Close</a>
-            <a th:if="${response=='NoData'}" class="list-group-item list-group-item-action bg-light" sec:authorize="hasRole('ROLE_ADMIN')"
+            <a th:if="${response=='NoData'}" class="list-group-item list-group-item-action bg-light"
+               sec:authorize="hasRole('ROLE_ADMIN')"
                th:href="@{/smtp/new}">Add SMTP Settings</a>
         </div>
     </div>
@@ -91,10 +100,12 @@
                     <td th:text="${smtp.username}"></td>
                     <td>
                         <a class="btn btn-info"
-                           sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/smtp/edit/{id}(id=${smtp.id})}"><i class="bi-pencil-fill"></i>
+                           sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/smtp/edit/{id}(id=${smtp.id})}"><i
+                                class="bi-pencil-fill"></i>
                             Update</a>
                         <a class="btn btn-danger"
-                           sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/smtp/{id}(id=${smtp.id})}"><i class="bi-trash"></i> Delete</a>
+                           sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/smtp/{id}(id=${smtp.id})}"><i
+                                class="bi-trash"></i> Delete</a>
                     </td>
                 </tr>
                 </tbody>

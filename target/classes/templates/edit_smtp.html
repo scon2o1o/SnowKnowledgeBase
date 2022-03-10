@@ -24,8 +24,19 @@
         <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin}">Admin ></a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/smtp}">SMTP ></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">Edit SMTP Settings</a>
+                    <span class="sr-only">(current)</span>
+                </li>
             </ul>
-            <a th:href="@{/#}"><span class="navbar-text">Hello, <span sec:authentication="name"></span></span></a>
+            <a th:href="@{/users/password}"><span class="navbar-text">Hello, <span
+                    sec:authentication="name"></span></span></a>
         </div>
     </nav>
 </header>
@@ -67,7 +78,6 @@
                         </div>
                     </div>
                     <form method="POST" th:action="@{/smtp/{id} (id=${smtp.id})}" th:object="${smtp}">
-                        <h3 style="text-align: center;">Update SMTP Settings</h3>
                         <div class="form-group">
                             <label>Server</label>
                             <input
