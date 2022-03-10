@@ -28,8 +28,16 @@
         <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin}">Admin ></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/documents}">Documents</a>
+                    <span class="sr-only">(current)</span>
+                </li>
             </ul>
-            <a th:href="@{/#}"><span class="navbar-text">Hello, <span sec:authentication="name"></span></span></a>
+            <a th:href="@{/users/password}"><span class="navbar-text">Hello, <span
+                    sec:authentication="name"></span></span></a>
         </div>
     </nav>
 </header>
@@ -73,12 +81,10 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Details</th>
-                    <!--                    <th>Url</th>-->
                     <th>Category</th>
                     <th>Subcategory</th>
                     <th>Date Added</th>
                     <th>Last Modified</th>
-                    <th>Author</th>
                     <th>Likes</th>
                     <th>Actions</th>
                 </tr>
@@ -88,16 +94,14 @@
                     <td th:text="${document.id}"></td>
                     <td th:text="${document.name}"></td>
                     <td th:text="${document.details}"></td>
-                    <!--                    <td th:text="${document.url}"></td>-->
                     <td th:text="${document.category}"></td>
                     <td th:text="${document.subcategory}"></td>
                     <td th:text="${document.dateAdded}"></td>
                     <td th:text="${document.lastModified}"></td>
-                    <td th:text="${document.author}"></td>
                     <td th:text="${document.likes}"></td>
                     <td>
-                        <a class="btn btn-success" rel="noopener noreferrer" target="_blank"
-                           th:href="${document.url}"><i class="bi-file-earmark-richtext"></i>
+                        <a class="btn btn-success"
+                           th:href="@{/documents/view/{id}(id=${document.id})}"><i class="bi-file-earmark-richtext"></i>
                             View</a>
                         <a class="btn btn-info"
                            th:href="@{/documents/edit/{id}(id=${document.id})}"><i class="bi-pencil-fill"></i>

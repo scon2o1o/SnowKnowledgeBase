@@ -28,6 +28,10 @@
         <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                    <span class="sr-only">(current)</span>
+                </li>
             </ul>
             <a th:href="@{/admin}"><span class="navbar-text">Login</span></a>
         </div>
@@ -77,8 +81,8 @@
                     <td th:text="${document.category}"></td>
                     <td th:text="${document.subcategory}"></td>
                     <td>
-                        <a class="btn btn-success" rel="noopener noreferrer" target="_blank"
-                           th:href="${document.url}"><i class="bi-file-earmark-richtext"></i>
+                        <a class="btn btn-success"
+                           th:href="@{/documents/view_document/{id}(id=${document.id})}"><i class="bi-file-earmark-richtext"></i>
                             View</a>
                         <button type="button" class="btn btn-primary"><i class="bi-hand-thumbs-up"></i> Like</button>
                     </td>

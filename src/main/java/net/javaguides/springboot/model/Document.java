@@ -1,6 +1,7 @@
 package net.javaguides.springboot.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "document", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
@@ -17,25 +18,22 @@ public class Document {
     private String details;
 
     @Column
-    private String url;
-
-    @Column
     private String category;
 
     @Column
-    private String dateAdded;
-
-    @Column
-    private String author;
+    private Date dateAdded;
 
     @Column
     private long likes;
 
     @Column
-    private String lastModified;
+    private Date lastModified;
 
     @Column
     private String subcategory;
+
+    @Lob
+    private String content;
 
     public long getId() {
         return id;
@@ -61,40 +59,12 @@ public class Document {
         this.details = details;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getCategory() {
         return category;
     }
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public String getDateAdded() {
-        return dateAdded;
-    }
-
-    public void setDateAdded(String dateAdded) {
-        this.dateAdded = dateAdded;
-    }
-
-    public void setLastModified(String lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public long getLikes() {
@@ -105,15 +75,35 @@ public class Document {
         this.likes = likes;
     }
 
-    public String getLastModified() {
-        return lastModified;
-    }
-
     public String getSubcategory() {
         return subcategory;
     }
 
     public void setSubcategory(String subcategory) {
         this.subcategory = subcategory;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(Date dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
     }
 }

@@ -24,8 +24,19 @@
         <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin}">Admin ></a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/categories}">Categories ></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">Edit Category</a>
+                    <span class="sr-only">(current)</span>
+                </li>
             </ul>
-            <a th:href="@{/#}"><span class="navbar-text">Hello, <span sec:authentication="name"></span></span></a>
+            <a th:href="@{/users/password}"><span class="navbar-text">Hello, <span
+                    sec:authentication="name"></span></span></a>
         </div>
     </nav>
 </header>
@@ -66,7 +77,6 @@
                         <div class="alert alert-danger">Failed to update category! Please try again
                         </div>
                     </div>
-                    <h3 style="text-align: center;">Update Category</h3>
                     <form method="POST" th:action="@{/categories/{id} (id=${category.id})}" th:object="${category}">
                         <div class="form-group">
                             <label>Name</label>

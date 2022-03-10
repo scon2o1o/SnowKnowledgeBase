@@ -24,8 +24,15 @@
         <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/admin}">
+                        Admin
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
             </ul>
-            <a th:href="@{/#}"><span class="navbar-text">Hello, <span sec:authentication="name"></span></span></a>
+            <a th:href="@{/users/password}"><span class="navbar-text">Hello, <span
+                    sec:authentication="name"></span></span></a>
         </div>
     </nav>
 </header>
@@ -72,7 +79,8 @@
                 </div>
                 <div class="col">
                     <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/clients}"
-                       title="Maintain company clients" type="button"> <i class="fa-solid fa-address-book fa-2x"></i> <br><br>
+                       title="Maintain company clients" type="button"> <i class="fa-solid fa-address-book fa-2x"></i>
+                        <br><br>
                         Maintain Clients
                     </a>
                 </div>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -76,6 +77,8 @@ public class DocumentController {
     @PostMapping("/documents")
     public String saveDocument(@ModelAttribute("document") Document document) {
         try {
+            document.setDateAdded(new Date());
+            document.setLastModified(null);
             documentService.saveDocument(document);
             Audit audit = new Audit("Document " + document.getId() + ", '" + document.getName() + "' added to the database");
             auditService.saveAudit(audit);
@@ -112,10 +115,6 @@ public class DocumentController {
                 Audit audit = new Audit("Document " + document.getId() + " updated. Details updated from '" + existingDocument.getDetails() + "' to '" + document.getDetails() + "'");
                 auditService.saveAudit(audit);
             }
-            if (!existingDocument.getUrl().equals(document.getUrl())) {
-                Audit audit = new Audit("Document " + document.getId() + " updated. Url updated from '" + existingDocument.getUrl() + "' to '" + document.getUrl() + "'");
-                auditService.saveAudit(audit);
-            }
             if (!existingDocument.getCategory().equals(document.getCategory())) {
                 Audit audit = new Audit("Document " + document.getId() + " updated. Category updated from '" + existingDocument.getCategory() + "' to '" + document.getCategory() + "'");
                 auditService.saveAudit(audit);
@@ -124,20 +123,14 @@ public class DocumentController {
                 Audit audit = new Audit("Document " + document.getId() + " updated. Subcategory updated from '" + existingDocument.getSubcategory() + "' to '" + document.getSubcategory() + "'");
                 auditService.saveAudit(audit);
             }
-            if (!existingDocument.getAuthor().equals(document.getAuthor())) {
-                Audit audit = new Audit("Document " + document.getId() + " updated. Author updated from '" + existingDocument.getAuthor() + "' to '" + document.getAuthor() + "'");
-                auditService.saveAudit(audit);
-            }
             existingDocument.setId(id);
             existingDocument.setName(document.getName());
             existingDocument.setDetails(document.getDetails());
-            existingDocument.setUrl(document.getUrl());
             existingDocument.setCategory(document.getCategory());
-            existingDocument.setDateAdded(document.getDateAdded());
-            existingDocument.setAuthor(document.getAuthor());
             existingDocument.setLikes(document.getLikes());
-            existingDocument.setLastModified(document.getLastModified());
+            existingDocument.setLastModified(new Date());
             existingDocument.setSubcategory(document.getSubcategory());
+            existingDocument.setContent(document.getContent());
             documentService.updateDocument(existingDocument);
             return "redirect:/documents?success";
         } catch (Exception e) {
@@ -156,6 +149,19 @@ public class DocumentController {
             settingsModel.addAttribute("response", "");
         }
         return "view_document";
+    }
+
+    @GetMapping("/documents/view_document/{id}")
+    public String viewDocumentFormClient(@PathVariable Long id, Model model, Model settingsModel) {
+        model.addAttribute("document", documentService.getDocumentById(id));
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
+        return "view_document_client";
     }
 
     @GetMapping("/documents/{id}")

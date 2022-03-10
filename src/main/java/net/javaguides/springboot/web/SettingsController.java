@@ -40,7 +40,7 @@ public class SettingsController {
     public String createSettingsForm(Model model, Model settingsModel) {
         Settings settings = new Settings();
         model.addAttribute("settings", settings);
-        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        settingsModel.addAttribute("settings1", settingsService.getAllSettings());
         List settingsList = settingsService.getAllSettings();
         if (settingsList.isEmpty()) {
             settingsModel.addAttribute("response", "NoData");
