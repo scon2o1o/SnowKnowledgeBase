@@ -49,6 +49,11 @@ public class UserServiceImpl implements UserService {
                         registrationDto.getLastName(), registrationDto.getEmail(),
                         passwordEncoder.encode(registrationDto.getPassword()), registrationDto.getRole(), Arrays.asList(new Role("ROLE_ADMIN")));
                 return userRepository.save(user);
+            } else if (registrationDto.getRole().equals("Client")) {
+                User user = new User(registrationDto.getFirstName(),
+                        registrationDto.getLastName(), registrationDto.getEmail(),
+                        passwordEncoder.encode(registrationDto.getPassword()), registrationDto.getRole(), Arrays.asList(new Role("ROLE_CLIENT")));
+                return userRepository.save(user);
             }
         } catch (Exception e) {
             return blankUser;
@@ -57,7 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUserPassword(User user){
+    public User updateUserPassword(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }

@@ -38,8 +38,15 @@
                     <span class="sr-only">(current)</span>
                 </li>
             </ul>
-            <a th:href="@{/users/password}"><span class="navbar-text">Hello, <span
-                    sec:authentication="name"></span></span></a>
+            <div class="row">
+                <div class="col-sm">
+                    <a style="margin-right:10px;"th:href="@{/users/password}"><span class="navbar-text">Hello, <span
+                            sec:authentication="name"></span></span></a>
+                    <a style="margin-right:10px;" th:href="@{/admin}"type="button" class="btn btn-success" sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-shield-exclamation"></i> Admin</a>
+                    <a style="margin-right:10px;" th:href="@{/admin}"type="button" class="btn btn-success" sec:authorize="hasRole('ROLE_USER')"><i class="bi-shield-exclamation"></i> Admin</a>
+                    <a th:href="@{/logout}" type="button" class="btn btn-danger"><i class="bi-box-arrow-in-left"></i> Logout</a>
+                </div>
+            </div>
         </div>
     </nav>
 </header>

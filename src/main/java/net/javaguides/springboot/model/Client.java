@@ -3,14 +3,18 @@ package net.javaguides.springboot.model;
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
 
     @Column
     private String company;
@@ -24,6 +28,9 @@ public class Client {
     @Column
     private String mobile;
 
+    @Column
+    private boolean account;
+
     public long getId() {
         return id;
     }
@@ -32,12 +39,20 @@ public class Client {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getCompany() {
@@ -70,5 +85,13 @@ public class Client {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public boolean isAccount() {
+        return account;
+    }
+
+    public void setAccount(boolean account) {
+        this.account = account;
     }
 }
