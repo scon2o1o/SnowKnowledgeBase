@@ -130,17 +130,10 @@
             <br>
             <div class="row" style="text-align: center; margin-top: 30px;">
                 <div class="col">
-                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/settings}"
-                       title="Edit system settings" type="button"><i class="fa-solid fa-gear fa-2x"></i></i>
+                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/downloads}"
+                       title="Maintain available downloads" type="button"><i class="fa-solid fa-download fa-2x"></i></i>
                         <br><br>
-                        Settings
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/smtp}"
-                       title="Maintain SMTP account settings" type="button"><i class="fa-solid fa-at fa-2x"></i>
-                        <br><br>
-                        SMTP Settings
+                        Downloads
                     </a>
                 </div>
                 <div class="col">
@@ -148,6 +141,13 @@
                        title="View the system audit log" type="button"><i
                             class="fa-solid fa-triangle-exclamation fa-2x"></i> <br><br>
                         Audit Log
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-link btn-lg" data-toggle="tooltip" th:href="@{/settings}"
+                       title="Edit system settings" type="button"><i class="fa-solid fa-gear fa-2x"></i></i>
+                        <br><br>
+                        Settings
                     </a>
                 </div>
             </div>

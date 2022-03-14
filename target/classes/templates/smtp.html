@@ -31,13 +31,23 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/admin}">Admin ></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin}">Settings ></a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" th:href="@{/smtp}">SMTP</a>
                     <span class="sr-only">(current)</span>
                 </li>
             </ul>
-            <a th:href="@{/users/password}"><span class="navbar-text">Hello, <span
-                    sec:authentication="name"></span></span></a>
+            <div class="row">
+                <div class="col-sm">
+                    <a style="margin-right:10px;"th:href="@{/users/password}"><span class="navbar-text">Hello, <span
+                            sec:authentication="name"></span></span></a>
+                    <a style="margin-right:10px;" th:href="@{/admin}"type="button" class="btn btn-success" sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-shield-exclamation"></i> Admin</a>
+                    <a style="margin-right:10px;" th:href="@{/admin}"type="button" class="btn btn-success" sec:authorize="hasRole('ROLE_USER')"><i class="bi-shield-exclamation"></i> Admin</a>
+                    <a th:href="@{/logout}" type="button" class="btn btn-danger"><i class="bi-box-arrow-in-left"></i> Logout</a>
+                </div>
+            </div>
         </div>
     </nav>
 </header>
@@ -45,7 +55,7 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
-            <a class="list-group-item list-group-item-action bg-light" th:href="@{/admin}">Close</a>
+            <a class="list-group-item list-group-item-action bg-light" th:href="@{/settings}">Close</a>
             <a th:if="${response=='NoData'}" class="list-group-item list-group-item-action bg-light"
                sec:authorize="hasRole('ROLE_ADMIN')"
                th:href="@{/smtp/new}">Add SMTP Settings</a>
