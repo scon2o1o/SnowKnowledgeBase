@@ -28,9 +28,8 @@
         <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/}">Documents</a>
-                    <span class="sr-only">(current)</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/files}">Downloads</a>
@@ -38,11 +37,14 @@
             </ul>
             <div class="row">
                 <div class="col-sm">
-                    <a style="margin-right:10px;"th:href="@{/users/password}"><span class="navbar-text">Hello, <span
+                    <a style="margin-right:10px;" th:href="@{/users/password}"><span class="navbar-text">Hello, <span
                             sec:authentication="name"></span></span></a>
-                    <a style="margin-right:10px;" th:href="@{/admin}"type="button" class="btn btn-success" sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-shield-exclamation"></i> Admin</a>
-                    <a style="margin-right:10px;" th:href="@{/admin}"type="button" class="btn btn-success" sec:authorize="hasRole('ROLE_USER')"><i class="bi-shield-exclamation"></i> Admin</a>
-                    <a th:href="@{/logout}" type="button" class="btn btn-danger"><i class="bi-box-arrow-in-left"></i> Logout</a>
+                    <a style="margin-right:10px;" th:href="@{/admin}" type="button" class="btn btn-success"
+                       sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-shield-exclamation"></i> Admin</a>
+                    <a style="margin-right:10px;" th:href="@{/admin}" type="button" class="btn btn-success"
+                       sec:authorize="hasRole('ROLE_USER')"><i class="bi-shield-exclamation"></i> Admin</a>
+                    <a th:href="@{/logout}" type="button" class="btn btn-danger"><i class="bi-box-arrow-in-left"></i>
+                        Logout</a>
                 </div>
             </div>
         </div>
@@ -52,10 +54,6 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
-            <strong class="list-group-item list-group-item-action bg-light">Filter by Category</strong>
-            <a class="list-group-item list-group-item-action bg-light" onclick="sortDocTable('')">Show All</a>
-            <a class="list-group-item list-group-item-action bg-light" th:each="categories: ${categories}"
-               th:onclick="sortDocTable([[${categories.name}]])">[[${categories.name}]]</a>
         </div>
     </div>
     <div id="page-content-wrapper">
@@ -75,31 +73,11 @@
             <div style="text-align: center">
                 <img alt="login-logo" class="mb-4" th:src="@{/images/logo.png}" width="400">
             </div>
-            <table class="table table-hover" id="dataTable" style="width:100%">
-                <thead class="table table-hover">
-                <tr>
-                    <th>Name</th>
-                    <th>Details</th>
-                    <th>Category</th>
-                    <th>Subcategory</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="document: ${documents}">
-                    <td th:text="${document.name}"></td>
-                    <td th:text="${document.details}"></td>
-                    <td th:text="${document.category}"></td>
-                    <td th:text="${document.subcategory}"></td>
-                    <td>
-                        <a class="btn btn-success"
-                           th:href="@{/documents/view_document/{id}(id=${document.id})}"><i
-                                class="bi-file-earmark-richtext"></i>
-                            View</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <br>
+            <div style="text-align: center">
+                <h3>Page Not Found</h3>
+                <p>Hmm, we couldn't find that one. Please try again</p>
+            </div>
         </div>
     </div>
 </div>

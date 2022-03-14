@@ -31,6 +31,9 @@ public class Client {
     @Column
     private boolean account;
 
+    public Client() {
+    }
+
     public long getId() {
         return id;
     }

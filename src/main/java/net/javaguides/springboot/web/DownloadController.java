@@ -1,14 +1,20 @@
 package net.javaguides.springboot.web;
 
-import net.javaguides.springboot.model.Audit;
-import net.javaguides.springboot.model.Document;
+import net.javaguides.springboot.model.Client;
+import net.javaguides.springboot.model.Company;
 import net.javaguides.springboot.model.Download;
+import net.javaguides.springboot.model.User;
+import net.javaguides.springboot.repository.ClientRepository;
+import net.javaguides.springboot.repository.CompanyRepository;
+import net.javaguides.springboot.repository.UserRepository;
 import net.javaguides.springboot.service.DownloadStorageService;
 import net.javaguides.springboot.service.SettingsService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,17 +30,21 @@ public class DownloadController {
 
     private DownloadStorageService downloadStorageService;
     private SettingsService settingsService;
+    private UserRepository userRepository;
+    private ClientRepository clientRepository;
+    private CompanyRepository companyRepository;
 
-    public DownloadController(DownloadStorageService downloadStorageService, SettingsService settingsService) {
+    public DownloadController(DownloadStorageService downloadStorageService, SettingsService settingsService, UserRepository userRepository, ClientRepository clientRepository, CompanyRepository companyRepository) {
         super();
         this.downloadStorageService = downloadStorageService;
         this.settingsService = settingsService;
+        this.userRepository = userRepository;
+        this.clientRepository = clientRepository;
+        this.companyRepository = companyRepository;
     }
 
     @GetMapping("/downloads")
     public String getAllDownloads(Model model, Model settingsModel) {
-        List<Download> downloads = downloadStorageService.getDownloads();
-        model.addAttribute("downloads", downloads);
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
         List settings = settingsService.getAllSettings();
         if (settings.isEmpty()) {
@@ -42,6 +52,18 @@ public class DownloadController {
         } else {
             settingsModel.addAttribute("response", "");
         }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user = userRepository.findByEmail(currentPrincipalName);
+        if (user.getRole().equals("Client")){
+            Client client = clientRepository.findByEmail(user.getEmail());
+            Company company = companyRepository.findByName(client.getCompany());
+            if (company.getStatus().equals("On Hold")){
+                return "account_not_active";
+            }
+        }
+        List<Download> downloads = downloadStorageService.getDownloads();
+        model.addAttribute("downloads", downloads);
         return "downloads";
     }
 
