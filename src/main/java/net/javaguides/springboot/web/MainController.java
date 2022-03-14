@@ -2,12 +2,14 @@ package net.javaguides.springboot.web;
 
 import net.javaguides.springboot.model.Client;
 import net.javaguides.springboot.model.Company;
+import net.javaguides.springboot.model.Download;
 import net.javaguides.springboot.model.User;
 import net.javaguides.springboot.repository.ClientRepository;
 import net.javaguides.springboot.repository.CompanyRepository;
 import net.javaguides.springboot.repository.UserRepository;
 import net.javaguides.springboot.service.CategoryService;
 import net.javaguides.springboot.service.DocumentService;
+import net.javaguides.springboot.service.DownloadStorageService;
 import net.javaguides.springboot.service.SettingsService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,8 +28,9 @@ public class MainController {
     private UserRepository userRepository;
     private ClientRepository clientRepository;
     private CompanyRepository companyRepository;
+    private DownloadStorageService downloadStorageService;
 
-    public MainController(DocumentService documentService, CategoryService categoryService, SettingsService settingsService, UserRepository userRepository, ClientRepository clientRepository, CompanyRepository companyRepository) {
+    public MainController(DocumentService documentService, CategoryService categoryService, SettingsService settingsService, UserRepository userRepository, ClientRepository clientRepository, CompanyRepository companyRepository, DownloadStorageService downloadStorageService) {
         super();
         this.documentService = documentService;
         this.categoryService = categoryService;
@@ -35,6 +38,7 @@ public class MainController {
         this.userRepository = userRepository;
         this.clientRepository = clientRepository;
         this.companyRepository = companyRepository;
+        this.downloadStorageService = downloadStorageService;
     }
 
     @GetMapping("/")
@@ -62,7 +66,7 @@ public class MainController {
     }
 
     @GetMapping("/files")
-    public String downloads(Model documentModel, Model categoryModel, Model settingsModel) {
+    public String downloads(Model documentModel, Model categoryModel, Model settingsModel, Model model) {
         documentModel.addAttribute("documents", documentService.getAllDocuments());
         categoryModel.addAttribute("categories", categoryService.getAllCategories());
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
@@ -82,6 +86,8 @@ public class MainController {
                 return "account_not_active";
             }
         }
+        List<Download> downloads = downloadStorageService.getDownloads();
+        model.addAttribute("downloads", downloads);
         return "client_downloads";
     }
 
