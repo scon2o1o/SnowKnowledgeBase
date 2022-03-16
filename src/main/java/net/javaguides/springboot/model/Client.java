@@ -16,10 +16,10 @@ public class Client {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column
+    @Column(nullable = false)
     private String company;
 
-    @Column
+    @Column(nullable = false)
     private String email;
 
     @Column
@@ -28,7 +28,7 @@ public class Client {
     @Column
     private String mobile;
 
-    @Column
+    @Column(columnDefinition = "0")
     private boolean account;
 
     public Client() {
