@@ -66,7 +66,7 @@ public class ClientController {
             Audit audit = new Audit("Client '" + client.getFirstName() + " " + client.getLastName() + "' added");
             auditService.saveAudit(audit);
             clientService.saveClient(client);
-            if (client.isAccount() == true) {
+            if (client.isAccount()) {
                 User user = userRepository.findByEmail(client.getEmail());
                 if (user == null) {
                     UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(), client.getLastName(), client.getEmail(), client.getEmail(), "Client");
@@ -129,7 +129,7 @@ public class ClientController {
             existingClient.setAccount(client.isAccount());
             clientService.updateClient(existingClient);
 
-            if (existingClient.isAccount() == true) {
+            if (existingClient.isAccount()) {
                 User user = userRepository.findByEmail(existingClient.getEmail());
                 if (user == null) {
                     UserRegistrationDto registrationDto = new UserRegistrationDto(existingClient.getFirstName(), existingClient.getLastName(), existingClient.getEmail(), existingClient.getEmail(), "Client");
