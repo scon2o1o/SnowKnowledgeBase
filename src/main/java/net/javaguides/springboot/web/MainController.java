@@ -1,9 +1,6 @@
 package net.javaguides.springboot.web;
 
-import net.javaguides.springboot.model.Client;
-import net.javaguides.springboot.model.Company;
-import net.javaguides.springboot.model.Download;
-import net.javaguides.springboot.model.User;
+import net.javaguides.springboot.model.*;
 import net.javaguides.springboot.repository.ClientRepository;
 import net.javaguides.springboot.repository.CompanyRepository;
 import net.javaguides.springboot.repository.UserRepository;

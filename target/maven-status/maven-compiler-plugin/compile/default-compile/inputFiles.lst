@@ -1,4 +1,5 @@
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\model\Smtp.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\ClientRestController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\SmtpController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\UserController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\MainController.java
@@ -10,12 +11,14 @@ C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javagui
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\CompanyController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\UserRegistrationController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\model\Settings.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\exception\ResourceNotFoundException.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\service\AuditService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\model\Category.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\dto\UserRegistrationDto.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\model\Company.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\model\Subcategory.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\service\SmtpService.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\exception\InternalServerErrorException.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\config\SecurityConfiguration.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\service\CategoryService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\model\Role.java
@@ -23,7 +26,9 @@ C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javagui
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\repository\ClientRepository.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\service\UserServiceImpl.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\model\Client.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\repository\DownloadRepository.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\repository\SmtpRepository.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\DownloadController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\service\CompanyService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\service\UserService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\repository\UserRepository.java
@@ -35,10 +40,13 @@ C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javagui
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\repository\AuditRepository.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\repository\CompanyRepository.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\service\DocumentService.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\service\DownloadStorageService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\service\CategoryServiceImpl.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\AuditController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\repository\DocumentRepository.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\service\SettingsServiceImpl.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\CompanyRestController.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\model\Download.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\DocumentController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\web\CategoryController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\javaguides\springboot\model\Document.java
