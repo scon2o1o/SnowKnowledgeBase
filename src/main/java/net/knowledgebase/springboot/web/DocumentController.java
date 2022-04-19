@@ -78,7 +78,7 @@ public class DocumentController {
     public String saveDocument(@ModelAttribute("document") Document document) {
         try {
             document.setDateAdded(new Date());
-            document.setLastModified(null);
+            document.setLastModified(new Date());
             documentService.saveDocument(document);
             Audit audit = new Audit("Document " + document.getId() + ", '" + document.getName() + "' added to the database");
             auditService.saveAudit(audit);
@@ -121,6 +121,10 @@ public class DocumentController {
             }
             if (!existingDocument.getSubcategory().equals(document.getSubcategory())) {
                 Audit audit = new Audit("Document " + document.getId() + " updated. Subcategory updated from '" + existingDocument.getSubcategory() + "' to '" + document.getSubcategory() + "'");
+                auditService.saveAudit(audit);
+            }
+            if (!existingDocument.getContent().equals(document.getContent())) {
+                Audit audit = new Audit("Document " + document.getId() + " updated. Content updated");
                 auditService.saveAudit(audit);
             }
             existingDocument.setId(id);

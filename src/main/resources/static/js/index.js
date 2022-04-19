@@ -1,8 +1,4 @@
-var table = $('#dataTable').DataTable({
-    "order": [
-        [0, 'desc']
-    ]
-});
+var table = $('#dataTable').DataTable();
 
 function sortDocTable(n) {
     table.column(2).search(n, true, false).draw();
