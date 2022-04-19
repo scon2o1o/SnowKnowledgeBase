@@ -9,11 +9,11 @@
         <version>2.3.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>net.javaguides</groupId>
-    <artifactId>registration-login-spring-boot-security-thymeleaf</artifactId>
+    <groupId>net.knowledgebase</groupId>
+    <artifactId>knowledgebase</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>registration-login-spring-boot-security-thymeleaf</name>
-    <description>Demo project for Spring Boot Thymeleaf and Hibernate</description>
+    <name></name>
+    <description></description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -51,12 +51,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
@@ -77,8 +71,13 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
