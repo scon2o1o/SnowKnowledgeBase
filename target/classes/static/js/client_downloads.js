@@ -53,3 +53,7 @@ $("#menu-toggle").click(function(e) {
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
+
+function sortDownloadTable(n) {
+    table.column(3).search(n, true, false).draw();
+}
