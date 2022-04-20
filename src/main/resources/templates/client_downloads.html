@@ -56,6 +56,10 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
+            <strong class="list-group-item list-group-item-action bg-light">Filter by Type</strong>
+            <a class="list-group-item list-group-item-action bg-light" onclick="sortDownloadTable('')">Show All</a>
+            <a class="list-group-item list-group-item-action bg-light" onclick="sortDownloadTable('Release')">Release</a>
+            <a class="list-group-item list-group-item-action bg-light" onclick="sortDownloadTable('Script')">Script</a>
         </div>
     </div>
     <div id="page-content-wrapper">
@@ -81,6 +85,7 @@
                     <th>Name</th>
                     <th>Size</th>
                     <th>Date Added</th>
+                    <th>Type</th>
                     <th>Actions</th>
                     </thead>
                     <tbody>
@@ -88,6 +93,7 @@
                         <td th:text="${download.name}"/>
                         <td th:text="${download.size}"/>
                         <td th:text="${download.dateAdded}"/>
+                        <td th:text="${download.category}"/>
                         <td>
                             <a class="btn btn-secondary" th:href="@{'/downloads/'+${download.id}}"><i
                                     class="bi-cloud-arrow-down"></i> Download</a>

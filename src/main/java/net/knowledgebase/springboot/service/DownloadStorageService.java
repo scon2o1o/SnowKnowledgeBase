@@ -40,6 +40,14 @@ public class DownloadStorageService {
         return downloadRepository.findDownloadsWithoutContent();
     }
 
+    public DownloadDto findDownloadsWithoutContentById(Long id){
+        return downloadRepository.findDownloadsWithoutContentById(id);
+    }
+
+    public void updateDownloadWithoutContent(Long id, String category){
+        downloadRepository.updateDownloadWithoutContent(id, category);
+    }
+
     public void deleteDownloadById(long id){
         downloadRepository.deleteById(id);
     }

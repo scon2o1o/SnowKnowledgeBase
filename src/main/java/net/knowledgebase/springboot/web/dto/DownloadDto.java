@@ -8,13 +8,24 @@ public class DownloadDto {
     private String type;
     private Date dateAdded;
     private long size;
+    private String category;
 
-    public DownloadDto(long id, String name, String type, Date dateAdded, long size) {
+    public DownloadDto() {
+    }
+
+    public DownloadDto(long id, String name, String category) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+    }
+
+    public DownloadDto(long id, String name, String type, Date dateAdded, long size, String category) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.dateAdded = dateAdded;
         this.size = size;
+        this.category = category;
     }
 
     public long getId() {
@@ -55,5 +66,13 @@ public class DownloadDto {
 
     public void setSize(long size) {
         this.size = size;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

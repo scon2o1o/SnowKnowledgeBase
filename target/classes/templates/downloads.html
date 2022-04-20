@@ -83,6 +83,7 @@
                     <th>Name</th>
                     <th>Size</th>
                     <th>Date Added</th>
+                    <th>Type</th>
                     <th>Actions</th>
                     </thead>
                     <tbody>
@@ -91,9 +92,12 @@
                         <td th:text="${download.name}"/>
                         <td th:text="${download.size}"/>
                         <td th:text="${download.dateAdded}"/>
+                        <td th:text="${download.category}"/>
                         <td>
                             <a class="btn btn-secondary" th:href="@{'/downloads/'+${download.id}}"><i
                                     class="bi-cloud-arrow-down"></i> Download</a>
+                            <a class="btn btn-success" th:href="@{'/downloads/edit/'+${download.id}}"><i
+                                    class="bi-pencil-fill"></i> Edit Type</a>
                             <a class="btn btn-danger"
                                sec:authorize="hasRole('ROLE_ADMIN')"
                                th:href="@{/downloads/delete/{id}(id=${download.id})}"><i

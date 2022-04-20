@@ -18,10 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -105,5 +102,28 @@ public class DownloadController {
     public String deleteDownload(@PathVariable Long id) {
         downloadStorageService.deleteDownloadById(id);
         return "redirect:/downloads";
+    }
+
+    @GetMapping("/downloads/edit/{id}")
+    public String editDownloadForm(@PathVariable Long id, Model model, Model settingsModel) {
+        model.addAttribute("download", downloadStorageService.findDownloadsWithoutContentById(id));
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
+        return "edit_download";
+    }
+
+    @PostMapping("/downloads/edit/{id}")
+    public String updateDownloadWithoutContent(@PathVariable Long id, @ModelAttribute("downloadDto") DownloadDto downloadDto){
+        try{
+            downloadStorageService.updateDownloadWithoutContent(id, downloadDto.getCategory());
+            return "redirect:/downloads?success";
+        } catch (Exception e){
+            return "redirect:/downloads?fail";
+        }
     }
 }

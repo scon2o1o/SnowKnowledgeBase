@@ -27,6 +27,9 @@ public class Download {
     @Column
     private long size;
 
+    @Column
+    private String category;
+
     public Download() {
     }
 
@@ -36,6 +39,15 @@ public class Download {
         this.content = content;
         this.size = size;
         this.dateAdded = new Date();
+    }
+
+    public Download(String name, String type, byte[] content, long size, String category) {
+        this.name = name;
+        this.type = type;
+        this.content = content;
+        this.size = size;
+        this.dateAdded = new Date();
+        this.category = category;
     }
 
     public long getId() {
@@ -84,5 +96,13 @@ public class Download {
 
     public void setSize(long size) {
         this.size = size;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

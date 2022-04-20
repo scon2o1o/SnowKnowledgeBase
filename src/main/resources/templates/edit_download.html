@@ -12,10 +12,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/stylesheet.css}">
     <link rel="shortcut icon" th:href="@{/images/small_logo.png}" type="image/png"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
-    <script charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"
-            type="text/javascript"></script>
 </head>
 <body class="d-flex flex-column h-100">
 <header>
@@ -29,24 +25,23 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Documents</a>
-                    <span class="sr-only">(current)</span>
+                    <a class="nav-link" th:href="@{/admin}">Admin ></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/settings}">Downloads ></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/files}">Downloads</a>
+                    <a class="nav-link">Edit Download</a>
                     <span class="sr-only">(current)</span>
                 </li>
             </ul>
             <div class="row">
                 <div class="col-sm">
-                    <a style="margin-right:10px;" th:href="@{/users/password}"><span class="navbar-text">Hello, <span
+                    <a style="margin-right:10px;"th:href="@{/users/password}"><span class="navbar-text">Hello, <span
                             sec:authentication="name"></span></span></a>
-                    <a style="margin-right:10px;" th:href="@{/admin}" type="button" class="btn btn-success"
-                       sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-shield-exclamation"></i> Admin</a>
-                    <a style="margin-right:10px;" th:href="@{/admin}" type="button" class="btn btn-success"
-                       sec:authorize="hasRole('ROLE_USER')"><i class="bi-shield-exclamation"></i> Admin</a>
-                    <a th:href="@{/logout}" type="button" class="btn btn-danger"><i class="bi-box-arrow-in-left"></i>
-                        Logout</a>
+                    <a style="margin-right:10px;" th:href="@{/admin}"type="button" class="btn btn-success" sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-shield-exclamation"></i> Admin</a>
+                    <a style="margin-right:10px;" th:href="@{/admin}"type="button" class="btn btn-success" sec:authorize="hasRole('ROLE_USER')"><i class="bi-shield-exclamation"></i> Admin</a>
+                    <a th:href="@{/logout}" type="button" class="btn btn-danger"><i class="bi-box-arrow-in-left"></i> Logout</a>
                 </div>
             </div>
         </div>
@@ -56,10 +51,7 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
-            <strong class="list-group-item list-group-item-action bg-light">Filter by Type</strong>
-            <a class="list-group-item list-group-item-action bg-light" onclick="sortDownloadTable('')">Show All</a>
-            <a class="list-group-item list-group-item-action bg-light" onclick="sortDownloadTable('Release')">Release</a>
-            <a class="list-group-item list-group-item-action bg-light" onclick="sortDownloadTable('Script')">Script</a>
+            <a class="list-group-item list-group-item-action bg-light" th:href="@{/downloads}">Close</a>
         </div>
     </div>
     <div id="page-content-wrapper">
@@ -79,32 +71,44 @@
             <div style="text-align: center">
                 <img alt="login-logo" class="mb-4" th:src="@{/images/logo.png}" width="400">
             </div>
-            <div>
-                <table class="table table-hover" id="dataTable" style="width:100%">
-                    <thead class="table table-hover">
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Date Added</th>
-                    <th>Type</th>
-                    <th>Actions</th>
-                    </thead>
-                    <tbody>
-                    <tr th:each="download:${downloads}">
-                        <td th:text="${download.name}"/>
-                        <td th:text="${download.size}"/>
-                        <td th:text="${download.dateAdded}"/>
-                        <td th:text="${download.category}"/>
-                        <td>
-                            <a class="btn btn-secondary" th:href="@{'/downloads/'+${download.id}}"><i
-                                    class="bi-cloud-arrow-down"></i> Download</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <br>
+            <div class="row">
+                <div class="col-sm">
+                </div>
+                <div class="col-sm">
+                    <div th:if="${param.success}">
+                        <div class="alert alert-info">Download successfully updated!
+                        </div>
+                    </div>
+                    <div th:if="${param.fail}">
+                        <div class="alert alert-danger">Failed to edit download! Please try again
+                        </div>
+                    </div>
+                    <form method="POST" th:action="@{/downloads/edit/{id} (id=${download.id})}" th:object="${download}">
+                        <div class="form-group">
+                            <label for="category">Type</label>
+                            <select class="form-control" id="category" th:field="*{category}">
+                                <option text="" value=""></option>
+                                <option text="Release" value="Release">Release</option>
+                                <option text="Script" value="Script">Script</option>
+                            </select>
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-info" type="submit"><i class="bi-pencil-fill"></i>
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm">
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script crossorigin="anonymous"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script crossorigin="anonymous"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -116,6 +120,6 @@
         integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
         referrerpolicy="no-referrer"
         src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script th:src="@{/js/client_downloads.js}" type="text/javascript"></script>
+<script th:src="@{/js/admin.js}" type="text/javascript"></script>
 </body>
 </html>
