@@ -11,6 +11,7 @@ import net.knowledgebase.springboot.service.CategoryService;
 import net.knowledgebase.springboot.service.DocumentService;
 import net.knowledgebase.springboot.service.DownloadStorageService;
 import net.knowledgebase.springboot.service.SettingsService;
+import net.knowledgebase.springboot.web.dto.DownloadDto;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -86,7 +87,7 @@ public class MainController {
                 return "account_not_active";
             }
         }
-        List<Download> downloads = downloadStorageService.getDownloads();
+        List<DownloadDto> downloads = downloadStorageService.getDownloadsWithoutContent();
         model.addAttribute("downloads", downloads);
         return "client_downloads";
     }

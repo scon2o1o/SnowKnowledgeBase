@@ -2,6 +2,7 @@ package net.knowledgebase.springboot.service;
 
 import net.knowledgebase.springboot.model.Download;
 import net.knowledgebase.springboot.repository.DownloadRepository;
+import net.knowledgebase.springboot.web.dto.DownloadDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -33,6 +34,10 @@ public class DownloadStorageService {
 
     public List<Download> getDownloads(){
         return downloadRepository.findAll();
+    }
+
+    public List<DownloadDto> getDownloadsWithoutContent(){
+        return downloadRepository.findDownloadsWithoutContent();
     }
 
     public void deleteDownloadById(long id){

@@ -9,6 +9,7 @@ import net.knowledgebase.springboot.repository.CompanyRepository;
 import net.knowledgebase.springboot.repository.UserRepository;
 import net.knowledgebase.springboot.service.DownloadStorageService;
 import net.knowledgebase.springboot.service.SettingsService;
+import net.knowledgebase.springboot.web.dto.DownloadDto;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -62,7 +63,7 @@ public class DownloadController {
                 return "account_not_active";
             }
         }
-        List<Download> downloads = downloadStorageService.getDownloads();
+        List<DownloadDto> downloads = downloadStorageService.getDownloadsWithoutContent();
         model.addAttribute("downloads", downloads);
         return "downloads";
     }
