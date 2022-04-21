@@ -27,11 +27,11 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/admin}">Admin ></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/downloads}">Downloads ></a>
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/downloadtypes}">Download Types ></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link">Edit Download</a>
+                    <a class="nav-link">Edit Download Type</a>
                     <span class="sr-only">(current)</span>
                 </li>
             </ul>
@@ -51,7 +51,7 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
-            <a class="list-group-item list-group-item-action bg-light" th:href="@{/downloads}">Close</a>
+            <a class="list-group-item list-group-item-action bg-light" th:href="@{/downloadtypes}">Close</a>
         </div>
     </div>
     <div id="page-content-wrapper">
@@ -77,21 +77,22 @@
                 </div>
                 <div class="col-sm">
                     <div th:if="${param.success}">
-                        <div class="alert alert-info">Download successfully updated!
+                        <div class="alert alert-info">Download Type successfully updated!
                         </div>
                     </div>
                     <div th:if="${param.fail}">
-                        <div class="alert alert-danger">Failed to edit download! Please try again
+                        <div class="alert alert-danger">Failed to update Download Type! Please try again
                         </div>
                     </div>
-                    <form method="POST" th:action="@{/downloads/edit/{id} (id=${download.id})}" th:object="${download}">
+                    <form method="POST" th:action="@{/downloadtypes/{id} (id=${downloadtype.id})}" th:object="${downloadtype}">
                         <div class="form-group">
-                            <label for="category">Type</label>
-                            <select class="form-control" id="category" th:field="*{category}">
-                                <option text="" value=""></option>
-                                <option th:each="downloadtype: ${downloadtypes}" th:text="${downloadtype.name}"
-                                        th:value="${downloadtype.name}"></option>
-                            </select>
+                            <label>Name</label>
+                            <input
+                                    class="form-control"
+                                    name="name"
+                                    th:field="*{name}"
+                                    type="text"
+                            />
                         </div>
                         <div class="box-footer">
                             <button class="btn btn-info" type="submit"><i class="bi-pencil-fill"></i>
@@ -99,6 +100,7 @@
                             </button>
                         </div>
                     </form>
+
                 </div>
                 <div class="col-sm">
                 </div>

@@ -58,8 +58,8 @@
         <div class="list-group list-group-flush" id="sidebar">
             <strong class="list-group-item list-group-item-action bg-light">Filter by Type</strong>
             <a class="list-group-item list-group-item-action bg-light" onclick="sortDownloadTable('')">Show All</a>
-            <a class="list-group-item list-group-item-action bg-light" onclick="sortDownloadTable('Release')">Release</a>
-            <a class="list-group-item list-group-item-action bg-light" onclick="sortDownloadTable('Script')">Script</a>
+            <a class="list-group-item list-group-item-action bg-light" th:each="downloadtypes: ${downloadtypes}"
+               th:onclick="sortDownloadTable([[${downloadtypes.name}]])">[[${downloadtypes.name}]]</a>
         </div>
     </div>
     <div id="page-content-wrapper">

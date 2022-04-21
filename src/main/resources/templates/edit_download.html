@@ -28,7 +28,7 @@
                     <a class="nav-link" th:href="@{/admin}">Admin ></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/settings}">Downloads ></a>
+                    <a class="nav-link" th:href="@{/downloads}">Downloads ></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link">Edit Download</a>
@@ -89,8 +89,8 @@
                             <label for="category">Type</label>
                             <select class="form-control" id="category" th:field="*{category}">
                                 <option text="" value=""></option>
-                                <option text="Release" value="Release">Release</option>
-                                <option text="Script" value="Script">Script</option>
+                                <option th:each="downloadtype: ${downloadtypes}" th:text="${downloadtype.name}"
+                                        th:value="${downloadtype.name}"></option>
                             </select>
                         </div>
                         <div class="box-footer">

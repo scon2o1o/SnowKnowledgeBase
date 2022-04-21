@@ -7,10 +7,7 @@ import net.knowledgebase.springboot.model.User;
 import net.knowledgebase.springboot.repository.ClientRepository;
 import net.knowledgebase.springboot.repository.CompanyRepository;
 import net.knowledgebase.springboot.repository.UserRepository;
-import net.knowledgebase.springboot.service.CategoryService;
-import net.knowledgebase.springboot.service.DocumentService;
-import net.knowledgebase.springboot.service.DownloadStorageService;
-import net.knowledgebase.springboot.service.SettingsService;
+import net.knowledgebase.springboot.service.*;
 import net.knowledgebase.springboot.web.dto.DownloadDto;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,8 +27,9 @@ public class MainController {
     private ClientRepository clientRepository;
     private CompanyRepository companyRepository;
     private DownloadStorageService downloadStorageService;
+    private DownloadTypeService downloadTypeService;
 
-    public MainController(DocumentService documentService, CategoryService categoryService, SettingsService settingsService, UserRepository userRepository, ClientRepository clientRepository, CompanyRepository companyRepository, DownloadStorageService downloadStorageService) {
+    public MainController(DocumentService documentService, CategoryService categoryService, SettingsService settingsService, UserRepository userRepository, ClientRepository clientRepository, CompanyRepository companyRepository, DownloadStorageService downloadStorageService, DownloadTypeService downloadTypeService) {
         super();
         this.documentService = documentService;
         this.categoryService = categoryService;
@@ -40,6 +38,7 @@ public class MainController {
         this.clientRepository = clientRepository;
         this.companyRepository = companyRepository;
         this.downloadStorageService = downloadStorageService;
+        this.downloadTypeService = downloadTypeService;
     }
 
     @GetMapping("/")
@@ -56,10 +55,10 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepository.findByEmail(currentPrincipalName);
-        if (user.getRole().equals("Client")){
+        if (user.getRole().equals("Client")) {
             Client client = clientRepository.findByEmail(user.getEmail());
             Company company = companyRepository.findByName(client.getCompany());
-            if (!"Active".equals(company.getStatus())){
+            if (!"Active".equals(company.getStatus())) {
                 return "account_not_active";
             }
         }
@@ -67,9 +66,9 @@ public class MainController {
     }
 
     @GetMapping("/files")
-    public String downloads(Model documentModel, Model categoryModel, Model settingsModel, Model model) {
+    public String downloads(Model documentModel, Model downloadTypeModel, Model settingsModel, Model model) {
         documentModel.addAttribute("documents", documentService.getAllDocuments());
-        categoryModel.addAttribute("categories", categoryService.getAllCategories());
+        downloadTypeModel.addAttribute("downloadtypes", downloadTypeService.getAllDownloadTypes());
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
         List settings = settingsService.getAllSettings();
         if (settings.isEmpty()) {
@@ -80,10 +79,10 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepository.findByEmail(currentPrincipalName);
-        if (user.getRole().equals("Client")){
+        if (user.getRole().equals("Client")) {
             Client client = clientRepository.findByEmail(user.getEmail());
             Company company = companyRepository.findByName(client.getCompany());
-            if (!"Active".equals(company.getStatus())){
+            if (!"Active".equals(company.getStatus())) {
                 return "account_not_active";
             }
         }
@@ -104,12 +103,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepository.findByEmail(currentPrincipalName);
-        if (user.getRole().equals("Client")){
-            Client client = clientRepository.findByEmail(user.getEmail());
-            Company company = companyRepository.findByName(client.getCompany());
-            if (!"Active".equals(company.getStatus())){
-                return "account_not_active";
-            }
+        if (user.getRole().equals("Client")) {
             return "page_not_found";
         }
         return "admin";

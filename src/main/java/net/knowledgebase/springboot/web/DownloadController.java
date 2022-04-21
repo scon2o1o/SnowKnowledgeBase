@@ -6,8 +6,10 @@ import net.knowledgebase.springboot.model.Download;
 import net.knowledgebase.springboot.model.User;
 import net.knowledgebase.springboot.repository.ClientRepository;
 import net.knowledgebase.springboot.repository.CompanyRepository;
+import net.knowledgebase.springboot.repository.DownloadTypeRepository;
 import net.knowledgebase.springboot.repository.UserRepository;
 import net.knowledgebase.springboot.service.DownloadStorageService;
+import net.knowledgebase.springboot.service.DownloadTypeService;
 import net.knowledgebase.springboot.service.SettingsService;
 import net.knowledgebase.springboot.web.dto.DownloadDto;
 import org.springframework.core.io.ByteArrayResource;
@@ -31,14 +33,16 @@ public class DownloadController {
     private UserRepository userRepository;
     private ClientRepository clientRepository;
     private CompanyRepository companyRepository;
+    private DownloadTypeService downloadTypeService;
 
-    public DownloadController(DownloadStorageService downloadStorageService, SettingsService settingsService, UserRepository userRepository, ClientRepository clientRepository, CompanyRepository companyRepository) {
+    public DownloadController(DownloadStorageService downloadStorageService, SettingsService settingsService, UserRepository userRepository, ClientRepository clientRepository, CompanyRepository companyRepository, DownloadTypeService downloadTypeService) {
         super();
         this.downloadStorageService = downloadStorageService;
         this.settingsService = settingsService;
         this.userRepository = userRepository;
         this.clientRepository = clientRepository;
         this.companyRepository = companyRepository;
+        this.downloadTypeService = downloadTypeService;
     }
 
     @GetMapping("/downloads")
@@ -105,8 +109,9 @@ public class DownloadController {
     }
 
     @GetMapping("/downloads/edit/{id}")
-    public String editDownloadForm(@PathVariable Long id, Model model, Model settingsModel) {
+    public String editDownloadForm(@PathVariable Long id, Model model, Model settingsModel, Model downloadTypeModel) {
         model.addAttribute("download", downloadStorageService.findDownloadsWithoutContentById(id));
+        downloadTypeModel.addAttribute("downloadtypes", downloadTypeService.getAllDownloadTypes());
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
         List settings = settingsService.getAllSettings();
         if (settings.isEmpty()) {
