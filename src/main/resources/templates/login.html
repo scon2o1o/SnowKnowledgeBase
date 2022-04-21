@@ -80,10 +80,11 @@ body {
         <div class="alert alert-info">You have been logged out.</div>
     </div>
     <label class="sr-only">Username</label>
-    <input class="form-control" name="username" placeholder="Username">
+    <input class="form-control" name="username" placeholder="Email">
     <label class="sr-only">Password</label>
     <input class="form-control" name="password" placeholder="Password" type="password">
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom:10px;">Sign in</button>
+    <a th:href="@{/forgot_password}">Forgot your password?</a>
 </form>
 <script crossorigin="anonymous"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

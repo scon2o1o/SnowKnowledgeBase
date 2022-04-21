@@ -1,5 +1,6 @@
 package net.knowledgebase.springboot.service;
 
+import net.knowledgebase.springboot.exception.UserNotFoundException;
 import net.knowledgebase.springboot.model.Role;
 import net.knowledgebase.springboot.model.User;
 import net.knowledgebase.springboot.repository.UserRepository;
@@ -90,6 +91,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
         return userRepository.findById(id).get();
+    }
+
+    @Override
+    public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+        } else {
+            throw new UserNotFoundException("Could not find any user with the email " + email);
+        }
+    }
+
+    @Override
+    public User getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+
+    @Override
+    public void updatePassword(User user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
     }
 
 }
