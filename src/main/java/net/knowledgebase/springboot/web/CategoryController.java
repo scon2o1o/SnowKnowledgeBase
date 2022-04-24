@@ -5,6 +5,7 @@ import net.knowledgebase.springboot.model.Category;
 import net.knowledgebase.springboot.service.AuditService;
 import net.knowledgebase.springboot.service.CategoryService;
 import net.knowledgebase.springboot.service.SettingsService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ public class CategoryController {
         this.settingsService = settingsService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/categories")
     public String listCategories(Model model, Model settingsModel) {
         model.addAttribute("categories", categoryService.getAllCategories());
@@ -40,6 +42,7 @@ public class CategoryController {
         return "categories";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/categories/new")
     public String createCategoryForm(Model model, Model settingsModel) {
 
@@ -55,6 +58,7 @@ public class CategoryController {
         return "create_category";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/categories")
     public String saveCategory(@ModelAttribute("category") Category category) {
         try {
@@ -67,6 +71,7 @@ public class CategoryController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/categories/edit/{id}")
     public String editCategoryForm(@PathVariable Long id, Model model, Model settingsModel) {
         model.addAttribute("category", categoryService.getCategoryById(id));
@@ -80,6 +85,7 @@ public class CategoryController {
         return "edit_category";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/categories/{id}")
     public String updateCategory(@PathVariable Long id,
                                  @ModelAttribute("category") Category category,
@@ -99,6 +105,7 @@ public class CategoryController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/categories/{id}")
     public String deleteCategory(@PathVariable Long id) {
         try {

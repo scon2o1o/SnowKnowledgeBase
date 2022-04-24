@@ -5,6 +5,10 @@ import net.knowledgebase.springboot.model.Company;
 import net.knowledgebase.springboot.service.AuditService;
 import net.knowledgebase.springboot.service.CompanyService;
 import net.knowledgebase.springboot.service.SettingsService;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +32,7 @@ public class CompanyController {
         this.settingsService = settingsService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/companies")
     public String listCompanies(Model model, Model settingsModel){
         model.addAttribute("companies", companyService.getAllCompanies());

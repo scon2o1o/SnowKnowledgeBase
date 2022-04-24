@@ -3,6 +3,7 @@ package net.knowledgebase.springboot.web;
 import net.knowledgebase.springboot.model.Audit;
 import net.knowledgebase.springboot.service.AuditService;
 import net.knowledgebase.springboot.service.SettingsService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ public class AuditController {
         this.settingsService = settingsService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/audit")
     public String listAudit(Model model, Model settingsModel){
         model.addAttribute("audit", auditService.getAllAudit());

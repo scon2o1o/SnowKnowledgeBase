@@ -9,6 +9,9 @@ import net.knowledgebase.springboot.repository.CompanyRepository;
 import net.knowledgebase.springboot.repository.UserRepository;
 import net.knowledgebase.springboot.service.*;
 import net.knowledgebase.springboot.web.dto.DownloadDto;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
+@Configuration
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
 public class MainController {
 
     private DocumentService documentService;
@@ -91,6 +99,7 @@ public class MainController {
         return "client_downloads";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/admin")
     public String admin(Model settingsModel) {
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
@@ -99,12 +108,6 @@ public class MainController {
             settingsModel.addAttribute("response", "NoData");
         } else {
             settingsModel.addAttribute("response", "");
-        }
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user = userRepository.findByEmail(currentPrincipalName);
-        if (user.getRole().equals("Client")) {
-            return "page_not_found";
         }
         return "admin";
     }

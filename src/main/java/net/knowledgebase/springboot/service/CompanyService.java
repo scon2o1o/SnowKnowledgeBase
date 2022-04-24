@@ -5,6 +5,7 @@ import net.knowledgebase.springboot.model.Company;
 import java.util.List;
 
 public interface CompanyService {
+
     List<Company> getAllCompanies();
 
     Company saveCompany(Company company);
