@@ -1,5 +1,6 @@
 package net.knowledgebase.springboot.web;
 
+import net.bytebuddy.utility.RandomString;
 import net.knowledgebase.springboot.model.Audit;
 import net.knowledgebase.springboot.model.Client;
 import net.knowledgebase.springboot.model.User;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -64,7 +66,7 @@ public class ClientController {
     }
 
     @PostMapping("/clients")
-    public String saveClient(@ModelAttribute("client") Client client) {
+    public String saveClient(@ModelAttribute("client") Client client, HttpServletRequest request) {
         try {
             Audit audit = new Audit("Client '" + client.getFirstName() + " " + client.getLastName() + "' added");
             auditService.saveAudit(audit);
@@ -72,8 +74,8 @@ public class ClientController {
             if (client.isAccount()) {
                 User user = userRepository.findByEmail(client.getEmail());
                 if (user == null) {
-                    UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(), client.getLastName(), client.getEmail(), client.getEmail(), "Client");
-                    userService.save(registrationDto);
+                    UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(), client.getLastName(), client.getEmail(), null, "Client", RandomString.make(30));
+                    userService.save(registrationDto, request);
                 }
             }
             return "redirect:/clients?success";
@@ -99,7 +101,7 @@ public class ClientController {
     @PostMapping("/clients/{id}")
     public String updateClient(@PathVariable Long id,
                                @ModelAttribute("client") Client client,
-                               Model model) {
+                               Model model, HttpServletRequest request) {
         try {
             Client existingClient = clientService.getClientById(id);
             if (!existingClient.getFirstName().equals(client.getFirstName())) {
@@ -135,8 +137,8 @@ public class ClientController {
             if (existingClient.isAccount()) {
                 User user = userRepository.findByEmail(existingClient.getEmail());
                 if (user == null) {
-                    UserRegistrationDto registrationDto = new UserRegistrationDto(existingClient.getFirstName(), existingClient.getLastName(), existingClient.getEmail(), existingClient.getEmail(), "Client");
-                    userService.save(registrationDto);
+                    UserRegistrationDto registrationDto = new UserRegistrationDto(existingClient.getFirstName(), existingClient.getLastName(), existingClient.getEmail(), null, "Client", RandomString.make(30));
+                    userService.save(registrationDto, request);
                 }
             }
             return "redirect:/clients?success";

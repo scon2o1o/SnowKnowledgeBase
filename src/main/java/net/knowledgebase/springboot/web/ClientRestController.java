@@ -1,5 +1,6 @@
 package net.knowledgebase.springboot.web;
 
+import net.bytebuddy.utility.RandomString;
 import net.knowledgebase.springboot.exception.InternalServerErrorException;
 import net.knowledgebase.springboot.exception.ResourceNotFoundException;
 import net.knowledgebase.springboot.model.Audit;
@@ -13,6 +14,7 @@ import net.knowledgebase.springboot.web.dto.UserRegistrationDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -33,7 +35,7 @@ public class ClientRestController {
     }
 
     @PostMapping
-    public Client createClient(@RequestBody Client client) {
+    public Client createClient(@RequestBody Client client, HttpServletRequest request) {
         if (client.getCompany().equals("") || client.getCompany().equals(" ")) {
             throw new InternalServerErrorException("No company assigned to this client");
         }
@@ -41,8 +43,8 @@ public class ClientRestController {
             User user = userRepository.findByEmail(client.getEmail());
             if (user == null) {
                 UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(),
-                        client.getLastName(), client.getEmail(), client.getEmail(), "Client");
-                userService.save(registrationDto);
+                        client.getLastName(), client.getEmail(), null, "Client", RandomString.make(30));
+                userService.save(registrationDto, request);
             }
         }
         Audit audit = new Audit("Client '" + client.getFirstName() + " " + client.getLastName() + "' added", "Action via API");
@@ -50,7 +52,7 @@ public class ClientRestController {
     }
 
     @PostMapping("/multiple")
-    public String createMultipleClients(@RequestBody List<Client> clients) {
+    public String createMultipleClients(@RequestBody List<Client> clients, HttpServletRequest request) {
         for (Client client : clients) {
             clientRepository.save(client);
             Audit audit = new Audit("Client '" + client.getFirstName() + " " + client.getLastName() + "' added", "Action via API");
@@ -58,8 +60,8 @@ public class ClientRestController {
                 User user = userRepository.findByEmail(client.getEmail());
                 if (user == null) {
                     UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(),
-                            client.getLastName(), client.getEmail(), client.getEmail(), "Client");
-                    userService.save(registrationDto);
+                            client.getLastName(), client.getEmail(), null, "Client", RandomString.make(30));
+                    userService.save(registrationDto, request);
                 }
             }
         }
@@ -67,7 +69,7 @@ public class ClientRestController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Client> updateClient(@PathVariable long id, @RequestBody Client clientDetails) {
+    public ResponseEntity<Client> updateClient(@PathVariable long id, @RequestBody Client clientDetails, HttpServletRequest request) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No client found with id: " + id));
         client.setLastName(clientDetails.getLastName());
@@ -110,8 +112,8 @@ public class ClientRestController {
             User user = userRepository.findByEmail(client.getEmail());
             if (user == null) {
                 UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(),
-                        client.getLastName(), client.getEmail(), client.getEmail(), "Client");
-                userService.save(registrationDto);
+                        client.getLastName(), client.getEmail(), null, "Client", RandomString.make(30));
+                userService.save(registrationDto, request);
             }
         }
         return ResponseEntity.ok(client);

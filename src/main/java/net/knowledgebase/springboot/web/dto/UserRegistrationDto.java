@@ -6,18 +6,18 @@ public class UserRegistrationDto {
     private String email;
     private String password;
     private String role;
+    private String token;
 
     public UserRegistrationDto() {
-
     }
 
-    public UserRegistrationDto(String firstName, String lastName, String email, String password, String role) {
-        super();
+    public UserRegistrationDto(String firstName, String lastName, String email, String password, String role, String token) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.token = token;
     }
 
     public String getFirstName() {
@@ -58,5 +58,13 @@ public class UserRegistrationDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

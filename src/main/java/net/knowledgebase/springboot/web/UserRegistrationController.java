@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -63,19 +64,12 @@ public class UserRegistrationController {
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
+    public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto, HttpServletRequest request) {
         try {
             Settings settings = getSettings();
             Audit audit = new Audit("User: " + registrationDto.getEmail() + " added");
             auditService.saveAudit(audit);
-            userService.save(registrationDto);
-            if (settings.isEmail() == true) {
-                smtpService.sendEmail(registrationDto.getEmail(), "User account created",
-                        "Hi " + registrationDto.getFirstName() + " " + registrationDto.getLastName()
-                                + ",\n\nA new user account has been added for you on the knowledge base. Please log in here "
-                                + settings.getUrl() + "\n\nUsername: " + registrationDto.getEmail()
-                                + "\nPassword: Please contact the system administrator\n\nRegards,\nSystem Administrator");
-            }
+            userService.save(registrationDto, request);
             return "redirect:/users?success";
         } catch (Exception e) {
             return "redirect:/registration?fail";
