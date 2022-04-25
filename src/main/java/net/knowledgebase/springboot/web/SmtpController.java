@@ -5,6 +5,7 @@ import net.knowledgebase.springboot.model.Smtp;
 import net.knowledgebase.springboot.service.AuditService;
 import net.knowledgebase.springboot.service.SettingsService;
 import net.knowledgebase.springboot.service.SmtpService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class SmtpController {
         this.settingsService = settingsService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/smtp")
     public String listSmtp(Model smtpModel, Model responseModel, Model settingsModel) {
         smtpModel.addAttribute("smtp", smtpService.getAllSmtp());
@@ -45,6 +47,7 @@ public class SmtpController {
         return "smtp";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/smtp/new")
     public String createSmtpForm(Model model, Model settingsModel) {
         Smtp smtp = new Smtp();
@@ -59,6 +62,7 @@ public class SmtpController {
         return "create_smtp";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/smtp")
     public String saveSmtp(@ModelAttribute("smtp") Smtp smtp) {
         try {
@@ -71,6 +75,7 @@ public class SmtpController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/smtp/edit/{id}")
     public String editSmtpForm(@PathVariable Long id, Model model, Model settingsModel) {
         model.addAttribute("smtp", smtpService.getSmtpById(id));
@@ -84,6 +89,7 @@ public class SmtpController {
         return "edit_smtp";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/smtp/{id}")
     public String updateSmtp(@PathVariable Long id,
                              @ModelAttribute("smtp") Smtp smtp,
@@ -113,6 +119,7 @@ public class SmtpController {
         return "redirect:/smtp";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/smtp/{id}")
     public String deleteSmtp(@PathVariable Long id) {
         try {

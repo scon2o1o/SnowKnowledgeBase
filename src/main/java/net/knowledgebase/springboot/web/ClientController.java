@@ -7,6 +7,7 @@ import net.knowledgebase.springboot.model.User;
 import net.knowledgebase.springboot.repository.UserRepository;
 import net.knowledgebase.springboot.service.*;
 import net.knowledgebase.springboot.web.dto.UserRegistrationDto;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class ClientController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/clients")
     public String listClients(Model model, Model settingsModel) {
         model.addAttribute("clients", clientService.getAllClients());
@@ -50,6 +52,7 @@ public class ClientController {
         return "clients";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/clients/new")
     public String createClientForm(Model clientModel, Model companyModel, Model settingsModel) {
         companyModel.addAttribute("company", companyService.getAllCompanies());
@@ -65,6 +68,7 @@ public class ClientController {
         return "create_client";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/clients")
     public String saveClient(@ModelAttribute("client") Client client, HttpServletRequest request) {
         try {
@@ -84,6 +88,7 @@ public class ClientController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/clients/edit/{id}")
     public String editClientForm(@PathVariable Long id, Model clientModel, Model companyModel, Model settingsModel) {
         companyModel.addAttribute("company", companyService.getAllCompanies());
@@ -98,6 +103,7 @@ public class ClientController {
         return "edit_client";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/clients/{id}")
     public String updateClient(@PathVariable Long id,
                                @ModelAttribute("client") Client client,
@@ -147,6 +153,7 @@ public class ClientController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/clients/{id}")
     public String deleteClient(@PathVariable Long id) {
         try {

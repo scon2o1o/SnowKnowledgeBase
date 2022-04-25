@@ -6,6 +6,7 @@ import net.knowledgebase.springboot.repository.UserRepository;
 import net.knowledgebase.springboot.service.AuditService;
 import net.knowledgebase.springboot.service.SettingsService;
 import net.knowledgebase.springboot.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,7 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/users")
     public String listUsers(Model model, Model settingsModel) {
         model.addAttribute("users", userService.getAllUsers());
@@ -46,6 +48,7 @@ public class UserController {
         return "users";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("users/password")
     public String editPasswordForm(Model model, Model settingsModel){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -61,6 +64,7 @@ public class UserController {
         return "edit_password";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("users/password")
     public String updatePassword(@ModelAttribute("user") User user){
         try{
@@ -75,6 +79,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/users/{id}")
     public String deleteUser(@PathVariable Long id) {
         try {

@@ -46,6 +46,7 @@ public class CompanyController {
         return "companies";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/companies/new")
     public String createCompanyForm(Model model, Model settingsModel){
         Company company = new Company();
@@ -60,6 +61,7 @@ public class CompanyController {
         return "create_company";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/companies")
     public String saveCompany(@ModelAttribute("company") Company company){
         try{
@@ -72,6 +74,7 @@ public class CompanyController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/companies/edit/{id}")
     public String editCompanyForm(@PathVariable Long id, Model model, Model settingsModel) {
         model.addAttribute("company", companyService.getCompanyById(id));
@@ -85,6 +88,7 @@ public class CompanyController {
         return "edit_company";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/companies/{id}")
     public String updateCompany(@PathVariable Long id,
                                  @ModelAttribute("company") Company company,
@@ -154,6 +158,7 @@ public class CompanyController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/companies/{id}")
     public String deleteCompany(@PathVariable Long id) {
         try {

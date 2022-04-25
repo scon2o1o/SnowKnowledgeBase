@@ -3,6 +3,7 @@ package net.knowledgebase.springboot.web;
 import net.knowledgebase.springboot.model.Settings;
 import net.knowledgebase.springboot.service.AuditService;
 import net.knowledgebase.springboot.service.SettingsService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ public class SettingsController {
         this.auditService = auditService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/settings")
     public String listSettings(Model settingsModel, Model responseModel) {
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
@@ -36,6 +38,7 @@ public class SettingsController {
         return "settings";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/settings/new")
     public String createSettingsForm(Model model, Model settingsModel) {
         Settings settings = new Settings();
@@ -50,6 +53,7 @@ public class SettingsController {
         return "create_settings";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/settings")
     public String saveSettings(@ModelAttribute("settings") Settings settings) {
         try {
@@ -60,6 +64,7 @@ public class SettingsController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/settings/edit/{id}")
     public String editSettingsForm(@PathVariable int id, Model model, Model settingsModel) {
         model.addAttribute("settings", settingsService.getSettingsById(id));
@@ -73,6 +78,7 @@ public class SettingsController {
         return "edit_settings";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/settings/{id}")
     public String updateSettings(@PathVariable int id, @ModelAttribute("settings") Settings settings, Model model) {
         try {
@@ -87,6 +93,7 @@ public class SettingsController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/settings/{id}")
     public String deleteSettings(@PathVariable int id) {
         settingsService.deleteSettingsById(id);

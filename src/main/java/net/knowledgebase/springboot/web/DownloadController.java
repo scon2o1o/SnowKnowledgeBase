@@ -16,6 +16,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,7 @@ public class DownloadController {
         this.downloadTypeService = downloadTypeService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/downloads")
     public String getAllDownloads(Model model, Model settingsModel) {
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
@@ -69,6 +71,7 @@ public class DownloadController {
         return "downloads";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/downloads/new")
     public String createDownloadForm(Model settingsModel) {
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
@@ -81,6 +84,7 @@ public class DownloadController {
         return "create_download";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/downloads/upload")
     public String uploadMultipleDownloads(@RequestParam("downloads") MultipartFile[] downloads) {
         try{
@@ -93,6 +97,7 @@ public class DownloadController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/downloads/{id}")
     public ResponseEntity<ByteArrayResource> getDownload(@PathVariable Long id) {
         Download download = downloadStorageService.getDownload(id).get();
@@ -102,12 +107,14 @@ public class DownloadController {
                 .body(new ByteArrayResource(download.getContent()));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/downloads/delete//{id}")
     public String deleteDownload(@PathVariable Long id) {
         downloadStorageService.deleteDownloadById(id);
         return "redirect:/downloads";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/downloads/edit/{id}")
     public String editDownloadForm(@PathVariable Long id, Model model, Model settingsModel, Model downloadTypeModel) {
         model.addAttribute("download", downloadStorageService.findDownloadsWithoutContentById(id));
@@ -122,6 +129,7 @@ public class DownloadController {
         return "edit_download";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/downloads/edit/{id}")
     public String updateDownloadWithoutContent(@PathVariable Long id, @ModelAttribute("downloadDto") DownloadDto downloadDto){
         try{

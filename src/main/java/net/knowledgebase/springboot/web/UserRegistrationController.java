@@ -8,6 +8,7 @@ import net.knowledgebase.springboot.service.SettingsService;
 import net.knowledgebase.springboot.service.SmtpService;
 import net.knowledgebase.springboot.service.UserService;
 import net.knowledgebase.springboot.web.dto.UserRegistrationDto;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +52,7 @@ public class UserRegistrationController {
         return new UserRegistrationDto();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping
     public String showRegistrationForm(Model settingsModel) {
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
@@ -63,6 +65,7 @@ public class UserRegistrationController {
         return "registration";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto, HttpServletRequest request) {
         try {

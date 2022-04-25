@@ -3,6 +3,7 @@ package net.knowledgebase.springboot.web;
 import net.knowledgebase.springboot.model.Audit;
 import net.knowledgebase.springboot.model.Document;
 import net.knowledgebase.springboot.service.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class DocumentController {
         this.settingsService = settingsService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/documents")
     public String listDocuments(Model model, Model settingsModel) {
         model.addAttribute("documents", documentService.getAllDocuments());
@@ -58,6 +60,7 @@ public class DocumentController {
         return "subcategories";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/documents/new")
     public String createDocumentForm(Model model, Model categoryModel, Model SubcategoryModel, Model settingsModel) {
         Document document = new Document();
@@ -74,6 +77,7 @@ public class DocumentController {
         return "create_document";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/documents")
     public String saveDocument(@ModelAttribute("document") Document document) {
         try {
@@ -88,6 +92,7 @@ public class DocumentController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/documents/edit/{id}")
     public String editDocumentForm(@PathVariable Long id, Model model, Model categoryModel, Model subcategoryModel, Model settingsModel) {
         model.addAttribute("document", documentService.getDocumentById(id));
@@ -103,6 +108,7 @@ public class DocumentController {
         return "edit_document";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/documents/{id}")
     public String updateDocument(@PathVariable Long id, @ModelAttribute("document") Document document, Model model) {
         try {
@@ -141,6 +147,7 @@ public class DocumentController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/documents/view/{id}")
     public String viewDocumentForm(@PathVariable Long id, Model model, Model settingsModel) {
         model.addAttribute("document", documentService.getDocumentById(id));
@@ -154,6 +161,7 @@ public class DocumentController {
         return "view_document";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/documents/view_document/{id}")
     public String viewDocumentFormClient(@PathVariable Long id, Model model, Model settingsModel) {
         model.addAttribute("document", documentService.getDocumentById(id));
@@ -167,6 +175,7 @@ public class DocumentController {
         return "view_document_client";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/documents/{id}")
     public String deleteDocument(@PathVariable Long id) {
         Document existingDocument = documentService.getDocumentById(id);

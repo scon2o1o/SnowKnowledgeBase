@@ -5,6 +5,7 @@ import net.knowledgebase.springboot.model.Subcategory;
 import net.knowledgebase.springboot.service.AuditService;
 import net.knowledgebase.springboot.service.SettingsService;
 import net.knowledgebase.springboot.service.SubcategoryService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ public class SubcategoryController {
         this.settingsService = settingsService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/subcategories")
     public String listSubcategories(Model model, Model settingsModel) {
         model.addAttribute("subcategories", subcategoryService.getAllSubcategories());
@@ -40,6 +42,7 @@ public class SubcategoryController {
         return "subcategories";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/subcategories/new")
     public String createSubcategoryForm(Model model, Model settingsModel) {
         Subcategory subcategory = new Subcategory();
@@ -54,6 +57,7 @@ public class SubcategoryController {
         return "create_subcategory";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/subcategories")
     public String saveSubcategory(@ModelAttribute("subcategory") Subcategory subcategory) {
         try {
@@ -66,6 +70,7 @@ public class SubcategoryController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/subcategories/edit/{id}")
     public String editSubcategoryForm(@PathVariable Long id, Model model, Model settingsModel) {
         model.addAttribute("subcategory", subcategoryService.getSubcategoryById(id));
@@ -79,6 +84,7 @@ public class SubcategoryController {
         return "edit_subcategory";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/subcategories/{id}")
     public String updateSubcategory(@PathVariable Long id,
                                     @ModelAttribute("subcategory") Subcategory subcategory,
@@ -98,6 +104,7 @@ public class SubcategoryController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/subcategories/{id}")
     public String deleteSubcategory(@PathVariable Long id) {
         try {

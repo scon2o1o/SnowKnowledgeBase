@@ -5,6 +5,7 @@ import net.knowledgebase.springboot.model.DownloadType;
 import net.knowledgebase.springboot.service.AuditService;
 import net.knowledgebase.springboot.service.DownloadTypeService;
 import net.knowledgebase.springboot.service.SettingsService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ public class DownloadTypeController {
         this.downloadTypeService = downloadTypeService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/downloadtypes")
     public String listDownloadTypes(Model model, Model settingsModel) {
         model.addAttribute("downloadtypes", downloadTypeService.getAllDownloadTypes());
@@ -40,6 +42,7 @@ public class DownloadTypeController {
         return "downloadtypes";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/downloadtypes/new")
     public String createDownloadTypeForm(Model model, Model settingsModel) {
         DownloadType downloadType = new DownloadType();
@@ -54,6 +57,7 @@ public class DownloadTypeController {
         return "create_downloadtype";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/downloadtypes")
     public String saveDownloadType(@ModelAttribute("downloadtype") DownloadType downloadType) {
         try {
@@ -66,6 +70,7 @@ public class DownloadTypeController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/downloadtypes/edit/{id}")
     public String editDownloadTypeForm(@PathVariable Long id, Model model, Model settingsModel) {
         model.addAttribute("downloadtype", downloadTypeService.getDownloadTypeById(id));
@@ -79,6 +84,7 @@ public class DownloadTypeController {
         return "edit_downloadtype";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/downloadtypes/{id}")
     public String updateDownloadType(@PathVariable Long id,
                                      @ModelAttribute("downloadtype") DownloadType downloadType,
@@ -98,6 +104,7 @@ public class DownloadTypeController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/downloadtypes/{id}")
     public String deleteDownloadType(@PathVariable Long id) {
         try {
