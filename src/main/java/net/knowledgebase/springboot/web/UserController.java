@@ -6,9 +6,11 @@ import net.knowledgebase.springboot.repository.UserRepository;
 import net.knowledgebase.springboot.service.AuditService;
 import net.knowledgebase.springboot.service.SettingsService;
 import net.knowledgebase.springboot.service.UserService;
+import net.knowledgebase.springboot.web.dto.UserPasswordDto;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,12 +50,9 @@ public class UserController {
         return "users";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("users/password")
-    public String editPasswordForm(Model model, Model settingsModel){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        model.addAttribute("user", userRepository.findByEmail(currentPrincipalName));
+    public String editPasswordForm(Model model, Model settingsModel) {
+        model.addAttribute("userPasswordDto", new UserPasswordDto());
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
         List settings = settingsService.getAllSettings();
         if (settings.isEmpty()) {
@@ -64,17 +63,21 @@ public class UserController {
         return "edit_password";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("users/password")
-    public String updatePassword(@ModelAttribute("user") User user){
-        try{
+    public String updatePassword(@ModelAttribute("userPasswordDto") UserPasswordDto userPasswordDto) {
+        try {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
             User existingUser = userRepository.findByEmail(currentPrincipalName);
-            existingUser.setPassword(user.getPassword());
-            userService.updateUserPassword(existingUser);
-            return "redirect:/users/password?success";
-        } catch(Exception e){
+            if (passwordEncoder.matches(userPasswordDto.getCurrentPassword(), existingUser.getPassword())) {
+                existingUser.setPassword(userPasswordDto.getNewPassword());
+                userService.updateUserPassword(existingUser);
+                return "redirect:/users/password?success";
+            } else {
+                return "redirect:/users/password?fail";
+            }
+        } catch (Exception e) {
             return "redirect:/users/password?fail";
         }
     }

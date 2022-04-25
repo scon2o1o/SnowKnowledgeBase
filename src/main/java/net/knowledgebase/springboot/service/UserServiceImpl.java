@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
                     + " Click the link below to set your password: \n\n"
                     + resetPasswordLink
                     + "\n\nThe Knowledge Base is the new location to find help content for the Quantum Payroll application."
-                    + "\n\n Downloads will also now exclusively be available through the Knowledge Base"
-                    + "\n\n If you have any queries, please contact our support team";
+                    + "\n\nDownloads will also now exclusively be available through the Knowledge Base"
+                    + "\n\nIf you have any queries, please contact our support team";
             String otherContent = "Hello,"
                     + "\n\nA new account has been created for you on the Snow Technology Knowledgebase."
                     + " Click the link below to set your password: \n\n"
