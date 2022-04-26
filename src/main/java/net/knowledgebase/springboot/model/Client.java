@@ -28,7 +28,7 @@ public class Client {
     @Column
     private String mobile;
 
-    @Column(columnDefinition = "0")
+    @Column
     private boolean account;
 
     public Client() {

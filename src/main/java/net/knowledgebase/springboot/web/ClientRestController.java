@@ -48,6 +48,7 @@ public class ClientRestController {
             }
         }
         Audit audit = new Audit("Client '" + client.getFirstName() + " " + client.getLastName() + "' added", "Action via API");
+        auditService.saveAudit(audit);
         return clientRepository.save(client);
     }
 

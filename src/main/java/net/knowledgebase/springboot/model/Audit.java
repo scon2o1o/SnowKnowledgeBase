@@ -38,8 +38,6 @@ public class Audit {
     }
 
     public Audit(String action, String user) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         this.datetime = date;
