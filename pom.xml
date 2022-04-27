@@ -11,10 +11,10 @@
     </parent>
     <groupId>net.knowledgebase</groupId>
     <artifactId>knowledgebase</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name></name>
-    <description></description>
+    <version>0.0.1</version>
+    <packaging>war</packaging>
+    <name>knowledgebase</name>
+    <description>Snow Technology Knowledge Base</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -80,6 +80,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
