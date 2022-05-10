@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         try {
             Settings settings = getSettings();
             String token = RandomString.make(30);
-            String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
+            String resetPasswordLink = settings.getUrl() + "/reset_password?token=" + token;
             String clientContent = "Hello,"
                     + "\n\nA new account has been created for you on the Snow Technology Knowledgebase."
                     + " Click the link below to set your password: \n\n"

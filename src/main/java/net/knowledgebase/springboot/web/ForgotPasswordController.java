@@ -2,10 +2,11 @@ package net.knowledgebase.springboot.web;
 
 import net.bytebuddy.utility.RandomString;
 import net.knowledgebase.springboot.exception.UserNotFoundException;
+import net.knowledgebase.springboot.model.Settings;
 import net.knowledgebase.springboot.model.User;
+import net.knowledgebase.springboot.repository.SettingsRepository;
 import net.knowledgebase.springboot.service.SmtpService;
 import net.knowledgebase.springboot.service.UserService;
-import net.knowledgebase.springboot.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ForgotPasswordController {
@@ -24,6 +26,17 @@ public class ForgotPasswordController {
     @Autowired
     private SmtpService smtpService;
 
+    @Autowired
+    private SettingsRepository settingsRepository;
+
+    public Settings getSettings() {
+        List<Settings> databaseSettings = settingsRepository.findAll();
+        Settings settings = new Settings();
+        settings.setId(databaseSettings.get(0).getId());
+        settings.setUrl(databaseSettings.get(0).getUrl());
+        settings.setEmail(databaseSettings.get(0).isEmail());
+        return settings;
+    }
 
     @GetMapping("/forgot_password")
     public String showForgotPasswordForm() {
@@ -36,7 +49,8 @@ public class ForgotPasswordController {
         String token = RandomString.make(30);
         try {
             userService.updateResetPasswordToken(token, email);
-            String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
+            Settings settings = getSettings();
+            String resetPasswordLink = settings.getUrl() + "/reset_password?token=" + token;
             String content = "Hello,"
                     + "\n\nYou have requested to reset your password."
                     + " Click the link below to change your password: \n\n"

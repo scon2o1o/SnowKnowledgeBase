@@ -161,7 +161,6 @@ public class DocumentController {
         return "view_document";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/documents/view_document/{id}")
     public String viewDocumentFormClient(@PathVariable Long id, Model model, Model settingsModel) {
         model.addAttribute("document", documentService.getDocumentById(id));

@@ -46,7 +46,6 @@ public class DownloadController {
         this.downloadTypeService = downloadTypeService;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/downloads")
     public String getAllDownloads(Model model, Model settingsModel) {
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
@@ -97,7 +96,6 @@ public class DownloadController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/downloads/{id}")
     public ResponseEntity<ByteArrayResource> getDownload(@PathVariable Long id) {
         Download download = downloadStorageService.getDownload(id).get();
