@@ -20,6 +20,10 @@
 <body class="d-flex flex-column h-100">
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <button class="btn btn-link" id="menu-toggle"
+                style="margin-right: 20px;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <a th:if="${response=='NoData'}" class="navbar-brand" th:href="@{/}">Knowledge Base</a>
         <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
@@ -53,7 +57,10 @@
 <main role="main">
     <div class="jumbotron">
         <div class="container">
-            <br><br>
+            <br>
+            <div style="text-align: center">
+                <img alt="login-logo" class="mb-4" th:src="@{/images/combined-logo.svg}" style="width:700px">
+            </div><br>
             <h1 style="text-align: center" class="display-4" th:each="settings: ${settings}">Welcome to the
                 [[${settings.title}]]</h1><br>
             <p style="text-align: center">Search our full library of documents and downloads below</p><br>
@@ -67,27 +74,47 @@
             </div>
             </form>
         </div>
-    </div><br><br>
+    </div><br>
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <h3><i class="fa-solid fa-file-lines"></i> Documents</h3><br>
+            <div class="col-md-4">
+                <h3><i class="fa-solid fa-file-lines"></i>  Documents</h3><br>
                 <p>Browse through our collection of articles, user guides and FAQs.
                     This section covers all the help material you will need to navigate the Snow Technology suite of
                     products.
-                    If you can not find what you are looking for, please log a call with our support desk</p><br>
+                    If you can not find what you are looking for, please log a call with our support desk.</p><br>
                 <p><a class="btn btn-secondary" th:href="@{/docs}" role="button">View Documents &raquo;</a></p>
             </div>
-            <div class="col-md-6">
-                <h3><i class="fa-solid fa-cloud-arrow-down"></i> Downloads</h3><br>
+            <div class="col-md-4">
+                <h3><i class="fa-solid fa-cloud-arrow-down"></i>  Downloads</h3><br>
                 <p>The downloads section is where you will find all the latest releases of our software.
                     You will also find a catalogue of scripts that can be added to our payroll software.
-                    To add a script to the software, place it in the Scripts folder of the payroll directory</p><br>
+                    To add a script to the software, place it in the Scripts folder of the payroll directory.</p><br>
                 <p><a class="btn btn-secondary" th:href="@{/files}" role="button">View Downloads &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h3><i class="fa-solid fa-desktop"></i>  Website</h3><br>
+                <p>Visit our website to keep up-to-date on all the latest news from Snow Technology.
+                Browse our product catalogue and discover what Snow Technology has to offer.
+                Book a free demo of our payroll software, or any of our other add-on offerings, today.</p><br>
+                <p><a class="btn btn-secondary" href="https://snowtechnology.ie/" role="button">Vist Website &raquo;</a></p>
             </div>
         </div>
     </div>
 </main>
+<script th:inline="javascript">
+var documents = [];
+/*<![CDATA[*/
+var documentObjectArray = /*[[${documents}]]*/ ;
+for (var j = 0; j < documentObjectArray.length; j++) {
+ var newDocument = document.createElement('a');
+ newDocument.textContent = documentObjectArray[j].name;
+ newDocument.setAttribute('href', newDocument.baseURI+'documents/view_document/'+documentObjectArray[j].id);
+ documents.push(newDocument);
+}
+/*]]>*/
+documents.sort();
+</script>
 <script crossorigin="anonymous"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>

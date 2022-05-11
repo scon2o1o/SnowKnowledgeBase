@@ -34,6 +34,6 @@ for (i = 1; i < rowLength; i++) {
 
 var table = $('#dataTable').DataTable({
     "order": [
-        [0, 'desc']
+        [1, 'asc']
     ]
 });

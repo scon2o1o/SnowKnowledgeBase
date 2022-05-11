@@ -7,7 +7,6 @@ import net.knowledgebase.springboot.model.Settings;
 import net.knowledgebase.springboot.model.User;
 import net.knowledgebase.springboot.repository.SettingsRepository;
 import net.knowledgebase.springboot.repository.UserRepository;
-import net.knowledgebase.springboot.util.Utility;
 import net.knowledgebase.springboot.web.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -76,7 +75,7 @@ public class UserServiceImpl implements UserService {
                 User user = new User(registrationDto.getFirstName(),
                         registrationDto.getLastName(), registrationDto.getEmail(),
                         null, registrationDto.getRole(), Arrays.asList(new Role("ROLE_USER")), token);
-                if (settings.isEmail() == true) {
+                if (settings.isEmail()) {
                     smtpService.sendEmail(user.getEmail(), "Snow Knowledge Base Account Creation", otherContent);
                 }
                 return userRepository.save(user);
@@ -84,7 +83,7 @@ public class UserServiceImpl implements UserService {
                 User user = new User(registrationDto.getFirstName(),
                         registrationDto.getLastName(), registrationDto.getEmail(),
                         null, registrationDto.getRole(), Arrays.asList(new Role("ROLE_ADMIN")), token);
-                if (settings.isEmail() == true) {
+                if (settings.isEmail()) {
                     smtpService.sendEmail(user.getEmail(), "Snow Knowledge Base Account Creation", otherContent);
                 }
                 return userRepository.save(user);
@@ -92,7 +91,7 @@ public class UserServiceImpl implements UserService {
                 User user = new User(registrationDto.getFirstName(),
                         registrationDto.getLastName(), registrationDto.getEmail(),
                         null, registrationDto.getRole(), Arrays.asList(new Role("ROLE_CLIENT")), token);
-                if (settings.isEmail() == true) {
+                if (settings.isEmail()) {
                     smtpService.sendEmail(user.getEmail(), "Snow Knowledge Base Account Creation", clientContent);
                 }
                 return userRepository.save(user);

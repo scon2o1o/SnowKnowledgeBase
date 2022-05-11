@@ -39,7 +39,7 @@ public class ClientRestController {
         if (client.getCompany().equals("") || client.getCompany().equals(" ")) {
             throw new InternalServerErrorException("No company assigned to this client");
         }
-        if (client.isAccount() == true) {
+        if (client.isAccount()) {
             User user = userRepository.findByEmail(client.getEmail());
             if (user == null) {
                 UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(),
@@ -57,7 +57,7 @@ public class ClientRestController {
         for (Client client : clients) {
             clientRepository.save(client);
             Audit audit = new Audit("Client '" + client.getFirstName() + " " + client.getLastName() + "' added", "Action via API");
-            if (client.isAccount() == true) {
+            if (client.isAccount()) {
                 User user = userRepository.findByEmail(client.getEmail());
                 if (user == null) {
                     UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(),
@@ -109,7 +109,7 @@ public class ClientRestController {
             auditService.saveAudit(audit);
         }
         clientRepository.save(client);
-        if (client.isAccount() == true) {
+        if (client.isAccount()) {
             User user = userRepository.findByEmail(client.getEmail());
             if (user == null) {
                 UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(),
