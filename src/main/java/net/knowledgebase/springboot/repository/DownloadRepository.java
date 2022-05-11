@@ -1,6 +1,5 @@
 package net.knowledgebase.springboot.repository;
 
-import net.knowledgebase.springboot.model.Document;
 import net.knowledgebase.springboot.model.Download;
 import net.knowledgebase.springboot.web.dto.DownloadDto;
 import org.springframework.data.jpa.repository.JpaRepository;

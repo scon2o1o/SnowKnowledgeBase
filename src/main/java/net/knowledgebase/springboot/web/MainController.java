@@ -70,6 +70,30 @@ public class MainController {
                 return "account_not_active";
             }
         }
+        return "home";
+    }
+
+    @GetMapping("/docs")
+    public String docs(Model documentModel, Model categoryModel, Model settingsModel) {
+        documentModel.addAttribute("documents", documentService.getAllDocuments());
+        categoryModel.addAttribute("categories", categoryService.getAllCategories());
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user = userRepository.findByEmail(currentPrincipalName);
+        if (user.getRole().equals("Client")) {
+            Client client = clientRepository.findByEmail(user.getEmail());
+            Company company = companyRepository.findByName(client.getCompany());
+            if (!"Active".equals(company.getStatus())) {
+                return "account_not_active";
+            }
+        }
         return "index";
     }
 
