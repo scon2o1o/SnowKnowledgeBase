@@ -1,3 +1,11 @@
+.bg-primary {
+    background-color: #313b5d!important;
+}
+
+.bg-secondary {
+    background-color: #4ce6df!important;
+}
+
 /*the container must be positioned relative:*/
 .autocomplete {
   position: relative;
