@@ -19,7 +19,7 @@
 </head>
 <body class="d-flex flex-column h-100">
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
         <button class="btn btn-link" id="menu-toggle"
                 style="margin-right: 20px;">
             <span class="navbar-toggler-icon"></span>
@@ -29,11 +29,13 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Documents</a>
-                    <span class="sr-only">(current)</span>
+                    <a class="nav-link" th:href="@{/}">Home</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/files}">Downloads</a>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/docs}">Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/files}">Downloads</a>
                     <span class="sr-only">(current)</span>
                 </li>
             </ul>
@@ -53,12 +55,12 @@
     </nav>
 </header>
 <div class="d-flex" id="wrapper">
-    <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="bg-secondary border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
-            <strong class="list-group-item list-group-item-action bg-light">Filter by Type</strong>
-            <a class="list-group-item list-group-item-action bg-light" onclick="sortDownloadTable('')">Show All</a>
-            <a class="list-group-item list-group-item-action bg-light" th:each="downloadtypes: ${downloadtypes}"
+            <strong class="list-group-item list-group-item-action bg-secondary">Filter by Type</strong>
+            <a class="list-group-item list-group-item-action bg-secondary" onclick="sortDownloadTable('')">Show All</a>
+            <a class="list-group-item list-group-item-action bg-secondary" th:each="downloadtypes: ${downloadtypes}"
                th:onclick="sortDownloadTable([[${downloadtypes.name}]])">[[${downloadtypes.name}]]</a>
         </div>
     </div>

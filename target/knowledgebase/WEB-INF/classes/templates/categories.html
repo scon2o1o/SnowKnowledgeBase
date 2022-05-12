@@ -19,7 +19,7 @@
 </head>
 <body class="d-flex flex-column h-100">
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
         <button class="btn btn-link" id="menu-toggle"
                 style="margin-right: 20px;">
             <span class="navbar-toggler-icon"></span>
@@ -49,11 +49,11 @@
     </nav>
 </header>
 <div class="d-flex" id="wrapper">
-    <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="bg-secondary border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
-            <a class="list-group-item list-group-item-action bg-light" th:href="@{/admin}">Close</a>
-            <a class="list-group-item list-group-item-action bg-light" th:href="@{/categories/new}"
+            <a class="list-group-item list-group-item-action bg-secondary" th:href="@{/admin}">Close</a>
+            <a class="list-group-item list-group-item-action bg-secondary" th:href="@{/categories/new}"
                sec:authorize="hasRole('ROLE_ADMIN')">Add Category</a>
         </div>
     </div>
