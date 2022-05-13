@@ -36,6 +36,11 @@
         <a th:if="${response==''}" class="navbar-brand" th:href="@{/}" th:each="settings: ${settings}">[[${settings.title}]]</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        Home
+                    </a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" th:href="@{/admin}">
                         Admin
