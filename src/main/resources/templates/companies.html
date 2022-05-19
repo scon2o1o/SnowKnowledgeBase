@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div th:if="${param.fail}">
-                <div class="alert alert-danger">Failed to add company! Please try again
+                <div class="alert alert-danger">Failed to add/update/delete company! Please try again
                 </div>
             </div>
             <table class="table table-hover" id="dataTable" style="width:100%">
@@ -110,7 +110,9 @@
                     <td th:text="${company.name}"></td>
                     <td th:text="${company.type}"></td>
                     <td th:text="${company.phone}"></td>
-                    <td th:text="${company.website}"></td>
+                    <td>
+                        <a th:href="${company.website}" th:text="${company.website}" target="_blank"/>
+                    </td>
                     <td th:text="${company.email}"></td>
                     <td th:text="${company.status}"></td>
                     <td>
@@ -138,6 +140,6 @@
         integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
         referrerpolicy="no-referrer"
         src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script th:src="@{/js/users.js}" type="text/javascript"></script>
+<script th:src="@{/js/companies.js}" type="text/javascript"></script>
 </body>
 </html>

@@ -2,7 +2,6 @@ package net.knowledgebase.springboot.web;
 
 import net.knowledgebase.springboot.model.Client;
 import net.knowledgebase.springboot.model.Company;
-import net.knowledgebase.springboot.model.Download;
 import net.knowledgebase.springboot.model.User;
 import net.knowledgebase.springboot.repository.ClientRepository;
 import net.knowledgebase.springboot.repository.CompanyRepository;
@@ -140,5 +139,4 @@ public class MainController {
     public String login() {
         return "login";
     }
-
 }

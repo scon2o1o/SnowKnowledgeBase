@@ -10,9 +10,9 @@ public interface CompanyService {
 
     Company saveCompany(Company company);
 
-    Company getCompanyById(Long id);
+    Company getCompanyById(String id);
 
     Company updateCompany(Company company);
 
-    void deleteCompanyById(Long id);
+    void deleteCompanyById(String id);
 }

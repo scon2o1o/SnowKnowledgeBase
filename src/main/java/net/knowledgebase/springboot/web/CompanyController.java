@@ -76,7 +76,7 @@ public class CompanyController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/companies/edit/{id}")
-    public String editCompanyForm(@PathVariable Long id, Model model, Model settingsModel) {
+    public String editCompanyForm(@PathVariable String id, Model model, Model settingsModel) {
         model.addAttribute("company", companyService.getCompanyById(id));
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
         List settings = settingsService.getAllSettings();
@@ -90,7 +90,7 @@ public class CompanyController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/companies/{id}")
-    public String updateCompany(@PathVariable Long id,
+    public String updateCompany(@PathVariable String id,
                                  @ModelAttribute("company") Company company,
                                  Model model) {
         try {
@@ -160,7 +160,7 @@ public class CompanyController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/companies/{id}")
-    public String deleteCompany(@PathVariable Long id) {
+    public String deleteCompany(@PathVariable String id) {
         try {
             Company company = companyService.getCompanyById(id);
             Audit audit = new Audit("Company '" + company.getName() + "' deleted");

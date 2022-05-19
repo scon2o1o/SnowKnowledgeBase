@@ -81,6 +81,15 @@
                 <div class="form-row">
                     <div class="col" style="padding-left:40px; padding-right:40px">
                         <div class="form-group">
+                            <label>ID</label>
+                            <input
+                                    class="form-control"
+                                    name="id"
+                                    required
+                                    th:field="*{id}" type="text"
+                            />
+                        </div>
+                        <div class="form-group">
                             <label>Name</label>
                             <input
                                     class="form-control"
@@ -95,6 +104,7 @@
                                 <option text="" value=""></option>
                                 <option value="Customer">Customer</option>
                                 <option value="Partner">Partner</option>
+                                <option value="Prospect">Prospect</option>
                                 <option value="Investor">Investor</option>
                                 <option value="Reseller">Reseller</option>
                                 <option value="Other">Other</option>
@@ -124,6 +134,8 @@
                                     th:field="*{email}" type="text"
                             />
                         </div>
+                    </div>
+                    <div class="col" style="padding-left:40px; padding-right:40px">
                         <div class="form-group">
                             <label for="type">Status</label>
                             <select class="form-control" id="status" required th:field="*{status}">
@@ -134,8 +146,6 @@
                                 <option value="Prospect">Prospect</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="col" style="padding-left:40px; padding-right:40px">
                         <div class="form-group">
                             <label>Address Line 1</label>
                             <input

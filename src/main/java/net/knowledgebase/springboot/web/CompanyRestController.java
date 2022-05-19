@@ -30,7 +30,7 @@ public class CompanyRestController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Company> updateCompany(@PathVariable long id, @RequestBody Company companyDetails){
+    public ResponseEntity<Company> updateCompany(@PathVariable String id, @RequestBody Company companyDetails){
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No company found with id: " + id));
         company.setAddr1(companyDetails.getAddr1());
