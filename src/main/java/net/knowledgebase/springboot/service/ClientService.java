@@ -9,9 +9,9 @@ public interface ClientService {
 
     Client saveClient(Client client);
 
-    Client getClientById(Long id);
+    Client getClientById(String id);
 
     Client updateClient(Client client);
 
-    void deleteClientById(Long id);
+    void deleteClientById(String id);
 }

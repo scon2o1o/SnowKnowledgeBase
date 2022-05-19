@@ -44,7 +44,7 @@ public class ClientRestController {
             if (user == null) {
                 UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(),
                         client.getLastName(), client.getEmail(), null, "Client", RandomString.make(30));
-                userService.save(registrationDto, request);
+                userService.save(registrationDto);
             }
         }
         Audit audit = new Audit("Client '" + client.getFirstName() + " " + client.getLastName() + "' added", "Action via API");
@@ -62,7 +62,7 @@ public class ClientRestController {
                 if (user == null) {
                     UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(),
                             client.getLastName(), client.getEmail(), null, "Client", RandomString.make(30));
-                    userService.save(registrationDto, request);
+                    userService.save(registrationDto);
                 }
             }
         }
@@ -70,7 +70,7 @@ public class ClientRestController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Client> updateClient(@PathVariable long id, @RequestBody Client clientDetails, HttpServletRequest request) {
+    public ResponseEntity<Client> updateClient(@PathVariable String id, @RequestBody Client clientDetails, HttpServletRequest request) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No client found with id: " + id));
         client.setLastName(clientDetails.getLastName());
@@ -114,7 +114,7 @@ public class ClientRestController {
             if (user == null) {
                 UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(),
                         client.getLastName(), client.getEmail(), null, "Client", RandomString.make(30));
-                userService.save(registrationDto, request);
+                userService.save(registrationDto);
             }
         }
         return ResponseEntity.ok(client);

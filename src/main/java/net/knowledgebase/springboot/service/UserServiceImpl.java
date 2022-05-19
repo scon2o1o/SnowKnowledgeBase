@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(UserRegistrationDto registrationDto, HttpServletRequest request) {
+    public User save(UserRegistrationDto registrationDto) {
         User blankUser = new User();
         try {
             Settings settings = getSettings();

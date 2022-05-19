@@ -1,10 +1,16 @@
 package net.knowledgebase.springboot.web;
 
+import net.bytebuddy.utility.RandomString;
+import net.knowledgebase.springboot.model.Client;
 import net.knowledgebase.springboot.model.Company;
+import net.knowledgebase.springboot.model.User;
+import net.knowledgebase.springboot.repository.ClientRepository;
 import net.knowledgebase.springboot.repository.CompanyRepository;
+import net.knowledgebase.springboot.repository.UserRepository;
+import net.knowledgebase.springboot.service.UserService;
+import net.knowledgebase.springboot.web.dto.UserRegistrationDto;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -38,12 +44,18 @@ public class SalesforceController {
     public static Header prettyPrintHeader = new BasicHeader("X-PrettyPrint", "1");
 
     private static CompanyRepository companyRepository;
+    private static ClientRepository clientRepository;
+    private static UserRepository userRepository;
+    private static UserService userService;
 
-    public SalesforceController(CompanyRepository companyRepository) {
+    public SalesforceController(CompanyRepository companyRepository, ClientRepository clientRepository, UserRepository userRepository, UserService userService) {
         this.companyRepository = companyRepository;
+        this.clientRepository = clientRepository;
+        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
-    @Scheduled(fixedDelay = 1000*60*5, initialDelay = 1000*10)
+    @Scheduled(fixedDelay = 1000 * 60, initialDelay = 1000 * 10)
     public void salesforceTest() {
 
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
@@ -66,11 +78,11 @@ public class SalesforceController {
             ioException.printStackTrace();
         }
 
-        final int statusCode = response.getStatusLine().getStatusCode();
-        if (statusCode != HttpStatus.SC_OK) {
-            System.out.println("Error authenticating to Force.com: " + statusCode);
-            return;
-        }
+//        final int statusCode = response.getStatusLine().getStatusCode();
+//        if (statusCode != HttpStatus.SC_OK) {
+//            System.out.println("Error authenticating to Force.com: " + statusCode);
+//            return;
+//        }
 
         String getResult = null;
         try {
@@ -93,7 +105,8 @@ public class SalesforceController {
 
         baseUri = loginInstanceUrl + REST_ENDPOINT + API_VERSION;
         oauthHeader = new BasicHeader("Authorization", "OAuth " + loginAccessToken);
-        queryAccounts();
+        //queryAccounts();
+        queryClients();
 
         httpPost.releaseConnection();
     }
@@ -148,6 +161,69 @@ public class SalesforceController {
                             }
                         }
                         companyRepository.save(company);
+                    }
+                } catch (JSONException je) {
+                    je.printStackTrace();
+                }
+            } else {
+                System.exit(-1);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        }
+    }
+
+    public static void queryClients() {
+        try {
+            CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+
+            String uri = baseUri + "/queryAll?q=SELECT+id,FirstName,LastName,AccountId,Email,Phone,MobilePhone+FROM+Contact";
+            HttpGet httpGet = new HttpGet(uri);
+            httpGet.addHeader(oauthHeader);
+            httpGet.addHeader(prettyPrintHeader);
+
+            HttpResponse response = httpClient.execute(httpGet);
+
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 200) {
+                String response_string = EntityUtils.toString(response.getEntity());
+                try {
+                    JSONObject json = new JSONObject(response_string);
+                    JSONArray j = json.getJSONArray("records");
+                    for (int i = 0; i < j.length(); i++) {
+                        Client client = new Client();
+                        client.setId(json.getJSONArray("records").getJSONObject(i).getString("Id"));
+                        if (json.getJSONArray("records").getJSONObject(i).getString("AccountId") != "null") {
+                            client.setCompany(companyRepository.findCompanyNameByID(json.getJSONArray("records").getJSONObject(i).getString("AccountId")));
+                        }
+                        if (json.getJSONArray("records").getJSONObject(i).getString("Email") != "null") {
+                            client.setEmail(json.getJSONArray("records").getJSONObject(i).getString("Email"));
+                        }
+                        if (json.getJSONArray("records").getJSONObject(i).getString("FirstName") != "null") {
+                            client.setFirstName(json.getJSONArray("records").getJSONObject(i).getString("FirstName"));
+                        }
+                        if (json.getJSONArray("records").getJSONObject(i).getString("Phone") != "null") {
+                            client.setPhone(json.getJSONArray("records").getJSONObject(i).getString("Phone"));
+                        }
+                        if (json.getJSONArray("records").getJSONObject(i).getString("LastName") != "null") {
+                            client.setLastName(json.getJSONArray("records").getJSONObject(i).getString("LastName"));
+                        }
+                        if (json.getJSONArray("records").getJSONObject(i).getString("MobilePhone") != "null") {
+                            client.setMobile(json.getJSONArray("records").getJSONObject(i).getString("MobilePhone"));
+                        }
+                        if (json.getJSONArray("records").getJSONObject(i).getString("Email") != "null") {
+                            //client.setAccount(true);
+                            clientRepository.save(client);
+                            if (client.isAccount()) {
+                                User user = userRepository.findByEmail(client.getEmail());
+                                if (user == null) {
+                                    UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(), client.getLastName(), client.getEmail(), null, "Client", RandomString.make(30));
+                                    userService.save(registrationDto);
+                                }
+                            }
+                        }
                     }
                 } catch (JSONException je) {
                     je.printStackTrace();

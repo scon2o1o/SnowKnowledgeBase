@@ -79,7 +79,7 @@ public class ClientController {
                 User user = userRepository.findByEmail(client.getEmail());
                 if (user == null) {
                     UserRegistrationDto registrationDto = new UserRegistrationDto(client.getFirstName(), client.getLastName(), client.getEmail(), null, "Client", RandomString.make(30));
-                    userService.save(registrationDto, request);
+                    userService.save(registrationDto);
                 }
             }
             return "redirect:/clients?success";
@@ -90,7 +90,7 @@ public class ClientController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/clients/edit/{id}")
-    public String editClientForm(@PathVariable Long id, Model clientModel, Model companyModel, Model settingsModel) {
+    public String editClientForm(@PathVariable String id, Model clientModel, Model companyModel, Model settingsModel) {
         companyModel.addAttribute("company", companyService.getAllCompanies());
         clientModel.addAttribute("client", clientService.getClientById(id));
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
@@ -105,7 +105,7 @@ public class ClientController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/clients/{id}")
-    public String updateClient(@PathVariable Long id,
+    public String updateClient(@PathVariable String id,
                                @ModelAttribute("client") Client client,
                                Model model, HttpServletRequest request) {
         try {
@@ -144,7 +144,7 @@ public class ClientController {
                 User user = userRepository.findByEmail(existingClient.getEmail());
                 if (user == null) {
                     UserRegistrationDto registrationDto = new UserRegistrationDto(existingClient.getFirstName(), existingClient.getLastName(), existingClient.getEmail(), null, "Client", RandomString.make(30));
-                    userService.save(registrationDto, request);
+                    userService.save(registrationDto);
                 }
             }
             return "redirect:/clients?success";
@@ -155,7 +155,7 @@ public class ClientController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/clients/{id}")
-    public String deleteClient(@PathVariable Long id) {
+    public String deleteClient(@PathVariable String id) {
         try {
             Client client = clientService.getClientById(id);
             Audit audit = new Audit("Client '" + client.getFirstName() + " " + client.getLastName() + "' deleted");

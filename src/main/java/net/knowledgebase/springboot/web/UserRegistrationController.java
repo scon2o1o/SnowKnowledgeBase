@@ -72,7 +72,7 @@ public class UserRegistrationController {
             Settings settings = getSettings();
             Audit audit = new Audit("User: " + registrationDto.getEmail() + " added");
             auditService.saveAudit(audit);
-            userService.save(registrationDto, request);
+            userService.save(registrationDto);
             return "redirect:/users?success";
         } catch (Exception e) {
             return "redirect:/registration?fail";

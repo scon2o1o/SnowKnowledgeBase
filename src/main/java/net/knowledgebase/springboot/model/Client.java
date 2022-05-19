@@ -3,12 +3,11 @@ package net.knowledgebase.springboot.model;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -16,10 +15,10 @@ public class Client {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(nullable = false)
+    @Column
     private String company;
 
-    @Column(nullable = false)
+    @Column
     private String email;
 
     @Column
@@ -34,11 +33,11 @@ public class Client {
     public Client() {
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
