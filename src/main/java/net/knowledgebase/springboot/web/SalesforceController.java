@@ -27,6 +27,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Controller
 @EnableScheduling
@@ -124,51 +125,49 @@ public class SalesforceController {
                     for (int i = 0; i < j.length(); i++) {
                         Company company = new Company();
                         company.setId(json.getJSONArray("records").getJSONObject(i).getString("Id"));
-                        if (json.getJSONArray("records").getJSONObject(i).getString("Name") != "null") {
-                            company.setName(json.getJSONArray("records").getJSONObject(i).getString("Name"));
-                        } else{
+                        company.setName(json.getJSONArray("records").getJSONObject(i).getString("Name"));
+                        company.setStatus(json.getJSONArray("records").getJSONObject(i).getString("Account_Status__c"));
+                        company.setType(json.getJSONArray("records").getJSONObject(i).getString("Type"));
+                        company.setWebsite(json.getJSONArray("records").getJSONObject(i).getString("Website"));
+                        if (json.getJSONArray("records").getJSONObject(i).getString("BillingAddress") != "null") {
+                            company.setAddr1(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("street"));
+                            company.setAddr2(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("city"));
+                            company.setAddr4(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("state"));
+                            company.setEircode(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("postalCode"));
+                        }
+                        if (company.getAddr1() == null || Objects.equals(company.getAddr1(), "null")) {
+                            company.setAddr1("");
+                        }
+                        if (company.getAddr2() == null || Objects.equals(company.getAddr2(), "null")) {
+                            company.setAddr2("");
+                        }
+                        if (company.getAddr3() == null || Objects.equals(company.getAddr3(), "null")) {
+                            company.setAddr3("");
+                        }
+                        if (company.getAddr4() == null || Objects.equals(company.getAddr4(), "null")) {
+                            company.setAddr4("");
+                        }
+                        if (company.getEircode() == null || Objects.equals(company.getEircode(), "null")) {
+                            company.setEircode("");
+                        }
+                        if (company.getEmail() == null || Objects.equals(company.getEmail(), "null")) {
+                            company.setEmail("");
+                        }
+                        if (company.getName() == null || Objects.equals(company.getName(), "null")) {
                             company.setName("");
                         }
-                        if (json.getJSONArray("records").getJSONObject(i).getString("Account_Status__c") != "null") {
-                            company.setStatus(json.getJSONArray("records").getJSONObject(i).getString("Account_Status__c"));
-                        } else {
+                        if (company.getPhone() == null || Objects.equals(company.getPhone(), "null")) {
+                            company.setPhone("");
+                        }
+                        if (company.getStatus() == null || Objects.equals(company.getStatus(), "null")) {
                             company.setStatus("");
                         }
-                        if (json.getJSONArray("records").getJSONObject(i).getString("Type") != "null") {
-                            company.setType(json.getJSONArray("records").getJSONObject(i).getString("Type"));
-                        } else {
+                        if (company.getType() == null || Objects.equals(company.getType(), "null")) {
                             company.setType("");
                         }
-                        if (json.getJSONArray("records").getJSONObject(i).getString("Website") != "null") {
-                            company.setWebsite(json.getJSONArray("records").getJSONObject(i).getString("Website"));
-                        } else{
+                        if (company.getWebsite() == null || Objects.equals(company.getWebsite(), "null")) {
                             company.setWebsite("");
                         }
-                        if (json.getJSONArray("records").getJSONObject(i).getString("BillingAddress") != "null") {
-                            if (json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("street") != "null") {
-                                company.setAddr1(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("street"));
-                            } else {
-                                company.setAddr1("");
-                            }
-                            if (json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("city") != "null") {
-                                company.setAddr2(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("city"));
-                            } else {
-                                company.setAddr2("");
-                            }
-                            if (json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("state") != "null") {
-                                company.setAddr4(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("state"));
-                            } else {
-                                company.setAddr4("");
-                            }
-                            if (json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("postalCode") != "null") {
-                                company.setEircode(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("postalCode"));
-                            } else {
-                                company.setEircode("");
-                            }
-                        }
-                        company.setAddr3("");
-                        company.setPhone("");
-                        company.setEmail("");
                         companyRepository.save(company);
                     }
                 } catch (JSONException je) {
@@ -202,37 +201,13 @@ public class SalesforceController {
                     for (int i = 0; i < j.length(); i++) {
                         Client client = new Client();
                         client.setId(json.getJSONArray("records").getJSONObject(i).getString("Id"));
-                        if (json.getJSONArray("records").getJSONObject(i).getString("AccountId") != "null") {
-                            client.setCompany(companyRepository.findCompanyNameByID(json.getJSONArray("records").getJSONObject(i).getString("AccountId")));
-                        } else {
-                            client.setCompany("");
-                        }
-                        if (json.getJSONArray("records").getJSONObject(i).getString("Email") != "null") {
-                            client.setEmail(json.getJSONArray("records").getJSONObject(i).getString("Email"));
-                        } else {
-                            client.setEmail("");
-                        }
-                        if (json.getJSONArray("records").getJSONObject(i).getString("FirstName") != "null") {
-                            client.setFirstName(json.getJSONArray("records").getJSONObject(i).getString("FirstName"));
-                        } else {
-                            client.setFirstName("");
-                        }
-                        if (json.getJSONArray("records").getJSONObject(i).getString("Phone") != "null") {
-                            client.setPhone(json.getJSONArray("records").getJSONObject(i).getString("Phone"));
-                        } else {
-                            client.setPhone("");
-                        }
-                        if (json.getJSONArray("records").getJSONObject(i).getString("LastName") != "null") {
-                            client.setLastName(json.getJSONArray("records").getJSONObject(i).getString("LastName"));
-                        } else {
-                            client.setLastName("");
-                        }
-                        if (json.getJSONArray("records").getJSONObject(i).getString("MobilePhone") != "null") {
-                            client.setMobile(json.getJSONArray("records").getJSONObject(i).getString("MobilePhone"));
-                        } else{
-                            client.setMobile("");
-                        }
-                        if (json.getJSONArray("records").getJSONObject(i).getString("Email") != "null") {
+                        client.setCompany(companyRepository.findCompanyNameByID(json.getJSONArray("records").getJSONObject(i).getString("AccountId")));
+                        client.setEmail(json.getJSONArray("records").getJSONObject(i).getString("Email"));
+                        client.setFirstName(json.getJSONArray("records").getJSONObject(i).getString("FirstName"));
+                        client.setPhone(json.getJSONArray("records").getJSONObject(i).getString("Phone"));
+                        client.setLastName(json.getJSONArray("records").getJSONObject(i).getString("LastName"));
+                        client.setMobile(json.getJSONArray("records").getJSONObject(i).getString("MobilePhone"));
+                        if (json.getJSONArray("records").getJSONObject(i).getString("Email") != "null" || client.getEmail() != null) {
                             //client.setAccount(true);
                             if (client.isAccount()) {
                                 User user = userRepository.findByEmail(client.getEmail());
@@ -241,6 +216,24 @@ public class SalesforceController {
                                     userService.save(registrationDto);
                                 }
                             }
+                        }
+                        if (client.getCompany() == null || Objects.equals(client.getCompany(), "null")) {
+                            client.setCompany("");
+                        }
+                        if (client.getEmail() == null || Objects.equals(client.getEmail(), "null")) {
+                            client.setCompany("");
+                        }
+                        if (client.getFirstName() == null || Objects.equals(client.getFirstName(), "null")) {
+                            client.setFirstName("");
+                        }
+                        if (client.getLastName() == null || Objects.equals(client.getLastName(), "null")) {
+                            client.setLastName("");
+                        }
+                        if (client.getMobile() == null || Objects.equals(client.getMobile(), "null")) {
+                            client.setMobile("");
+                        }
+                        if (client.getPhone() == null || Objects.equals(client.getPhone(), "null")) {
+                            client.setPhone("");
                         }
                         clientRepository.save(client);
                     }

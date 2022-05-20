@@ -9,7 +9,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
-<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/stylesheet.css}">
     <link rel="shortcut icon" th:href="@{/images/small_logo.png}" type="image/png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -61,8 +61,22 @@
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
             <a class="list-group-item list-group-item-action bg-secondary" th:href="@{/admin}">Close</a>
-            <a class="list-group-item list-group-item-action bg-secondary" th:href="@{/companies/new}">Add New
+            <a style="margin-bottom:20px;" class="list-group-item list-group-item-action bg-secondary"
+               th:href="@{/companies/new}">Add New
                 Company</a>
+            <strong class="list-group-item list-group-item-action bg-secondary">Filter by Status</strong>
+            <a class="list-group-item list-group-item-action bg-secondary"
+               th:onclick="sortCompanyTable('')">Show All</a>
+            <a class="list-group-item list-group-item-action bg-secondary"
+               th:onclick="sortCompanyTable('Active')">Active</a>
+            <a class="list-group-item list-group-item-action bg-secondary"
+               th:onclick="sortCompanyTable('On Hold')">On Hold</a>
+            <a class="list-group-item list-group-item-action bg-secondary"
+               th:onclick="sortCompanyTable('Not Active')">Not Active</a>
+            <a class="list-group-item list-group-item-action bg-secondary"
+               th:onclick="sortCompanyTable('Prospect')">Prospect</a>
+            <a class="list-group-item list-group-item-action bg-secondary"
+               th:onclick="sortCompanyTable('null')">No Status Set</a>
         </div>
     </div>
     <div id="page-content-wrapper">
@@ -94,7 +108,7 @@
             <table class="table table-hover" id="dataTable" style="width:100%">
                 <thead class="table table-hover">
                 <tr>
-<!--                    <th>ID</th>-->
+                    <!--                    <th>ID</th>-->
                     <th>Name</th>
                     <th>Type</th>
                     <th>Phone</th>
@@ -106,7 +120,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="company: ${companies}">
-<!--                    <td th:text="${company.id}"></td>-->
+                    <!--                    <td th:text="${company.id}"></td>-->
                     <td th:text="${company.name}"></td>
                     <td th:text="${company.type}"></td>
                     <td th:text="${company.phone}"></td>
