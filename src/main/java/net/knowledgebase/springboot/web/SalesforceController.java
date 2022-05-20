@@ -78,12 +78,6 @@ public class SalesforceController {
             ioException.printStackTrace();
         }
 
-//        final int statusCode = response.getStatusLine().getStatusCode();
-//        if (statusCode != HttpStatus.SC_OK) {
-//            System.out.println("Error authenticating to Force.com: " + statusCode);
-//            return;
-//        }
-
         String getResult = null;
         try {
             getResult = EntityUtils.toString(response.getEntity());
@@ -105,9 +99,8 @@ public class SalesforceController {
 
         baseUri = loginInstanceUrl + REST_ENDPOINT + API_VERSION;
         oauthHeader = new BasicHeader("Authorization", "OAuth " + loginAccessToken);
-        //queryAccounts();
+        queryAccounts();
         queryClients();
-
         httpPost.releaseConnection();
     }
 
@@ -133,40 +126,54 @@ public class SalesforceController {
                         company.setId(json.getJSONArray("records").getJSONObject(i).getString("Id"));
                         if (json.getJSONArray("records").getJSONObject(i).getString("Name") != "null") {
                             company.setName(json.getJSONArray("records").getJSONObject(i).getString("Name"));
+                        } else{
+                            company.setName("");
                         }
                         if (json.getJSONArray("records").getJSONObject(i).getString("Account_Status__c") != "null") {
                             company.setStatus(json.getJSONArray("records").getJSONObject(i).getString("Account_Status__c"));
+                        } else {
+                            company.setStatus("");
                         }
                         if (json.getJSONArray("records").getJSONObject(i).getString("Type") != "null") {
                             company.setType(json.getJSONArray("records").getJSONObject(i).getString("Type"));
-                        }
-                        if (json.getJSONArray("records").getJSONObject(i).getString("Type") != "null") {
-                            company.setType(json.getJSONArray("records").getJSONObject(i).getString("Type"));
+                        } else {
+                            company.setType("");
                         }
                         if (json.getJSONArray("records").getJSONObject(i).getString("Website") != "null") {
                             company.setWebsite(json.getJSONArray("records").getJSONObject(i).getString("Website"));
+                        } else{
+                            company.setWebsite("");
                         }
                         if (json.getJSONArray("records").getJSONObject(i).getString("BillingAddress") != "null") {
                             if (json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("street") != "null") {
                                 company.setAddr1(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("street"));
+                            } else {
+                                company.setAddr1("");
                             }
                             if (json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("city") != "null") {
                                 company.setAddr2(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("city"));
+                            } else {
+                                company.setAddr2("");
                             }
                             if (json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("state") != "null") {
                                 company.setAddr4(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("state"));
+                            } else {
+                                company.setAddr4("");
                             }
                             if (json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("postalCode") != "null") {
                                 company.setEircode(json.getJSONArray("records").getJSONObject(i).getJSONObject("BillingAddress").getString("postalCode"));
+                            } else {
+                                company.setEircode("");
                             }
                         }
+                        company.setAddr3("");
+                        company.setPhone("");
+                        company.setEmail("");
                         companyRepository.save(company);
                     }
                 } catch (JSONException je) {
                     je.printStackTrace();
                 }
-            } else {
-                System.exit(-1);
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -197,25 +204,36 @@ public class SalesforceController {
                         client.setId(json.getJSONArray("records").getJSONObject(i).getString("Id"));
                         if (json.getJSONArray("records").getJSONObject(i).getString("AccountId") != "null") {
                             client.setCompany(companyRepository.findCompanyNameByID(json.getJSONArray("records").getJSONObject(i).getString("AccountId")));
+                        } else {
+                            client.setCompany("");
                         }
                         if (json.getJSONArray("records").getJSONObject(i).getString("Email") != "null") {
                             client.setEmail(json.getJSONArray("records").getJSONObject(i).getString("Email"));
+                        } else {
+                            client.setEmail("");
                         }
                         if (json.getJSONArray("records").getJSONObject(i).getString("FirstName") != "null") {
                             client.setFirstName(json.getJSONArray("records").getJSONObject(i).getString("FirstName"));
+                        } else {
+                            client.setFirstName("");
                         }
                         if (json.getJSONArray("records").getJSONObject(i).getString("Phone") != "null") {
                             client.setPhone(json.getJSONArray("records").getJSONObject(i).getString("Phone"));
+                        } else {
+                            client.setPhone("");
                         }
                         if (json.getJSONArray("records").getJSONObject(i).getString("LastName") != "null") {
                             client.setLastName(json.getJSONArray("records").getJSONObject(i).getString("LastName"));
+                        } else {
+                            client.setLastName("");
                         }
                         if (json.getJSONArray("records").getJSONObject(i).getString("MobilePhone") != "null") {
                             client.setMobile(json.getJSONArray("records").getJSONObject(i).getString("MobilePhone"));
+                        } else{
+                            client.setMobile("");
                         }
                         if (json.getJSONArray("records").getJSONObject(i).getString("Email") != "null") {
                             //client.setAccount(true);
-                            clientRepository.save(client);
                             if (client.isAccount()) {
                                 User user = userRepository.findByEmail(client.getEmail());
                                 if (user == null) {
@@ -224,12 +242,11 @@ public class SalesforceController {
                                 }
                             }
                         }
+                        clientRepository.save(client);
                     }
                 } catch (JSONException je) {
                     je.printStackTrace();
                 }
-            } else {
-                System.exit(-1);
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
