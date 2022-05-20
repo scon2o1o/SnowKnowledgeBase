@@ -221,7 +221,7 @@ public class SalesforceController {
                             client.setCompany("");
                         }
                         if (client.getEmail() == null || Objects.equals(client.getEmail(), "null")) {
-                            client.setCompany("");
+                            client.setEmail("");
                         }
                         if (client.getFirstName() == null || Objects.equals(client.getFirstName(), "null")) {
                             client.setFirstName("");
