@@ -5,6 +5,7 @@ C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowled
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\ForgotPasswordController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\exception\InternalServerErrorException.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\CompanyService.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\TicketController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\CompanyRestController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\CategoryServiceImpl.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\ClientController.java
@@ -21,6 +22,7 @@ C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowled
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\UserService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\SubcategoryServiceImpl.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\dto\UserPasswordDto.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\TicketServiceImpl.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\DownloadTypeRepository.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\AuditServiceImpl.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\SettingsServiceImpl.java
@@ -32,11 +34,14 @@ C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowled
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\UserServiceImpl.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\SmtpServiceImpl.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\AuditController.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Ticket.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\SmtpService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\CompanyRepository.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\SmtpController.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\TicketRepository.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\CompanyController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\DownloadStorageService.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\TicketService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\UserController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Category.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\MainController.java
