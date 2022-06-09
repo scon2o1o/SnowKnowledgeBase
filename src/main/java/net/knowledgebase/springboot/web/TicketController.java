@@ -23,7 +23,7 @@ public class TicketController {
     private SettingsService settingsService;
     private SmtpService smtpService;
     private ClientRepository clientRepository;
-    public final String SUPPORT_EMAIL = "shaneconcannon@gmail.com";
+    public final String SUPPORT_EMAIL = "support@snowtechnology.ie";
 
     public TicketController(TicketService ticketService, SettingsService settingsService, SmtpService smtpService, ClientRepository clientRepository) {
         super();
@@ -72,13 +72,13 @@ public class TicketController {
     }
 
     private void sendEmail(Ticket ticket, Client client) {
-        String content = "Hi Support, a new support ticket has been created through the Client Portal"
-                + "\n\nCreated by: " + client.getFirstName() + " " + client.getLastName()
-                + "\nEmail: " + client.getEmail()
-                + "\nCompany: " + client.getCompany()
-                + "\nPhone: " + client.getPhone()
-                + "\nMobile: " + client.getMobile()
-                + "\n\n" + ticket.getContent();
-        smtpService.sendEmail(SUPPORT_EMAIL, "New Support Ticket Created: " + ticket.getSubject(), content);
+        String content = "Hi Support,<br><br>A new support ticket has been created through the Client Portal"
+                + "<br><br>Created by: <b>" + client.getFirstName() + " " + client.getLastName() + "</b>"
+                + "<br>Email: <b>" + client.getEmail() + "</b>"
+                + "<br>Company: <b>" + client.getCompany() + "</b>"
+                + "<br>Phone: <b>" + client.getPhone() + "</b>"
+                + "<br>Mobile: <b>" + client.getMobile() + "</b>"
+                + "<br><br>Ticket Detail: <br><br>" + ticket.getContent();
+        smtpService.sendHtmlEmail(SUPPORT_EMAIL, "New Support Ticket Created: " + ticket.getSubject(), content);
     }
 }

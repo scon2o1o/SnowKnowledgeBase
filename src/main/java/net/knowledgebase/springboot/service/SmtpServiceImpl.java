@@ -4,13 +4,7 @@ import net.knowledgebase.springboot.model.Smtp;
 import net.knowledgebase.springboot.repository.SmtpRepository;
 import org.springframework.stereotype.Service;
 
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -87,11 +81,51 @@ public class SmtpServiceImpl implements SmtpService {
             messageBodyPart.setText(body);
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(messageBodyPart);
-            message.setContent(multipart);
+            message.setContent(multipart, "text/html; charset=utf-8");
             Transport.send(message);
+
         } catch (MessagingException e1) {
             throw new RuntimeException(e1);
         }
 
+    }
+
+    public void sendHtmlEmail(String to, String subject, String body) {
+        List<Smtp> smtp = smtpRepository.findAll();
+        Properties props = new Properties();
+        if (smtp.get(0).getAuth().equals("Y")) {
+            props.put("mail.smtp.auth", true);
+        }
+        if (smtp.get(0).getAuth().equals("N")) {
+            props.put("mail.smtp.auth", false);
+        }
+        if (smtp.get(0).getStarttls().equals("Y")) {
+            props.put("mail.smtp.starttls.enable", true);
+        }
+        if (smtp.get(0).getStarttls().equals("N")) {
+            props.put("mail.smtp.starttls.enable", false);
+        }
+        props.put("mail.smtp.host", smtp.get(0).getServer());
+        props.put("mail.smtp.port", smtp.get(0).getPort());
+        props.put("mail.smtp.ssl.trust", smtp.get(0).getServer());
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        Session session = Session.getDefaultInstance(props);
+
+        try {
+            InternetAddress fromAddress = new InternetAddress(smtp.get(0).getFromAddress());
+            InternetAddress toAddress = new InternetAddress(to);
+
+            Message message = new MimeMessage(session);
+            message.setFrom(fromAddress);
+            message.setRecipient(Message.RecipientType.TO, toAddress);
+            message.setSubject(subject);
+
+            message.setContent(body, "text/html; charset=utf-8");
+            message.saveChanges();
+
+            Transport.send(message, smtp.get(0).getUsername(), smtp.get(0).getPassword());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }

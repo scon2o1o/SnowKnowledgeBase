@@ -6,3 +6,9 @@ tinymce.init({
     tinycomments_mode: 'embedded',
     //tinycomments_author: 'Author name',
 });
+
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+
+    $("#wrapper").toggleClass("toggled");
+});

@@ -4,9 +4,11 @@ C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowled
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\DownloadController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\ForgotPasswordController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\exception\InternalServerErrorException.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\FeedController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\CompanyService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\TicketController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\CompanyRestController.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\FeedService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\CategoryServiceImpl.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\ClientController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\ClientServiceImpl.java
@@ -14,6 +16,7 @@ C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowled
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\AuditService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\SettingsRepository.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\UserRepository.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\FeedRepository.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\SalesforceController.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Settings.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Smtp.java
@@ -58,10 +61,12 @@ C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowled
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\dto\UserRegistrationDto.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Company.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\SubcategoryRepository.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\FeedServiceImpl.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\DownloadType.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\util\Utility.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\CompanyServiceImpl.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\CategoryController.java
+C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Feed.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\DownloadTypeService.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\SmtpRepository.java
 C:\Users\ShaneConcannon\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\ClientService.java

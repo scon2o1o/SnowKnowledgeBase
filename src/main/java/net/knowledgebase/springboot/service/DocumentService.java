@@ -1,6 +1,5 @@
 package net.knowledgebase.springboot.service;
 
-
 import net.knowledgebase.springboot.model.Document;
 
 import java.util.List;

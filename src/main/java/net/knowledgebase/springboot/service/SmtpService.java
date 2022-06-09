@@ -17,4 +17,6 @@ public interface SmtpService {
     void deleteSmtpById(Long id);
 
     void sendEmail(String toAddress, String subject, String body);
+
+    void sendHtmlEmail(String support_email, String s, String content);
 }
