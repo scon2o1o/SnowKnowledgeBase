@@ -65,6 +65,7 @@ $("#menu-toggle").click(function(e) {
         xhr.open("POST", "/knowledgebase/api/fileupload"); //for production
         //xhr.open("POST", "/api/fileupload"); //for testing
         xhr.send(fd);
+
     }
 
     /* This function will continueously update the progress bar */
