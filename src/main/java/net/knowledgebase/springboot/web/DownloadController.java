@@ -106,7 +106,7 @@ public class DownloadController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    @GetMapping("/downloads/delete//{id}")
+    @GetMapping("/downloads/delete/{id}")
     public String deleteDownload(@PathVariable Long id) {
         downloadStorageService.deleteDownloadById(id);
         return "redirect:/downloads";
