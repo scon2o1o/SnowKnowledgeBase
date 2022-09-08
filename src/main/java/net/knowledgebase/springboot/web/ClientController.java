@@ -138,6 +138,7 @@ public class ClientController {
             existingClient.setCompany(client.getCompany());
             existingClient.setMobile(client.getMobile());
             existingClient.setAccount(client.isAccount());
+            existingClient.setSuspended(client.isSuspended());
             clientService.updateClient(existingClient);
 
             if (existingClient.isAccount()) {

@@ -30,6 +30,9 @@ public class Client {
     @Column
     private boolean account;
 
+    @Column
+    private boolean suspended;
+
     public Client() {
     }
 
@@ -95,5 +98,13 @@ public class Client {
 
     public void setAccount(boolean account) {
         this.account = account;
+    }
+
+    public boolean isSuspended() {
+        return suspended;
+    }
+
+    public void setSuspended(boolean suspended) {
+        this.suspended = suspended;
     }
 }

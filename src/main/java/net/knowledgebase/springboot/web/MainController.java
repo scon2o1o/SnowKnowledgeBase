@@ -65,7 +65,7 @@ public class MainController {
         if (user.getRole().equals("Client")) {
             Client client = clientRepository.findByEmail(user.getEmail());
             Company company = companyRepository.findByName(client.getCompany());
-            if (!"Active".equals(company.getStatus())) {
+            if ((!"Active".equals(company.getStatus()) || client.isSuspended()) == true) {
                 return "account_not_active";
             }
         }

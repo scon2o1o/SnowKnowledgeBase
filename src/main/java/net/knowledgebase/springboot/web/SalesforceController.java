@@ -28,12 +28,13 @@ import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @EnableScheduling
 public class SalesforceController {
     public final String USERNAME = "shane.concannon@snowtechnology.ie";
-    public final String PASSWORD = "P@$$w0rd12bD5MDFFm7tJqKaX6ZYXbil4I3";
+    public final String PASSWORD = "Shamy123$$7gUUr5JNL28rSnB8bDJ1BNn2I";
     public final String LOGINURL = "https://quantumsoftware2021.my.salesforce.com";
     public final String GRANTSERVICE = "/services/oauth2/token?grant_type=password";
     public final String CLIENTID = "3MVG9SOw8KERNN090EAFBk3D6yhJUqlc.qMMF0oztgCt9oMb3miy4_NUACgAlEljctNQNYfQxjNRCuA_N2AFH";
@@ -217,6 +218,12 @@ public class SalesforceController {
                                 }
                             }
                         }
+                        Boolean suspended = false;
+                        Optional<Client> exitingClient = clientRepository.findById(json.getJSONArray("records").getJSONObject(i).getString("Id"));
+                        if (exitingClient != null){
+                            suspended = exitingClient.get().isSuspended();
+                        }
+                        client.setSuspended(suspended);
                         if (client.getCompany() == null || Objects.equals(client.getCompany(), "null")) {
                             client.setCompany("");
                         }
