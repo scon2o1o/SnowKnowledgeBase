@@ -18,6 +18,12 @@ public class Settings {
     @Column
     private String title;
 
+    @Column
+    private String sfuser;
+
+    @Column
+    private String sfpass;
+
     public Settings() {
     }
 
@@ -51,5 +57,21 @@ public class Settings {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSfuser() {
+        return sfuser;
+    }
+
+    public void setSfuser(String sfuser) {
+        this.sfuser = sfuser;
+    }
+
+    public String getSfpass() {
+        return sfpass;
+    }
+
+    public void setSfpass(String sfpass) {
+        this.sfpass = sfpass;
     }
 }

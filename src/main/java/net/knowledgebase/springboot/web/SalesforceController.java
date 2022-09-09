@@ -3,10 +3,13 @@ package net.knowledgebase.springboot.web;
 import net.bytebuddy.utility.RandomString;
 import net.knowledgebase.springboot.model.Client;
 import net.knowledgebase.springboot.model.Company;
+import net.knowledgebase.springboot.model.Settings;
 import net.knowledgebase.springboot.model.User;
 import net.knowledgebase.springboot.repository.ClientRepository;
 import net.knowledgebase.springboot.repository.CompanyRepository;
+import net.knowledgebase.springboot.repository.SettingsRepository;
 import net.knowledgebase.springboot.repository.UserRepository;
+import net.knowledgebase.springboot.service.SettingsService;
 import net.knowledgebase.springboot.service.UserService;
 import net.knowledgebase.springboot.web.dto.UserRegistrationDto;
 import org.apache.http.Header;
@@ -27,14 +30,17 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Controller
 @EnableScheduling
 public class SalesforceController {
-    public final String USERNAME = "shane.concannon@snowtechnology.ie";
-    public final String PASSWORD = "Shamy123$$7gUUr5JNL28rSnB8bDJ1BNn2I";
+
+
+    public String USERNAME = "";
+    public String PASSWORD = "";
     public final String LOGINURL = "https://quantumsoftware2021.my.salesforce.com";
     public final String GRANTSERVICE = "/services/oauth2/token?grant_type=password";
     public final String CLIENTID = "3MVG9SOw8KERNN090EAFBk3D6yhJUqlc.qMMF0oztgCt9oMb3miy4_NUACgAlEljctNQNYfQxjNRCuA_N2AFH";
@@ -49,17 +55,25 @@ public class SalesforceController {
     private static ClientRepository clientRepository;
     private static UserRepository userRepository;
     private static UserService userService;
+    private static SettingsService settingsService;
+    private SettingsRepository settingsRepository;
 
-    public SalesforceController(CompanyRepository companyRepository, ClientRepository clientRepository, UserRepository userRepository, UserService userService) {
+    public SalesforceController(CompanyRepository companyRepository, ClientRepository clientRepository, UserRepository userRepository, UserService userService, SettingsService settingsService, SettingsRepository settingsRepository) {
         this.companyRepository = companyRepository;
         this.clientRepository = clientRepository;
         this.userRepository = userRepository;
         this.userService = userService;
+        this.settingsService = settingsService;
+        this.settingsRepository = settingsRepository;
+
+        List<Settings> settings = settingsRepository.findAll();
+        USERNAME = settings.get(0).getSfuser();
+        PASSWORD = settings.get(0).getSfpass();
     }
+
 
     @Scheduled(fixedDelay = 1000 * 60, initialDelay = 1000 * 10)
     public void salesforceTest() {
-
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
 
         String loginURL = LOGINURL +
@@ -220,10 +234,14 @@ public class SalesforceController {
                         }
                         Boolean suspended = false;
                         Optional<Client> exitingClient = clientRepository.findById(json.getJSONArray("records").getJSONObject(i).getString("Id"));
-                        if (exitingClient != null){
-                            suspended = exitingClient.get().isSuspended();
+                        try{
+                            if (exitingClient != null){
+                                suspended = exitingClient.get().isSuspended();
+                            }
+                            client.setSuspended(suspended);
+                        } catch(Exception e){
+                            client.setSuspended(suspended);
                         }
-                        client.setSuspended(suspended);
                         if (client.getCompany() == null || Objects.equals(client.getCompany(), "null")) {
                             client.setCompany("");
                         }
