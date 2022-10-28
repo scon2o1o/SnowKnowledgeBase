@@ -1,3 +1,5 @@
+const numOfTables = document.getElementsByTagName("table").length;
+
 function formatBytes(bytes, decimals = 2) {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -23,26 +25,22 @@ function formatDate(date) {
     ].join(':');;
 }
 
-var oTable = document.getElementById('dataTable');
-var rowLength = oTable.rows.length;
-for (i = 1; i < rowLength; i++) {
-    var oCells = oTable.rows.item(i).cells;
-    var cellLength = oCells.length;
-    for (var j = 0; j < cellLength; j++) {
-        if (j == 1) {
-            oCells.item(j).innerHTML = formatBytes(oCells.item(j).innerHTML);
-        }
-        if (j == 2) {
-            oCells.item(j).innerHTML = formatDate(oCells.item(j).innerHTML);
-        }
-    }
+for (let i = 1; i <= numOfTables; i++) {
+  var oTable = document.getElementById('dataTable' + i);
+  var rowLength = oTable.rows.length;
+  for (k = 1; k < rowLength; k++) {
+      var oCells = oTable.rows.item(k).cells;
+      var cellLength = oCells.length;
+      for (var j = 0; j < cellLength; j++) {
+          if (j == 1) {
+              oCells.item(j).innerHTML = formatBytes(oCells.item(j).innerHTML);
+          }
+          if (j == 2) {
+              oCells.item(j).innerHTML = formatDate(oCells.item(j).innerHTML);
+          }
+      }
+  }
 }
-
-var table = $('#dataTable').DataTable({
-    "order": [
-        [2, 'desc']
-    ]
-});
 
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
@@ -55,5 +53,26 @@ $(document).ready(function() {
 });
 
 function sortDownloadTable(n) {
-    table.column(3).search(n, true, false).draw();
+    if (n==''){
+        const collection = document.getElementsByTagName("table");
+        for (let i = 0; i < collection.length; i++) {
+          collection[i].style.display = "table";
+        }
+        const collection2 = document.getElementsByTagName("p");
+        for (let i = 0; i < collection2.length; i++) {
+                  collection2[i].style.display = "block";
+                }
+    } else {
+        const collection = document.getElementsByTagName("table");
+        for (let i = 0; i < collection.length; i++) {
+            collection[i].style.display = "none";
+        }
+        collection[n - 1].style.display = "table";
+        const collection2 = document.getElementsByTagName("p");
+        for (let i = 0; i < collection2.length; i++) {
+            collection2[i].style.display = "none";
+        }
+        collection2[n - 1].style.display = "block";
+    }
 }
+

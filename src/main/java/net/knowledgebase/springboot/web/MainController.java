@@ -98,7 +98,7 @@ public class MainController {
 
     @GetMapping("/files")
     public String downloads(Model documentModel, Model downloadTypeModel, Model settingsModel, Model model) {
-        documentModel.addAttribute("documents", documentService.getAllDocuments());
+        //documentModel.addAttribute("documents", documentService.getAllDocuments());
         downloadTypeModel.addAttribute("downloadtypes", downloadTypeService.getAllDownloadTypes());
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
         List settings = settingsService.getAllSettings();

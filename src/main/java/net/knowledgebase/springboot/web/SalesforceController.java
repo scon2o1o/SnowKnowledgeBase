@@ -37,8 +37,6 @@ import java.util.Optional;
 @Controller
 @EnableScheduling
 public class SalesforceController {
-
-
     public String USERNAME = "";
     public String PASSWORD = "";
     public final String LOGINURL = "https://quantumsoftware2021.my.salesforce.com";

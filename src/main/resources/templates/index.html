@@ -47,11 +47,14 @@
             </ul>
             <div class="row">
                 <div class="col-sm">
-                    <a style="margin-right:10px;"th:href="@{/users/password}"><span class="navbar-text">Hello, <span
+                    <a style="margin-right:10px;" th:href="@{/users/password}"><span class="navbar-text">Hello, <span
                             sec:authentication="name"></span></span></a>
-                    <a style="margin-right:10px;" th:href="@{/admin}"type="button" class="btn btn-success" sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-shield-exclamation"></i> Admin</a>
-                    <a style="margin-right:10px;" th:href="@{/admin}"type="button" class="btn btn-success" sec:authorize="hasRole('ROLE_USER')"><i class="bi-shield-exclamation"></i> Admin</a>
-                    <a th:href="@{/logout}" type="button" class="btn btn-danger"><i class="bi-box-arrow-in-left"></i> Logout</a>
+                    <a style="margin-right:10px;" th:href="@{/admin}" type="button" class="btn btn-success"
+                       sec:authorize="hasRole('ROLE_ADMIN')"><i class="bi-shield-exclamation"></i> Admin</a>
+                    <a style="margin-right:10px;" th:href="@{/admin}" type="button" class="btn btn-success"
+                       sec:authorize="hasRole('ROLE_USER')"><i class="bi-shield-exclamation"></i> Admin</a>
+                    <a th:href="@{/logout}" type="button" class="btn btn-danger"><i class="bi-box-arrow-in-left"></i>
+                        Logout</a>
                 </div>
             </div>
         </div>
@@ -84,7 +87,9 @@
             <div style="text-align: center">
                 <img alt="login-logo" class="mb-4" th:src="@{/images/logo.png}">
             </div>
-            <table class="table table-hover" id="dataTable" style="width:100%">
+            <p style="text-align:center;">Need help? Support is available at 01 213 0737 or
+                support@snowtechnology.ie</p>
+            <table class="styled-table" id="dataTable" style="width:100%">
                 <thead class="table table-hover">
                 <tr>
                     <th>Name</th>
