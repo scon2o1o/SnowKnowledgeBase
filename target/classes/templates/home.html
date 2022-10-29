@@ -63,11 +63,10 @@
 <main role="main">
     <div class="jumbotron bg-secondary">
         <div class="container">
-            <br>
-            <div style="text-align: center">
-                <img alt="login-logo" class="mb-4" th:src="@{/images/combined-logo.svg}" style="width:700px">
-            </div><br>
-            <h1 style="text-align: center" class="display-4" th:each="settings: ${settings}">Welcome to the
+            <div class="d-none d-md-block" style="text-align: center; margin-top: 30px;">
+                <img alt="login-logo" th:src="@{/images/combined-logo.svg}" style="width:70%">
+            </div>
+            <h1 style="text-align: center; margin-top: 30px;" class="display-4" th:each="settings: ${settings}">Welcome to the
                 [[${settings.title}]]</h1><br>
             <p style="text-align: center">Search our full library of documents and downloads below</p><br>
             <form autocomplete="off">
@@ -80,7 +79,7 @@
             </div>
             </form>
         </div>
-    </div><br>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-4">

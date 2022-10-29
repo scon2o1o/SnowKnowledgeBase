@@ -4,7 +4,6 @@ import net.knowledgebase.springboot.model.User;
 import net.knowledgebase.springboot.web.dto.UserRegistrationDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface UserService extends UserDetailsService{
@@ -23,4 +22,6 @@ public interface UserService extends UserDetailsService{
 	User getByResetPasswordToken(String token);
 
 	void updatePassword(User user, String newPassword);
+
+	User updateUser(User user, String name);
 }

@@ -82,31 +82,30 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         </nav>
-        <br>
         <div class="container-fluid" style="padding: 20px;">
-            <div style="text-align: center">
+            <div class="d-none d-md-block" style="text-align: center; margin-top: 30px;">
                 <img alt="login-logo" class="mb-4" th:src="@{/images/logo.png}">
             </div>
-            <p style="text-align:center;">Need help? Support is available at 01 213 0737 or
+            <p class="d-none d-md-block" style="text-align:center;">Need help? Support is available at 01 213 0737 or
                 support@snowtechnology.ie</p>
             <table class="styled-table" id="dataTable" style="width:100%">
                 <thead class="table table-hover">
                 <tr>
-                    <th>Name</th>
-                    <th>Details</th>
-                    <th>Category</th>
-                    <th>Subcategory</th>
-                    <th>Actions</th>
+                    <th class="priority-1">Name</th>
+                    <th class="priority-5">Details</th>
+                    <th class="priority-5">Category</th>
+                    <th class="priority-5">Subcategory</th>
+                    <th class="priority-1">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="document: ${documents}">
-                    <td th:text="${document.name}"></td>
-                    <td th:text="${document.details}"></td>
-                    <td th:text="${document.category}"></td>
-                    <td th:text="${document.subcategory}"></td>
-                    <td>
-                        <a class="btn btn-success"
+                    <td class="priority-1" th:text="${document.name}"></td>
+                    <td class="priority-5" th:text="${document.details}"></td>
+                    <td class="priority-5" th:text="${document.category}"></td>
+                    <td class="priority-5" th:text="${document.subcategory}"></td>
+                    <td class="priority-1">
+                        <a class="btn btn-secondary"
                            th:href="@{/documents/view_document/{id}(id=${document.id})}"><i
                                 class="bi-file-earmark-richtext"></i>
                             View</a>

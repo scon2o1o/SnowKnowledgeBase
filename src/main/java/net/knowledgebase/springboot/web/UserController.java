@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class UserController {
@@ -90,6 +91,48 @@ public class UserController {
             Audit audit = new Audit("User: " + user.getEmail() + " deleted");
             auditService.saveAudit(audit);
             userService.deleteUserById(id);
+            return "redirect:/users?success";
+        } catch (Exception e) {
+            return "redirect:/users?fail";
+        }
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @GetMapping("/users/edit/{id}")
+    public String editUserForm(@PathVariable Long id, Model model, Model settingsModel) {
+        model.addAttribute("user", userService.getUserById(id));
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
+        return "edit_user";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PostMapping("/users/edit/{id}")
+    public String updateUser(@PathVariable Long id, @ModelAttribute("user") User user, Model model) {
+        try {
+            User existingUser = userService.getUserById(id);
+            existingUser.setId(id);
+            existingUser.setFirstName(user.getFirstName());
+            existingUser.setLastName(user.getLastName());
+            existingUser.setRole(user.getRole());
+            if (!existingUser.getFirstName().equals(user.getFirstName())) {
+                Audit audit = new Audit("User " + user.getEmail() + " updated. First Name updated from '" + existingUser.getFirstName() + "' to '" + user.getFirstName() + "'");
+                auditService.saveAudit(audit);
+            }
+            if (!existingUser.getLastName().equals(user.getLastName())) {
+                Audit audit = new Audit("User " + user.getEmail() + " updated. Last Name updated from '" + existingUser.getLastName() + "' to '" + user.getLastName() + "'");
+                auditService.saveAudit(audit);
+            }
+            if (!existingUser.getRole().equals(user.getRole())) {
+                Audit audit = new Audit("User " + user.getEmail() + " updated. Role updated from '" + existingUser.getRole() + "' to '" + user.getRole() + "'");
+                auditService.saveAudit(audit);
+            }
+            userService.updateUser(existingUser, "ROLE_" + user.getRole().toUpperCase());
             return "redirect:/users?success";
         } catch (Exception e) {
             return "redirect:/users?fail";

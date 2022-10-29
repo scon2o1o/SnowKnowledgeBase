@@ -107,6 +107,9 @@
                     <td th:text="${user.lastName}"></td>
                     <td th:text="${user.role}"></td>
                     <td>
+                        <a class="btn btn-info"
+                           th:href="@{/users/edit/{id}(id=${user.id})}"><i class="bi-pencil-fill"></i>
+                            Update</a>
                         <a class="btn btn-danger"
                            th:href="@{/users/{id}(id=${user.id})}" sec:authorize="hasRole('ROLE_ADMIN')"><i
                                 class="bi-trash"></i> Delete</a>
