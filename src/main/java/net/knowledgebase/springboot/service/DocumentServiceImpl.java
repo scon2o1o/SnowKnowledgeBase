@@ -41,4 +41,9 @@ public class DocumentServiceImpl implements DocumentService{
         documentRepository.deleteById(id);
     }
 
+    @Override
+    public List<Document> findDocumentsByCategory(String category) {
+        return documentRepository.findByCategory(category);
+    }
+
 }

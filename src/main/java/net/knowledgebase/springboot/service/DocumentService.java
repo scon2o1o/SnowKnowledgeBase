@@ -14,4 +14,6 @@ public interface DocumentService {
     Document updateDocument(Document document);
 
     void deleteDocumentById(Long id);
+
+    List<Document> findDocumentsByCategory(String category);
 }

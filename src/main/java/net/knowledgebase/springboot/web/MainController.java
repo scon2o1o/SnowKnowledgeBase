@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -94,6 +95,56 @@ public class MainController {
             }
         }
         return "index";
+    }
+
+    @GetMapping("/docs/{category}")
+    public String filteredDocs(@PathVariable String category, Model documentModel, Model categoryModel, Model settingsModel) {
+        switch(category) {
+            case "q_bi":
+                category = "Q BI";
+                break;
+            case "q_portal":
+                category = "Q Portal";
+                break;
+            case "q_script":
+                category = "Q Script";
+                break;
+            case "quantum_cloud":
+                category = "Quantum Cloud";
+                break;
+            case "quantum_payroll":
+                category = "Quantum Payroll";
+                break;
+            case "quantum_pay":
+                category = "Quantum Pay";
+                break;
+            default:
+                category = "";
+        }
+        if(category.equals("") || category.isEmpty()){
+            documentModel.addAttribute("documents", documentService.getAllDocuments());
+        } else{
+            documentModel.addAttribute("documents", documentService.findDocumentsByCategory(category));
+        }
+        categoryModel.addAttribute("categories", categoryService.getAllCategories());
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user = userRepository.findByEmail(currentPrincipalName);
+        if (user.getRole().equals("Client")) {
+            Client client = clientRepository.findByEmail(user.getEmail());
+            Company company = companyRepository.findByName(client.getCompany());
+            if (!"Active".equals(company.getStatus())) {
+                return "account_not_active";
+            }
+        }
+        return "client_documents";
     }
 
     @GetMapping("/files")

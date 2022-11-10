@@ -94,6 +94,8 @@
             <div class="d-none d-md-block" style="text-align: center; margin-top: 30px;">
                 <img alt="login-logo" class="mb-4" th:src="@{/images/logo.png}">
             </div>
+            <a class="d-none d-md-block" style="text-align:center;">Need help? Support is available at 01 213 0737 or
+                support@snowtechnology.ie</a>
             <div th:each="downloadtypes, iStat : ${downloadtypes}">
                 <p th:text="${downloadtypes.name}" th:id="${iStat.count}" style="padding-top: 20px;"/>
                 <table class="styled-table" th:id="'dataTable'+${iStat.count}" style="width:100%;">
