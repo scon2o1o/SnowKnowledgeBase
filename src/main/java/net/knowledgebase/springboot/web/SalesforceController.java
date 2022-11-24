@@ -258,7 +258,10 @@ public class SalesforceController {
                         if (client.getPhone() == null || Objects.equals(client.getPhone(), "null")) {
                             client.setPhone("");
                         }
-                        clientRepository.save(client);
+                        Client duplicateCheck = clientRepository.findByEmail(client.getEmail());
+                        if (duplicateCheck == null){
+                            clientRepository.save(client);
+                        }
                     }
                 } catch (JSONException je) {
                     je.printStackTrace();
