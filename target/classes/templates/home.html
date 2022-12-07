@@ -65,28 +65,32 @@
 </header>
 <main role="main">
     <div class="jumbotron bg-secondary">
+        <div class="alert alert-warning"><i class="fa-solid fa-circle-info"></i> The year-end release will be
+            available for download on the week of the December 5th 2022
+        </div>
         <div class="container">
             <div class="d-none d-md-block" style="text-align: center; margin-top: 30px;">
                 <img alt="login-logo" th:src="@{/images/combined-logo.svg}" style="width:70%">
             </div>
-            <h1 style="text-align: center; margin-top: 30px;" class="display-4" th:each="settings: ${settings}">Welcome to the
+            <h1 style="text-align: center; margin-top: 30px;" class="display-4" th:each="settings: ${settings}">Welcome
+                to the
                 [[${settings.title}]]</h1><br>
             <p style="text-align: center">Search our full library of documents and downloads below</p><br>
             <form autocomplete="off">
-            <div class="input-group">
-                <input class="form-control py-2 border-right-0 border" type="text"
-                       id="myInput" name="myInput" placeholder="Search...">
-                <span class="input-group-append">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="text"
+                           id="myInput" name="myInput" placeholder="Search...">
+                    <span class="input-group-append">
                 <div class="input-group-text"><i class="fa fa-search"></i></div>
             </span>
-            </div>
+                </div>
             </form>
         </div>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h3><i class="fa-solid fa-file-lines"></i>  Documents</h3><br>
+                <h3><i class="fa-solid fa-file-lines"></i> Documents</h3><br>
                 <p>Browse through our collection of articles, user guides and FAQs.
                     This section covers all the help material you will need to navigate the Snow Technology suite of
                     products.
@@ -94,18 +98,19 @@
                 <p><a class="btn btn-secondary" th:href="@{/docs}" role="button">View Documents &raquo;</a></p>
             </div>
             <div class="col-md-4">
-                <h3><i class="fa-solid fa-cloud-arrow-down"></i>  Downloads</h3><br>
+                <h3><i class="fa-solid fa-cloud-arrow-down"></i> Downloads</h3><br>
                 <p>The downloads section is where you will find all the latest releases of our software.
                     You will also find a catalogue of scripts that can be added to our payroll software.
                     To add a script to the software, place it in the Scripts folder of the payroll directory.</p><br>
                 <p><a class="btn btn-secondary" th:href="@{/files}" role="button">View Downloads &raquo;</a></p>
             </div>
             <div class="col-md-4">
-                <h3><i class="fa-solid fa-desktop"></i>  Website</h3><br>
+                <h3><i class="fa-solid fa-desktop"></i> Website</h3><br>
                 <p>Visit our website to keep up-to-date on all the latest news from Snow Technology.
-                Browse our product catalogue and discover what Snow Technology has to offer.
-                Book a free demo of our payroll software, or any of our other add-on offerings, today.</p><br>
-                <p><a class="btn btn-secondary" href="https://snowtechnology.ie/" role="button">Vist Website &raquo;</a></p>
+                    Browse our product catalogue and discover what Snow Technology has to offer.
+                    Book a free demo of our payroll software, or any of our other add-on offerings, today.</p><br>
+                <p><a class="btn btn-secondary" href="https://snowtechnology.ie/" role="button">Vist Website &raquo;</a>
+                </p>
             </div>
         </div>
     </div>
@@ -122,6 +127,7 @@ for (var j = 0; j < documentObjectArray.length; j++) {
 }
 /*]]>*/
 documents.sort();
+
 </script>
 <script crossorigin="anonymous"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
