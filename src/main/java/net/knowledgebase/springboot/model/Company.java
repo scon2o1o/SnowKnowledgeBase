@@ -43,6 +43,15 @@ public class Company {
     @Column
     private String status;
 
+    @Column
+    private String portal;
+
+    @Column
+    private String token;
+
+    public Company() {
+    }
+
     public String getId() {
         return id;
     }
@@ -137,5 +146,21 @@ public class Company {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPortal() {
+        return portal;
+    }
+
+    public void setPortal(String portal) {
+        this.portal = portal;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

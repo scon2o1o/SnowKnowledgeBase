@@ -9,6 +9,7 @@ import net.knowledgebase.springboot.repository.ClientRepository;
 import net.knowledgebase.springboot.repository.CompanyRepository;
 import net.knowledgebase.springboot.repository.SettingsRepository;
 import net.knowledgebase.springboot.repository.UserRepository;
+import net.knowledgebase.springboot.service.CompanyService;
 import net.knowledgebase.springboot.service.SettingsService;
 import net.knowledgebase.springboot.service.UserService;
 import net.knowledgebase.springboot.web.dto.UserRegistrationDto;
@@ -25,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
@@ -55,14 +57,16 @@ public class SalesforceController {
     private static UserService userService;
     private static SettingsService settingsService;
     private SettingsRepository settingsRepository;
+    private static CompanyService companyService;
 
-    public SalesforceController(CompanyRepository companyRepository, ClientRepository clientRepository, UserRepository userRepository, UserService userService, SettingsService settingsService, SettingsRepository settingsRepository) {
+    public SalesforceController(CompanyRepository companyRepository, ClientRepository clientRepository, UserRepository userRepository, UserService userService, SettingsService settingsService, SettingsRepository settingsRepository, CompanyService companyService) {
         this.companyRepository = companyRepository;
         this.clientRepository = clientRepository;
         this.userRepository = userRepository;
         this.userService = userService;
         this.settingsService = settingsService;
         this.settingsRepository = settingsRepository;
+        this.companyService = companyService;
 
         List<Settings> settings = settingsRepository.findAll();
         USERNAME = settings.get(0).getSfuser();
@@ -181,6 +185,10 @@ public class SalesforceController {
                         if (company.getWebsite() == null || Objects.equals(company.getWebsite(), "null")) {
                             company.setWebsite("");
                         }
+                        String portal = companyRepository.findPortalByID(json.getJSONArray("records").getJSONObject(i).getString("Id"));
+                        company.setPortal(portal);
+                        String token = companyRepository.findTokenByID(json.getJSONArray("records").getJSONObject(i).getString("Id"));
+                        company.setToken(token);
                         companyRepository.save(company);
                     }
                 } catch (JSONException je) {

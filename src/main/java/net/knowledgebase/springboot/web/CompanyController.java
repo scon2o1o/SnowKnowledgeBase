@@ -151,6 +151,8 @@ public class CompanyController {
             existingCompany.setWebsite(company.getWebsite());
             existingCompany.setEmail(company.getEmail());
             existingCompany.setStatus(company.getStatus());
+            existingCompany.setPortal(company.getPortal());
+            existingCompany.setToken(company.getToken());
             companyService.updateCompany(existingCompany);
             return "redirect:/companies?success";
         } catch (Exception e) {
