@@ -24,6 +24,9 @@ public class Settings {
     @Column
     private String sfpass;
 
+    @Column
+    private boolean account;
+
     public Settings() {
     }
 
@@ -73,5 +76,13 @@ public class Settings {
 
     public void setSfpass(String sfpass) {
         this.sfpass = sfpass;
+    }
+
+    public boolean isAccount() {
+        return account;
+    }
+
+    public void setAccount(boolean account) {
+        this.account = account;
     }
 }

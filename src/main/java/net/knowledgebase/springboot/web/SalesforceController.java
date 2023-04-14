@@ -50,6 +50,7 @@ public class SalesforceController {
     public static String baseUri;
     public static Header oauthHeader;
     public static Header prettyPrintHeader = new BasicHeader("X-PrettyPrint", "1");
+    public static boolean autoAccounts;
 
     private static CompanyRepository companyRepository;
     private static ClientRepository clientRepository;
@@ -71,8 +72,8 @@ public class SalesforceController {
         List<Settings> settings = settingsRepository.findAll();
         USERNAME = settings.get(0).getSfuser();
         PASSWORD = settings.get(0).getSfpass();
+        autoAccounts = settings.get(0).isAccount();
     }
-
 
     @Scheduled(fixedDelay = 1000 * 60, initialDelay = 1000 * 10)
     public void salesforceTest() {
@@ -229,7 +230,9 @@ public class SalesforceController {
                         client.setLastName(json.getJSONArray("records").getJSONObject(i).getString("LastName"));
                         client.setMobile(json.getJSONArray("records").getJSONObject(i).getString("MobilePhone"));
                         if (json.getJSONArray("records").getJSONObject(i).getString("Email") != "null" || client.getEmail() != null) {
-                            //client.setAccount(true);
+                            if(autoAccounts){
+                                client.setAccount(true);
+                            }
                             if (client.isAccount()) {
                                 User user = userRepository.findByEmail(client.getEmail());
                                 if (user == null) {

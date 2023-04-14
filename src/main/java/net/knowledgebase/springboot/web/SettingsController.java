@@ -86,6 +86,7 @@ public class SettingsController {
             existingSettings.setUrl(settings.getUrl());
             existingSettings.setEmail(settings.isEmail());
             existingSettings.setTitle(settings.getTitle());
+            existingSettings.setAccount(settings.isAccount());
             settingsService.updateSettings(existingSettings);
             return "redirect:/settings?success";
         } catch (Exception e) {
