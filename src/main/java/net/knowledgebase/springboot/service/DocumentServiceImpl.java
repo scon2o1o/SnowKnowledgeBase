@@ -46,4 +46,13 @@ public class DocumentServiceImpl implements DocumentService{
         return documentRepository.findByCategory(category);
     }
 
+    @Override
+    public List<Document> findByInternalTrue(){
+        return documentRepository.findByInternalTrue();
+    }
+
+    @Override
+    public List<Document> findByInternalFalse(){
+        return documentRepository.findByInternalFalse();
+    }
 }

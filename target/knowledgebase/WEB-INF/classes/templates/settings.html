@@ -97,6 +97,7 @@
                 <tr>
                     <th>URL</th>
                     <th>Send System Emails</th>
+                    <th>Auto Account Creation</th>
                     <th>Navbar Text</th>
                     <th>Actions</th>
                 </tr>
@@ -105,6 +106,7 @@
                 <tr th:each="settings: ${settings}">
                     <td th:text="${settings.url}"></td>
                     <td th:text="${settings.email}"></td>
+                    <td th:text="${settings.account}"></td>
                     <td th:text="${settings.title}"></td>
                     <td>
                         <a class="btn btn-info"

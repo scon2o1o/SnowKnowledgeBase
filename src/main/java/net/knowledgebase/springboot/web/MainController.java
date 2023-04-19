@@ -122,7 +122,7 @@ public class MainController {
                 category = "";
         }
         if(category.equals("") || category.isEmpty()){
-            documentModel.addAttribute("documents", documentService.getAllDocuments());
+            documentModel.addAttribute("documents", documentService.findByInternalFalse());
         } else{
             documentModel.addAttribute("documents", documentService.findDocumentsByCategory(category));
         }
@@ -147,9 +147,21 @@ public class MainController {
         return "client_documents";
     }
 
+    @GetMapping("/docs/internal")
+    public String internalDocs(Model documentModel, Model settingsModel) {
+        settingsModel.addAttribute("settings", settingsService.getAllSettings());
+        List settings = settingsService.getAllSettings();
+        if (settings.isEmpty()) {
+            settingsModel.addAttribute("response", "NoData");
+        } else {
+            settingsModel.addAttribute("response", "");
+        }
+        documentModel.addAttribute("documents", documentService.findByInternalTrue());
+        return "documents_internal";
+    }
+
     @GetMapping("/files")
     public String downloads(Model documentModel, Model downloadTypeModel, Model settingsModel, Model model) {
-        //documentModel.addAttribute("documents", documentService.getAllDocuments());
         downloadTypeModel.addAttribute("downloadtypes", downloadTypeService.getAllDownloadTypes());
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
         List settings = settingsService.getAllSettings();

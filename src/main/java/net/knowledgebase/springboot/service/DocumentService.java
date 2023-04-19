@@ -16,4 +16,8 @@ public interface DocumentService {
     void deleteDocumentById(Long id);
 
     List<Document> findDocumentsByCategory(String category);
+
+    List<Document> findByInternalTrue();
+
+    List<Document> findByInternalFalse();
 }

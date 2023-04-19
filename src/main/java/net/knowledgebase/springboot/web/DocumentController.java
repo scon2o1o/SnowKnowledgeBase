@@ -133,6 +133,10 @@ public class DocumentController {
                 Audit audit = new Audit("Document " + document.getId() + " updated. Content updated");
                 auditService.saveAudit(audit);
             }
+            if (!existingDocument.getInternal().equals(document.getInternal())) {
+                Audit audit = new Audit("Document " + document.getId() + " updated. Internal status updated");
+                auditService.saveAudit(audit);
+            }
             existingDocument.setId(id);
             existingDocument.setName(document.getName());
             existingDocument.setDetails(document.getDetails());
@@ -140,6 +144,7 @@ public class DocumentController {
             existingDocument.setLastModified(new Date());
             existingDocument.setSubcategory(document.getSubcategory());
             existingDocument.setContent(document.getContent());
+            existingDocument.setInternal(document.getInternal());
             documentService.updateDocument(existingDocument);
             return "redirect:/documents?success";
         } catch (Exception e) {

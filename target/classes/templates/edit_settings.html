@@ -110,6 +110,13 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label for="account">Auto Account Creation</label>
+                            <select class="form-control" id="account" required th:field="*{account}">
+                                <option text="0" value="0">False</option>
+                                <option text="1" value="1">True</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>Navbar Text</label>
                             <input
                                     class="form-control" name="navbarText"

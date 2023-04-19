@@ -29,6 +29,9 @@ public class Document {
     @Column
     private String subcategory;
 
+    @Column
+    private Boolean internal;
+
     @Lob
     private String content;
 
@@ -94,5 +97,13 @@ public class Document {
 
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public Boolean getInternal() {
+        return internal;
+    }
+
+    public void setInternal(Boolean internal) {
+        this.internal = internal;
     }
 }

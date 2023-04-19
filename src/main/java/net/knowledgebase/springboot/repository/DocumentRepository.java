@@ -9,7 +9,11 @@ import java.util.List;
 public interface DocumentRepository extends JpaRepository<Document, Long>{
 
     @Query(
-            value = "SELECT * FROM Document u WHERE u.category = ?",
+            value = "SELECT * FROM Document u WHERE u.category = ? and u.internal = 0",
             nativeQuery = true)
     List<Document> findByCategory(String category);
+
+    List<Document> findByInternalTrue();
+
+    List<Document> findByInternalFalse();
 }
