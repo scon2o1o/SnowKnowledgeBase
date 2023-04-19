@@ -51,7 +51,7 @@ public class MainController {
 
     @GetMapping("/")
     public String home(Model documentModel, Model categoryModel, Model settingsModel) {
-        documentModel.addAttribute("documents", documentService.getAllDocuments());
+        documentModel.addAttribute("documents", documentService.findByInternalFalse());
         categoryModel.addAttribute("categories", categoryService.getAllCategories());
         settingsModel.addAttribute("settings", settingsService.getAllSettings());
         List settings = settingsService.getAllSettings();

@@ -67,6 +67,8 @@
     <div class="bg-secondary border-right" id="sidebar-wrapper">
         <div class="bg-secondary sidebar-heading">Start Bootstrap</div>
         <div class="bg-secondary list-group list-group-flush" id="sidebar">
+            <a sec:authorize="hasRole('ROLE_ADMIN')" class="list-group-item list-group-item-action bg-secondary" th:href="@{/docs/internal}">Internal Documents</a>
+            <a sec:authorize="hasRole('ROLE_USER')" class="list-group-item list-group-item-action bg-secondary" th:href="@{/docs/internal}">Internal Documents</a>
             <strong class="list-group-item list-group-item-action bg-secondary">Filter by Category</strong>
             <a class="list-group-item list-group-item-action bg-secondary" th:href="@{/docs/all}">Show All</a>
             <a class="list-group-item list-group-item-action bg-secondary" th:href="@{/docs/q_bi}">Q BI</a>

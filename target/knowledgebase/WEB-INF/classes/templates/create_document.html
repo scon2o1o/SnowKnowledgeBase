@@ -158,6 +158,13 @@
                             />
                         </div>
                         <div class="form-group">
+                            <label for="internal">Internal</label>
+                            <select class="form-control" id="internal" required th:field="*{internal}">
+                                <option text="0" value="0">False</option>
+                                <option text="1" value="1">True</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <textarea name="content" th:field="*{content}" rows="32">
                             </textarea>
                         </div>
