@@ -147,6 +147,7 @@ public class MainController {
         return "client_documents";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/docs/internal")
     public String internalDocs(Model documentModel, Model settingsModel) {
         settingsModel.addAttribute("settings", settingsService.getAllSettings());

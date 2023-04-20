@@ -19,4 +19,6 @@ public interface SmtpService {
     void sendEmail(String toAddress, String subject, String body);
 
     void sendHtmlEmail(String support_email, String s, String content);
+
+    void sendHtmlEmailCC(String support_email, String email, String s, String content);
 }

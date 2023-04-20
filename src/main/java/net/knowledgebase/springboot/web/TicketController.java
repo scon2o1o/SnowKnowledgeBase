@@ -79,6 +79,6 @@ public class TicketController {
                 + "<br>Phone: <b>" + client.getPhone() + "</b>"
                 + "<br>Mobile: <b>" + client.getMobile() + "</b>"
                 + "<br><br>Ticket Detail: <br><br>" + ticket.getContent();
-        smtpService.sendHtmlEmail(SUPPORT_EMAIL, "New Support Ticket Created: " + ticket.getSubject(), content);
+        smtpService.sendHtmlEmailCC(SUPPORT_EMAIL, client.getEmail(), "New Support Ticket Created: " + ticket.getSubject(), content);
     }
 }
