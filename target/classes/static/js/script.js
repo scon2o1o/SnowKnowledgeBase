@@ -34,10 +34,11 @@ $(document).ready(function() {
 
 tinymce.init({
 	selector: 'textarea',
-	plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons autolink lists media table anchor autolink autoresize autosave charmap code codesample directionality emoticons fullscreen help image importcss insertdatetime link lists media nonbreaking pagebreak preview quickbars save searchreplace template visualblocks visualchars wordcount',
+	plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons autolink lists media table anchor autolink autoresize autosave charmap code codesample directionality emoticons fullscreen help image importcss insertdatetime lists media nonbreaking pagebreak preview quickbars save searchreplace template visualblocks visualchars wordcount',
 	toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
-	toolbar_sticky: true,
+	//toolbar_sticky: true,
 	toolbar_mode: 'floating',
 	tinycomments_mode: 'embedded',
+	browser_spellcheck: true,
 	//tinycomments_author: 'Author name',
 });
