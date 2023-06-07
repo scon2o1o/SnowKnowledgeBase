@@ -107,7 +107,7 @@
                                     class="bi-cloud-arrow-down"></i> Download</a>
                             <a class="btn btn-success" th:href="@{'/downloads/edit/'+${download.id}}"><i
                                     class="bi-pencil-fill"></i> Edit Type</a>
-                            <a class="btn btn-danger"
+                            <a class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"
                                sec:authorize="hasRole('ROLE_ADMIN')"
                                th:href="@{/downloads/delete/{id}(id=${download.id})}"><i
                                     class="bi-trash"></i> Delete</a>

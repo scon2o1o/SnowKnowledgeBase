@@ -112,7 +112,7 @@
                         <a class="btn btn-info"
                            th:href="@{/settings/edit/{id}(id=${settings.id})}" sec:authorize="hasRole('ROLE_ADMIN')"><i
                                 class="bi-pencil-fill"></i> Update</a>
-                        <a class="btn btn-danger"
+                        <a class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"
                            th:href="@{/settings/{id}(id=${settings.id})}" sec:authorize="hasRole('ROLE_ADMIN')"><i
                                 class="bi-trash"></i> Delete</a>
                     </td>

@@ -109,7 +109,7 @@
                            sec:authorize="hasRole('ROLE_ADMIN')"
                            th:href="@{/subcategories/edit/{id}(id=${subcategory.id})}"><i class="bi-pencil-fill"></i>
                             Update</a>
-                        <a class="btn btn-danger"
+                        <a class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"
                            sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/subcategories/{id}(id=${subcategory.id})}"><i
                                 class="bi-trash"></i> Delete</a>
                     </td>
