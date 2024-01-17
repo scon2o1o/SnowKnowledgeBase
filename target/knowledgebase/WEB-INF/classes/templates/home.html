@@ -68,10 +68,11 @@
         <!--<div class="alert alert-warning"><i class="fa-solid fa-circle-info"></i>
         </div>-->
         <div class="container">
-            <div class="d-none d-md-block" style="text-align: center; margin-top: 30px;">
-                <img alt="login-logo" th:src="@{/images/combined-logo.svg}" style="width:70%">
+            <div class="d-none d-md-block" style="text-align: center; margin-top: 10px;">
+                <a href="https://snowtechnology.ie/quantum-web-webinar/"><img alt="login-logo" th:src="@{/images/webinar.png}"></a>
+                <img alt="login-logo" th:src="@{/images/combined-logo.svg}" style="width:50%">
             </div>
-            <h1 style="text-align: center; margin-top: 30px;" class="display-4" th:each="settings: ${settings}">Welcome
+            <h1 style="text-align: center; margin-top: 30px;" class="display-6" th:each="settings: ${settings}">Welcome
                 to the
                 [[${settings.title}]]</h1><br>
             <p style="text-align: center">Search our full library of documents and downloads below</p><br>
