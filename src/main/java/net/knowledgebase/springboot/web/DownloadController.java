@@ -1,12 +1,10 @@
 package net.knowledgebase.springboot.web;
 
-import net.knowledgebase.springboot.model.Client;
-import net.knowledgebase.springboot.model.Company;
-import net.knowledgebase.springboot.model.Download;
-import net.knowledgebase.springboot.model.User;
+import com.google.gson.Gson;
+import net.knowledgebase.springboot.model.*;
 import net.knowledgebase.springboot.repository.ClientRepository;
 import net.knowledgebase.springboot.repository.CompanyRepository;
-import net.knowledgebase.springboot.repository.DownloadTypeRepository;
+import net.knowledgebase.springboot.repository.LicenceRepository;
 import net.knowledgebase.springboot.repository.UserRepository;
 import net.knowledgebase.springboot.service.DownloadStorageService;
 import net.knowledgebase.springboot.service.DownloadTypeService;
@@ -24,6 +22,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -35,9 +39,14 @@ public class DownloadController {
     private ClientRepository clientRepository;
     private CompanyRepository companyRepository;
     private DownloadTypeService downloadTypeService;
+    private LicenceRepository licenceRepository;
 
-    public DownloadController(DownloadStorageService downloadStorageService, SettingsService settingsService, UserRepository userRepository, ClientRepository clientRepository, CompanyRepository companyRepository, DownloadTypeService downloadTypeService) {
+    private static final String AES_KEY = "Qq9f/bNDn2l64m9ZrvM4Qw==";
+    private static final String AES_IV = "U&v58(2!/ftO9.w!";
+
+    public DownloadController(LicenceRepository licenceRepository, DownloadStorageService downloadStorageService, SettingsService settingsService, UserRepository userRepository, ClientRepository clientRepository, CompanyRepository companyRepository, DownloadTypeService downloadTypeService) {
         super();
+        this.licenceRepository = licenceRepository;
         this.downloadStorageService = downloadStorageService;
         this.settingsService = settingsService;
         this.userRepository = userRepository;
@@ -58,10 +67,10 @@ public class DownloadController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepository.findByEmail(currentPrincipalName);
-        if (user.getRole().equals("Client")){
+        if (user.getRole().equals("Client")) {
             Client client = clientRepository.findByEmail(user.getEmail());
             Company company = companyRepository.findByName(client.getCompany());
-            if (company.getStatus().equals("On Hold")){
+            if (company.getStatus().equals("On Hold")) {
                 return "account_not_active";
             }
         }
@@ -86,12 +95,12 @@ public class DownloadController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/downloads/upload")
     public String uploadMultipleDownloads(@RequestParam("downloads") MultipartFile[] downloads) {
-        try{
+        try {
             for (MultipartFile download : downloads) {
                 downloadStorageService.saveDownload(download);
             }
             return "redirect:/downloads?success";
-        } catch(Exception e){
+        } catch (Exception e) {
             return "redirect:/downloads?fail";
         }
     }
@@ -103,6 +112,47 @@ public class DownloadController {
                 .contentType(MediaType.parseMediaType(download.getType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + download.getName() + "\"")
                 .body(new ByteArrayResource(download.getContent()));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @GetMapping("/licencing/generate/{id}")
+    public ResponseEntity<byte[]> generateLicence(@PathVariable Long id) throws Exception {
+        Licence licence = licenceRepository.findById(id).orElse(null);
+
+        licence.setDateGenerated(LocalDateTime.now());
+        licence.setActive(true);
+
+        if (licence.getSeasonalExpiryDate() != null && licence.getSeasonalExpiryDate().isBefore(licence.getDateGenerated().plusMonths(12))) {
+            licence.setExpiryDate(licence.getSeasonalExpiryDate());
+        } else {
+            licence.setExpiryDate(licence.getDateGenerated().plusMonths(12));
+        }
+
+        licenceRepository.save(licence);
+        Gson gson = new Gson();
+        String jsonData = gson.toJson(licence);
+
+        String encryptedJsonData = encryptAES(jsonData);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentDispositionFormData("attachment",
+                licence.getClient().replace(" ", "_")
+                        + "_"
+                        + licence.getDateGenerated().format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss")) + ".lic");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(encryptedJsonData.getBytes());
+    }
+
+    private String encryptAES(String data) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        SecretKeySpec keySpec = new SecretKeySpec(AES_KEY.getBytes(), "AES");
+        IvParameterSpec ivSpec = new IvParameterSpec(AES_IV.getBytes());
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
+        byte[] encryptedBytes = cipher.doFinal(data.getBytes());
+        return Base64.getEncoder().encodeToString(encryptedBytes);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
@@ -129,11 +179,11 @@ public class DownloadController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/downloads/edit/{id}")
-    public String updateDownloadWithoutContent(@PathVariable Long id, @ModelAttribute("downloadDto") DownloadDto downloadDto){
-        try{
+    public String updateDownloadWithoutContent(@PathVariable Long id, @ModelAttribute("downloadDto") DownloadDto downloadDto) {
+        try {
             downloadStorageService.updateDownloadWithoutContent(id, downloadDto.getCategory());
             return "redirect:/downloads?success";
-        } catch (Exception e){
+        } catch (Exception e) {
             return "redirect:/downloads?fail";
         }
     }
