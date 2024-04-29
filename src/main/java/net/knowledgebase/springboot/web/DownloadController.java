@@ -22,9 +22,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
@@ -40,9 +37,6 @@ public class DownloadController {
     private CompanyRepository companyRepository;
     private DownloadTypeService downloadTypeService;
     private LicenceRepository licenceRepository;
-
-    private static final String AES_KEY = "Qq9f/bNDn2l64m9ZrvM4Qw==";
-    private static final String AES_IV = "U&v58(2!/ftO9.w!";
 
     public DownloadController(LicenceRepository licenceRepository, DownloadStorageService downloadStorageService, SettingsService settingsService, UserRepository userRepository, ClientRepository clientRepository, CompanyRepository companyRepository, DownloadTypeService downloadTypeService) {
         super();
@@ -132,7 +126,7 @@ public class DownloadController {
         Gson gson = new Gson();
         String jsonData = gson.toJson(licence);
 
-        String encryptedJsonData = encryptAES(jsonData);
+        String encryptedJsonData = base64Encode(jsonData);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -146,13 +140,9 @@ public class DownloadController {
                 .body(encryptedJsonData.getBytes());
     }
 
-    private String encryptAES(String data) throws Exception {
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        SecretKeySpec keySpec = new SecretKeySpec(AES_KEY.getBytes(), "AES");
-        IvParameterSpec ivSpec = new IvParameterSpec(AES_IV.getBytes());
-        cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
-        byte[] encryptedBytes = cipher.doFinal(data.getBytes());
-        return Base64.getEncoder().encodeToString(encryptedBytes);
+    private String base64Encode(String data) {
+        String encodedString = Base64.getEncoder().encodeToString(data.getBytes());
+        return encodedString;
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
