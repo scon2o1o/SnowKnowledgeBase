@@ -1,4 +1,5 @@
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\DownloadTypeService.java
+C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\LicenceStatusController.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\UserRepository.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\SettingsService.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\ClientRestController.java
@@ -7,6 +8,7 @@ C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\j
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Feed.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\FileUploadRestController.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\ForgotPasswordController.java
+C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\LicenceServiceImpl.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\AuditController.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\SmtpRepository.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\DocumentServiceImpl.java
@@ -21,6 +23,7 @@ C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\j
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\CategoryRepo.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\PayslipController.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Category.java
+C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\LicenceRepository.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\ClientService.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Company.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\DownloadTypeRepository.java
@@ -30,6 +33,7 @@ C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\j
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\DocumentRepository.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\DownloadStorageService.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\TicketServiceImpl.java
+C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\LicenceStatusResponse.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\ClientController.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\AuditService.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\CompanyServiceImpl.java
@@ -50,6 +54,7 @@ C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\j
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\DocumentController.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\AuditServiceImpl.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\CategoryService.java
+C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\LicenceController.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\UserService.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\exception\ResourceNotFoundException.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\ClientServiceImpl.java
@@ -66,6 +71,7 @@ C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\j
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\SmtpServiceImpl.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\KnowledgebaseApplication.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\FeedController.java
+C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\LicenceService.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\CategoryServiceImpl.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\User.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\CompanyRepository.java
@@ -75,6 +81,7 @@ C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\j
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Document.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\DownloadRepository.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\UserServiceImpl.java
+C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Licence.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Ticket.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\ClientRepository.java
 C:\Users\ShaneConcannon.SUMMITSOFTWARE\IdeaProjects\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\dto\UserPasswordDto.java
