@@ -48,6 +48,7 @@ public class FileUploadRestController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS");
             LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
             licence.setDateRequested(dateTime);
+            licence.setReadOnly(rootNode.get("readonly").asBoolean());
             licence.setEmployees(rootNode.get("maximumNumberOfEmployees").asLong());
 
             JsonNode numberOfCompaniesNode = rootNode.get("numberOfCompanies");

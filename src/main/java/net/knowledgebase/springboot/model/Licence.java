@@ -94,10 +94,13 @@ public class Licence {
     @Column
     private boolean active;
 
+    @Column
+    private boolean readOnly;
+
     public Licence() {
     }
 
-    public Licence(long id, String client, String checksum, LocalDateTime dateRequested, long employees, long companies, boolean unlimitedCompanies, boolean module1, boolean module2, boolean module3, boolean module4, boolean module5, boolean module6, boolean module7, boolean module8, boolean module9, boolean module10, boolean module11, boolean module12, boolean module13, boolean module14, boolean module15, boolean module16, boolean module21, boolean module31, LocalDateTime seasonalExpiryDate, LocalDateTime dateGenerated, LocalDateTime expiryDate, boolean active) {
+    public Licence(long id, String client, String checksum, LocalDateTime dateRequested, long employees, long companies, boolean unlimitedCompanies, boolean module1, boolean module2, boolean module3, boolean module4, boolean module5, boolean module6, boolean module7, boolean module8, boolean module9, boolean module10, boolean module11, boolean module12, boolean module13, boolean module14, boolean module15, boolean module16, boolean module21, boolean module31, LocalDateTime seasonalExpiryDate, LocalDateTime dateGenerated, LocalDateTime expiryDate, boolean active, boolean readOnly) {
         this.id = id;
         this.client = client;
         this.checksum = checksum;
@@ -127,6 +130,7 @@ public class Licence {
         this.dateGenerated = dateGenerated;
         this.expiryDate = expiryDate;
         this.active = active;
+        this.readOnly = readOnly;
     }
 
     public long getId() {
@@ -359,5 +363,13 @@ public class Licence {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
     }
 }
