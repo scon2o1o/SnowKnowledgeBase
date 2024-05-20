@@ -48,6 +48,7 @@ public class FileUploadRestController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS");
             LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
             licence.setDateRequested(dateTime);
+            licence.setExpiryDate(dateTime.plusMonths(12));
             licence.setReadOnly(rootNode.get("readonly").asBoolean());
             licence.setEmployees(rootNode.get("maximumNumberOfEmployees").asLong());
 
@@ -80,6 +81,7 @@ public class FileUploadRestController {
                 dateString = seasonal.get("expiryDate").asText();
                 dateTime = LocalDateTime.parse(dateString, formatter);
                 licence.setSeasonalExpiryDate(dateTime);
+                licence.setExpiryDate((dateTime));
             }
             licenceService.saveLicence(licence);
 

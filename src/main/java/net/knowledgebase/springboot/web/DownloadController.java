@@ -116,12 +116,6 @@ public class DownloadController {
         licence.setDateGenerated(LocalDateTime.now());
         licence.setActive(true);
 
-        if (licence.getSeasonalExpiryDate() != null && licence.getSeasonalExpiryDate().isBefore(licence.getDateGenerated().plusMonths(12))) {
-            licence.setExpiryDate(licence.getSeasonalExpiryDate());
-        } else {
-            licence.setExpiryDate(licence.getDateGenerated().plusMonths(12));
-        }
-
         licenceRepository.save(licence);
         Gson gson = new Gson();
         String jsonData = gson.toJson(licence);
