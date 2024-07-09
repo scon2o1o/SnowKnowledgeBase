@@ -111,6 +111,7 @@ public class LicenceController {
             existingLicence.setSeasonalExpiryDate(licence.getSeasonalExpiryDate());
             existingLicence.setUnlimitedCompanies(licence.isUnlimitedCompanies());
             existingLicence.setReadOnly(licence.isReadOnly());
+            existingLicence.setNote(licence.getNote());
 
             licenceService.updateLicence(existingLicence);
 
