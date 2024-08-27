@@ -83,7 +83,7 @@ public class LicenceController {
             Licence existingLicence = licenceService.getLicenceById(id);
             existingLicence.setId(id);
             existingLicence.setActive(licence.isActive());
-            existingLicence.setChecksum(licence.getChecksum());
+            //existingLicence.setChecksum(licence.getChecksum());
             existingLicence.setClient(licence.getClient());
             existingLicence.setCompanies(licence.getCompanies());
             existingLicence.setDateGenerated(licence.getDateGenerated());
