@@ -102,7 +102,11 @@
                                     name="name"
                                     th:field="*{name}" type="text"
                             />
-                        </div>
+                        </div><br>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="adminOnly" th:field="*{adminOnly}">
+                            <label class="form-check-label" for="adminOnly">Administrator access only</label>
+                        </div><br>
                         <div class="box-footer">
                             <button class="btn btn-secondary" type="submit"><i class="bi-file-earmark-diff"></i> Submit
                             </button>

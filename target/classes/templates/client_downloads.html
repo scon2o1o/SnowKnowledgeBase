@@ -74,12 +74,25 @@
         <div class="sidebar-heading">Start Bootstrap</div>
         <div class="list-group list-group-flush" id="sidebar">
             <strong class="list-group-item list-group-item-action bg-secondary">Filter by Type</strong>
+
+            <!-- Show All option -->
             <a class="list-group-item list-group-item-action bg-secondary" onclick="sortDownloadTable('')">Show All</a>
+
+            <!-- Non-admin types -->
             <a class="list-group-item list-group-item-action bg-secondary"
                th:each="downloadtypes, iStat : ${downloadtypes}"
+               th:if="${!downloadtypes.adminOnly}"
+               th:onclick="sortDownloadTable([[${iStat.count}]])">[[${downloadtypes.name}]]</a>
+
+            <!-- Admin types (only visible to users with ROLE_ADMIN) -->
+            <a class="list-group-item list-group-item-action bg-secondary"
+               th:each="downloadtypes, iStat : ${downloadtypes}"
+               th:if="${downloadtypes.adminOnly}"
+               sec:authorize="hasRole('ROLE_ADMIN')"
                th:onclick="sortDownloadTable([[${iStat.count}]])">[[${downloadtypes.name}]]</a>
         </div>
     </div>
+
     <div id="page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
             <button class="btn btn-primary" id="menu-toggle">Toggle
@@ -99,29 +112,60 @@
             <a class="d-none d-md-block" style="text-align:center;">Need help? Support is available at 01 213 0737 or
                 support@snowtechnology.ie</a>
             <div th:each="downloadtypes, iStat : ${downloadtypes}">
-                <p th:text="${downloadtypes.name}" th:id="${iStat.count}" style="padding-top: 20px;"/>
-                <table class="styled-table" th:id="'dataTable'+${iStat.count}" style="width:100%;">
-                    <thead class="table table-hover">
-                    <th class="priority-1">Name</th>
-                    <th class="priority-5">Size</th>
-                    <th class="priority-5">Date Added</th>
-                    <th class="priority-5">Type</th>
-                    <th class="priority-1">Actions</th>
-                    </thead>
-                    <tbody>
-                    <tr th:each="download:${downloads}" th:if="${download.category==downloadtypes.name}">
-                        <td class="priority-1" th:text="${download.name}"/>
-                        <td class="priority-5" th:text="${download.size}"/>
-                        <td class="priority-5" th:text="${download.dateAdded}"/>
-                        <td class="priority-5" th:text="${download.category}"/>
-                        <td class="priority-1">
-                            <a class="btn btn-secondary" th:href="@{'/downloads/'+${download.id}}"><i
-                                    class="bi-cloud-arrow-down"></i> Download</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <!-- Check if adminOnly is true -->
+                <div th:if="${!downloadtypes.adminOnly}">
+                    <!-- Regular users section -->
+                    <p th:text="${downloadtypes.name}" th:id="${iStat.count}" style="padding-top: 20px;" />
+                    <table class="styled-table" th:id="'dataTable'+${iStat.count}" style="width:100%;">
+                        <thead class="table table-hover">
+                        <th class="priority-1">Name</th>
+                        <th class="priority-5">Size</th>
+                        <th class="priority-5">Date Added</th>
+                        <th class="priority-5">Type</th>
+                        <th class="priority-1">Actions</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="download:${downloads}" th:if="${download.category==downloadtypes.name}">
+                            <td class="priority-1" th:text="${download.name}"></td>
+                            <td class="priority-5" th:text="${download.size}"></td>
+                            <td class="priority-5" th:text="${download.dateAdded}"></td>
+                            <td class="priority-5" th:text="${download.category}"></td>
+                            <td class="priority-1">
+                                <a class="btn btn-secondary" th:href="@{'/downloads/'+${download.id}}"><i
+                                        class="bi-cloud-arrow-down"></i> Download</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Admin section -->
+                <div th:if="${downloadtypes.adminOnly}" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <p th:text="${downloadtypes.name}" th:id="${iStat.count}" style="padding-top: 20px;" />
+                    <table class="styled-table" th:id="'dataTable'+${iStat.count}" style="width:100%;">
+                        <thead class="table table-hover">
+                        <th class="priority-1">Name</th>
+                        <th class="priority-5">Size</th>
+                        <th class="priority-5">Date Added</th>
+                        <th class="priority-5">Type</th>
+                        <th class="priority-1">Actions</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="download:${downloads}" th:if="${download.category==downloadtypes.name}">
+                            <td class="priority-1" th:text="${download.name}"></td>
+                            <td class="priority-5" th:text="${download.size}"></td>
+                            <td class="priority-5" th:text="${download.dateAdded}"></td>
+                            <td class="priority-5" th:text="${download.category}"></td>
+                            <td class="priority-1">
+                                <a class="btn btn-secondary" th:href="@{'/downloads/'+${download.id}}"><i
+                                        class="bi-cloud-arrow-down"></i> Download</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </div>
     </div>
 </div>

@@ -12,6 +12,9 @@ public class DownloadType {
     @Column
     private String name;
 
+    @Column
+    private Boolean adminOnly;
+
     public long getId() {
         return id;
     }
@@ -26,5 +29,13 @@ public class DownloadType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getAdminOnly() {
+        return adminOnly;
+    }
+
+    public void setAdminOnly(Boolean adminOnly) {
+        this.adminOnly = adminOnly;
     }
 }

@@ -97,6 +97,7 @@ public class DownloadTypeController {
             }
             existingDownloadType.setId(id);
             existingDownloadType.setName(downloadType.getName());
+            existingDownloadType.setAdminOnly(downloadType.getAdminOnly());
             downloadTypeService.updateDownloadType(existingDownloadType);
             return "redirect:/downloadtypes?success";
         } catch (Exception e) {
