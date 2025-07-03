@@ -11,6 +11,7 @@ C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\AuditC
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\LicenceStatusController.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\PayslipController.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\LicenceServiceImpl.java
+C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\SoftwareVersionService.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\UserRepository.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\dto\UserRegistrationDto.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\DownloadTypeRepository.java
@@ -21,6 +22,7 @@ C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\Docume
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\UserService.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\LicenceController.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\CategoryController.java
+C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\SoftwareVersionRepository.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\SmtpService.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\TicketService.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\FileUploadRestController.java
@@ -40,10 +42,12 @@ C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\Co
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\TicketServiceImpl.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\DocumentRepository.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\DownloadStorageService.java
+C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\SoftwareVersion.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\DownloadTypeController.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\FeedServiceImpl.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\MainController.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\CompanyService.java
+C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\SoftwareVersionController.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\ClientService.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\FeedService.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\ClientServiceImpl.java
@@ -66,6 +70,7 @@ C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\Su
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Document.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Role.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\UserController.java
+C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\SoftwareVersionImpl.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Ticket.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\User.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\CategoryServiceImpl.java
@@ -77,6 +82,7 @@ C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Down
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\SettingsController.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Smtp.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\SettingsService.java
+C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\SoftwareVersionRestController.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\repository\DownloadRepository.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\Category.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\AuditService.java
@@ -85,5 +91,6 @@ C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\dto\Us
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\UserServiceImpl.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\exception\UserNotFoundException.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\ForgotPasswordController.java
+C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\model\SoftwareVersionDto.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\service\SmtpServiceImpl.java
 C:\Repos\SnowKnowledgeBase\src\main\java\net\knowledgebase\springboot\web\FeedController.java
