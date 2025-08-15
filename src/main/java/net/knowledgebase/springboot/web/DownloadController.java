@@ -12,6 +12,7 @@ import net.knowledgebase.springboot.service.SettingsService;
 import net.knowledgebase.springboot.web.dto.DownloadDto;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +22,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import java.io.InputStream;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
@@ -100,13 +105,29 @@ public class DownloadController {
     }
 
     @GetMapping("/downloads/{id}")
-    public ResponseEntity<ByteArrayResource> getDownload(@PathVariable Long id) {
-        Download download = downloadStorageService.getDownload(id).get();
+    public ResponseEntity<StreamingResponseBody> getDownload(@PathVariable Long id) {
+        Download download = downloadStorageService.getDownload(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        StreamingResponseBody stream = out -> {
+            try (InputStream in = downloadStorageService.getDownloadStream(download.getId())) {
+                byte[] buffer = new byte[8192];
+                int bytesRead;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    out.write(buffer, 0, bytesRead);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        };
+
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(download.getType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + download.getName() + "\"")
-                .body(new ByteArrayResource(download.getContent()));
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + download.getName() + "\"")
+                .body(stream);
     }
+
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("/licencing/generate/{id}")

@@ -6,6 +6,8 @@ import net.knowledgebase.springboot.model.Licence;
 import net.knowledgebase.springboot.service.DownloadStorageService;
 import net.knowledgebase.springboot.service.LicenceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,13 +28,17 @@ public class FileUploadRestController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/api/fileupload")
-    public void uploadFile(@RequestParam("download") MultipartFile download) {
+    public ResponseEntity<String> uploadFile(@RequestParam("download") MultipartFile download) {
         try {
             downloadStorageService.saveDownload(download);
+            return ResponseEntity.ok("Upload successful");
         } catch (Exception e) {
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Upload failed: " + e.getMessage());
         }
     }
+
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("/api/licenceupload")

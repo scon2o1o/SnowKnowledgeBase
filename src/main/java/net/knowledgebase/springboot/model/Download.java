@@ -1,6 +1,7 @@
 package net.knowledgebase.springboot.model;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.util.Date;
 
 @Entity
@@ -22,7 +23,7 @@ public class Download {
 
     @Lob
     @Column(columnDefinition="LONGBLOB")
-    private byte[] content;
+    private Blob content; // Changed from byte[] to Blob
 
     @Column
     private long size;
@@ -33,7 +34,7 @@ public class Download {
     public Download() {
     }
 
-    public Download(String name, String type, byte[] content, long size) {
+    public Download(String name, String type, Blob content, long size) {
         this.name = name;
         this.type = type;
         this.content = content;
@@ -41,7 +42,7 @@ public class Download {
         this.dateAdded = new Date();
     }
 
-    public Download(String name, String type, byte[] content, long size, String category) {
+    public Download(String name, String type, Blob content, long size, String category) {
         this.name = name;
         this.type = type;
         this.content = content;
@@ -82,11 +83,11 @@ public class Download {
         this.dateAdded = dateAdded;
     }
 
-    public byte[] getContent() {
+    public Blob getContent() {
         return content;
     }
 
-    public void setContent(byte[] content) {
+    public void setContent(Blob content) {
         this.content = content;
     }
 
